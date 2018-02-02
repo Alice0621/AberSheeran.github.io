@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://abersheeran.github.io//2017/07/使用Apache部署Django到WindowsServer.html</loc>
+        <lastmod>2018-02-02T22:17:22Z</lastmod>
+    </url>
+    <url>
+        <loc>https://abersheeran.github.io//2017/08/CentOS7上安装Python3.html</loc>
+        <lastmod>2018-02-02T22:17:22Z</lastmod>
+    </url>
+    <url>
+        <loc>https://abersheeran.github.io//2017/08/Uwsgi部署Django.html</loc>
+        <lastmod>2018-02-02T22:17:22Z</lastmod>
+    </url>
+    <url>
+        <loc>https://abersheeran.github.io//2017/09/自定义Django后台名称.html</loc>
+        <lastmod>2018-02-02T22:17:22Z</lastmod>
+    </url>
+    <url>
+        <loc>https://abersheeran.github.io//2017/11/Python使用命令行参数.html</loc>
+        <lastmod>2018-02-02T22:17:22Z</lastmod>
+    </url>
+</urlset>
