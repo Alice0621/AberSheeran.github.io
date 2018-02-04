@@ -218,8 +218,8 @@
             url : url,
             async: false,
             success:function(datas){
-                datas = jQuery.parseJSON(datas);
                 next_url();
+                datas = jQuery.parseJSON(datas);
                 for (var i=0; i<datas.length; i++){
                     blogs.push(datas[i]);
                 }
