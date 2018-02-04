@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仗剑不饮酒</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<style>
+    @import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+
+    @media (min-width: 900px) {
+        .timeline{
+            margin: auto;
+        }
+    }
+    @media (max-width: 900px) {
+        .timeline{
+            margin-left: 25px;
+        }
+        .message{
+            margin-right: 40px;
+        }
+    }
+    .timeline{
+        font-family: ‘cwTeXKai’, serif;
+        position: relative;
+        border-left:13px solid #CCCCFF;
+        max-width: 800px;
+        padding-top: 60px;
+    }
+    .timeline a:link{
+        text-decoration:none;
+    }
+    .timeline a:visited{
+        text-decoration:none;
+    }
+    .timeline a:hover{
+        text-decoration:none;
+    }
+    .timeline a:active{
+        text-decoration:none;
+    }
+    .timeline .node{
+        border-radius: 100%;
+        background-color: lightskyblue;
+        width: 50px;
+        height: 50px;
+        position: relative;
+        left: -32px;
+        font-weight: 600;
+        line-height: 50px;
+        text-align: center;
+    }
+    .timeline .message {
+        position: relative;
+        min-height: 20px;
+        background: #FFFFFF;
+        border-radius: 5px;
+        word-break: break-all;
+        font-size: 18px;
+        color: black;
+        padding: 10px;
+        left: 22px;
+        top: -53px;
+    }
+    /* before标签用来作气泡,后改成白色背景,故放弃
+    .timeline .message::before {
+        content: "";
+        display: inline;
+        position: absolute;
+        width: 0;
+        height: 0;
+        float: left;
+        border: 12px solid transparent;
+        border-right-color: #FFFFFF;
+        top: 1px;
+        left: 1px;
+    }
+    */
+    .timeline .message .title{
+        font-size: 27px;
+        font-weight: 400;
+        border: 2px solid transparent;
+        border-bottom-color: deepskyblue;
+        margin-bottom: 5px;
+    }
+    .timeline .message .summary{
+        max-height: 270px;
+        overflow: hidden;
+        font-weight: 500;
+        padding-bottom: 7px;
+        display: none;
+        border: 2px solid transparent;
+        border-bottom-color: deepskyblue;
+    }
+    .timeline .message .tags{
+        margin-top: 7px;
+        color: #CCCCFF;
+    }
+    .timeline .message .tags .time{
+        float: right;
+        color: darkturquoise;
+    }
+</style>
+<body>
+<div id="main">
+    <div class="timeline" v-for="blog in blogs">
+        <div class="node">
+            <i class="fa"></i>
+        </div>
+        <div class="message">
+            <div class="title" v-bind:href="[ blog.link ]">
+                {{ blog.title }}
+            </div>
+            <div class="summary">
+                {{ blog.summary }}
+            </div>
+            <div class="tags">
+                <div class="time">{{ blog.time }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="sidebar">
+    <div id="introduction">
+
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //请求锁, true时不再请求页面
+    var get_lock = false;
+    //请求结果Array, 用于vue渲染
+    var blogs = []
+    //将页面内容填充到有滚动条为止
+    $(window).ready(function(){
+       while($(document).height() <= $(window).height())
+       {
+           if(get_lock){
+               break;
+           }
+           get_more_blog();
+       }
+    });
+    //滚动到底,请求剩余数据
+    $(window).scroll(function(){
+        if(!get_lock)
+        {
+            if($(this).scrollTop() + $(this).height() == $(document).height())
+            {
+    　　         get_more_blog();
+    　　     }
+        }
+    });
+    //预览的展开和回缩
+    $(document).on("click", ".node", function(){
+       $(this).next().children(".summary").fadeToggle();
+    });
+    //页面跳转
+    $(document).on("click", ".title", function(){
+        window.open($(this).attr("href"));
+    });
+    //vue 渲染页面
+    new Vue({
+        el:"#main",
+        data:{
+            blogs
+        }
+    })
+</script>
+<script>
+    var date = new Date(),
+        year = date.getFullYear(),
+        month = date.getMonth()+1;
+    if(month <= 9)
+    {
+        month = "0" + month;
+    }
+    //初始化请求页面
+    var url = "/"+year+"/"+month+"/index.json"
+    //将url置为下一个url
+    function next_url()
+    {
+        var url_year = url.split("/")[1];
+        var url_month = url.split("/")[2];
+        if(url_year == "2017" && url_month == "07")
+        {
+            get_lock = true;
+        }
+        else{
+            url_month = url_month-1;
+            if (url_month <= 0)
+            {
+                url_month = "12";
+                url_year = url_year-1;
+            }
+            else
+            {
+                if(url_month <= 9)
+                {
+                    url_month = "0" + url_month;
+                }
+            }
+            url = "/" + url_year + "/" + url_month + "/index.json";
+        }
+    }
+    //请求更多的博文
+    function get_more_blog(){
+        $.ajax({
+            type : "GET",
+            url : url,
+            async: false,
+            success:function(datas){
+                datas = jQuery.parseJSON(datas);
+                next_url();
+                for (var i=0; i<datas.length; i++){
+                    blogs.push(datas[i]);
+                }
+            },
+            error: function(){
+                next_url();
+            }
+        });
+    }
+</script>
+</html>
