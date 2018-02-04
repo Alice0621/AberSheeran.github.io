@@ -219,10 +219,10 @@
             async: false,
             success:function(datas){
                 next_url();
-                alert(datas);
-                blog_datas = JSON.parse(datas);
-                for (var i=0; i<blog_datas.length; i++){
-                    blogs.push(blog_datas[i]);
+                //alert(datas);
+                //blog_datas = JSON.parse(datas);
+                for (var i=0; i<datas.length; i++){
+                    blogs.push(datas[i]);
                 }
             },
             error: function(){
