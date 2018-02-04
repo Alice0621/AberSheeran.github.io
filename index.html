@@ -141,13 +141,13 @@
     var blogs = []
     //将页面内容填充到有滚动条为止
     $(window).ready(function(){
-       //while($(document).height() <= $(window).height())
-       //{
-       //    if(get_lock){
-       //        break;
-       //    }
+        while($(document).height() <= $(window).height())
+        {
+           if(get_lock){
+               break;
+           }
            get_more_blog();
-       //}
+        }
     });
     //滚动到底,请求剩余数据
     $(window).scroll(function(){
