@@ -219,6 +219,7 @@
             async: false,
             success:function(datas){
                 next_url();
+                alert(datas);
                 datas = JSON.parse(datas);
                 for (var i=0; i<datas.length; i++){
                     blogs.push(datas[i]);
