@@ -104,6 +104,7 @@
     }
 </style>
 <body>
+    <div id="loading" style="width:100px;height:100px;margin:auto;"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
 <div id="main">
     <div class="timeline" v-for="blog in blogs">
         <div class="node">
@@ -148,6 +149,7 @@
            }
            get_more_blog();
         }
+        $("#loading").remove()
     });
     //滚动到底,请求剩余数据
     $(window).scroll(function(){
