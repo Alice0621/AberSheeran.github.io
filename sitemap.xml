@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://blog.cathaysian.cn/2017/07/使用Apache部署Django到WindowsServer.html</loc>
-        <lastmod>2018-02-06T02:43:40Z</lastmod>
+            <loc>https://blog.cathaysian.cn/articles/Apache-Django-Win/</loc>
+            <lastmod>2018-02-09T12:22:57Z</lastmod>
     </url>
     <url>
-        <loc>https://blog.cathaysian.cn/2017/08/CentOS7上安装Python3.html</loc>
-        <lastmod>2018-02-06T02:43:40Z</lastmod>
+            <loc>https://blog.cathaysian.cn/articles/centos7-python3/</loc>
+            <lastmod>2018-02-09T12:22:57Z</lastmod>
     </url>
     <url>
-        <loc>https://blog.cathaysian.cn/2017/08/Uwsgi部署Django.html</loc>
-        <lastmod>2018-02-06T02:43:40Z</lastmod>
+            <loc>https://blog.cathaysian.cn/articles/Django-Admin-Name/</loc>
+            <lastmod>2018-02-09T12:22:57Z</lastmod>
     </url>
     <url>
-        <loc>https://blog.cathaysian.cn/2017/09/自定义Django后台名称.html</loc>
-        <lastmod>2018-02-06T02:43:40Z</lastmod>
+            <loc>https://blog.cathaysian.cn/articles/Nginx-Uwsgi-Django/</loc>
+            <lastmod>2018-02-09T12:22:57Z</lastmod>
     </url>
 </urlset>

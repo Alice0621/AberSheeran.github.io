@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>仗剑不饮酒</title>
@@ -118,7 +118,7 @@
 	to{-o-transform:rotate(360deg)}
 }
 </style>
-<body>
+<body style="margin:0px;">
 
 <div id="sidebar">
     <div id="introduction">
@@ -129,7 +129,7 @@
 <div id="main">
     <div class="timeline" v-for="blog in blogs">
         <div class="node">
-            <i class="fa"></i>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQcSURBVGhD7ZlbyE5ZGMc/xzByPoZxiMg55+OM44wLJUkopeRGKRcUySkuJsY0g+JCIjMSRS6cwoUSJW4oydyJpiSTDDNy/v/W3kvvfHtv37O2Rb56//XrW8/Xar37/77PXvtZz66pqqoPWipeissuqodqIDaLdyn10kgTcVB4E/XSSCtxQXDxT8WWdFyvjHQXtwQX/kAME5PS+LMZIYfbRmS0uC+4aMz0EKi2EdLOq2jcNP1rUmvBB8TmomBtr0ojfcRzsU30F/+KrWKw+E9sECPEC7FGmOSNvBV/R+KAqP1tVhrpKm6LlYJf7I5YLnql42Win7grlgiTvJEnLvo0NROkap7K3CMt0r8mxTLSUbDGIRdlFWpklOABus5FBsUy0lJcFetdlFWoEe6jm2KRiwyKmVqYaZQMMyqTWlxbUapmFMtIJ/GPOOyirEKNsI2/EptcZFAsI9+IS2Kti7IKNdJbXBcLXGRQzNRqJxonw4zKpFZ78cVTq7N4Jo66KKtQI2PFG0GNZlIsI+z5FImrXJRVqJGe4oqY5yKDYqbWx1QmtbqIhsmwbn2tRsYLUosazKRYRoqeH16hRqjB2AXnuMigWEaGiI3JMFdlUutbUdcX9EExjbBOkZlQIxMFFflPLjLoU4xwnB0kRgoeXKxTZCbUSDdxXsx2kUFljMwVVwQ3o7/42qwWlSqTWn1F0QM2oxAjHJZ+F/5iqa2oUG8IDkr+/w/FQFGpUCOTBfM5RZoUYsS3dh4LGm4cpLz8PZJnAoUa4RR5SsxykUFWIzOFn5d3oRgpMoHKpBZrmRsQViOnBfNWuCgrtsoiEyjUyHeC+dtdZJDFCBUoHQ3OB8wvo1AjFKHHBZlgksUIhybm/OWiYg0QbZJhRmVSa7iovA8/KosR0oY591yUL7qLrwUpmKdQI1ME839xkUGxjHBT7heLXZRVqBGy4IiY6iKDYhlBdAo51eWpTGpxbm+eDOuW9R7h0FTUWEBUq6TWGRdlFWpkmmD+ry4yyGLEIprPe0RRsyDUCL8szT6e8CbFMoLYZfj18lQmtaiA6c6YFMsIqUXZfdZF/xfH1V0ixMgMwfzfXGRQzNQin2s3C2hKnBB8Bg/VhcIiWkv7BEdek2KmFi0cij0vmgfXBOs/EqSXVVQTbL2ceUyKZYQtmtQ656KkiGS7Zu0/BWeLEPnU2ukig2IZ4QD0s6BZ8INgPdalgUCahIrXeOyC/MomeSO8CpsfAd5nUFyyJtsnpkgxNF1QDCLGHZKh+/Z9e5T5GGf8oyiq3TLyRmJCivEekLKe+KQYmo6PCV7iMP5DTEjHvK77Ph3vFRhivFuYxK7C4jHxL2fYyeiC8I1Ti3G24AamoiUNOXPwnNghxgner7DzjRHc5Gy9vBStqqqqglRT8x6zYn8aZrEQtAAAAABJRU5ErkJggg==">
         </div>
         <div class="message">
             <div class="title" v-bind:href="[ blog.link ]">
@@ -234,7 +234,7 @@
     function get_more_blog(){
         $.ajax({
             type : "GET",
-            url : url,
+            url : "/timeline" + url,
             success:function(datas){
                 for (var i=0; i<datas.length; i++){
                     blogs.push(datas[i]);
