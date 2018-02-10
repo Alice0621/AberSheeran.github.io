@@ -253,6 +253,7 @@
         $.ajax({
             type : "GET",
             url : "/timeline" + url,
+            async : false,
             success:function(datas){
                 for (var i=0; i<datas.length; i++){
                     blogs.push(datas[i]);
