@@ -371,16 +371,58 @@ body.typora-export { padding-left: 20px; padding-right: 20px; }
 #多站点配置方法
 因为暂时还没这个需求，就懒的去看文档了，<a href='http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/Emperor.html' target='_blank' >http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/Emperor.html</a>里提到了多站点的配置
 以后我需要了，再来把这个坑给填掉。</p></div>
-<div id="footer" style="text-align:center;padding:40px;border: 2px solid transparent;border-top-color:aliceblue;">
-    <div style="margin:0 auto 10px">
-        <a href="https://github.com/AberSheeran" target="_blank" style="margin:0px 5px;">
-            <img src="https://png.icons8.com/ios/50/000000/github.png" style="width:30px;height:30px;">
-        </a>
-        <a href="https://twitter.com/Mr_Time__" target="_blank" style="margin:0px 5px;">
-            <img src="https://png.icons8.com/ios/50/000000/twitter.png" style="width:30px;height:30px;">
-        </a>
+<div id="comments" style="margin:50px auto;padding: 50px 0 0 0;text-align:center;position:relative;border-top: 3px solid aliceblue;">
+    <form id="post">
+        <input name="message" placeholder="说些什么吧" v-on:keypress="send" type="text" style="font-size:20px;width:260px;padding:0 10px 3px 10px;border:none;border-bottom:2px solid #000000;"/>
+        <img v-on:click="send" style="width:30px;height:30px;position:absolute;" src="https://png.icons8.com/ios/64/000000/paper-plane.png"/>
+        <input name="kill press Enter event" style="display:none;"/>
+    </form>
+    <div style="padding:10px;margin:20px auto;font-size:20px;" v-for="comment in comments">
+        {{ comment }}
     </div>
-    <div>Copyright&copy2018 <br>AberSheeran</div>
 </div>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    $(document).ready(function(){
+        getComments();
+    });
+    var comments = new Vue({
+        el:"#comments",
+        data:{
+            comments
+        },
+        methods: {
+            send: function(){
+                if ($("#post").children("input").val()){
+                    $.ajax({
+                        type: 'post',
+                        data: $('#post').serialize(),
+                        url: "http://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
+                        cache: false,
+                        success: function (message) {
+                            if(message["status"]=="success"){
+                                getComments();
+                            }else{
+                                alert("Error! 请联系 Chen____Ye@163.com");
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    });
+
+    function getComments(){
+        $("#post").children("input").val("");
+        $.ajax({
+            type: 'GET',
+            url: "http://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
+            success: function (data) {
+                comments.comments = data;
+            }
+        })
+    }
+</script>
 </body>
 </html>
