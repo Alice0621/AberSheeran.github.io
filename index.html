@@ -182,31 +182,31 @@
 <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
-
     //请求锁, true时不再请求页面
     var get_lock = false;
-    //请求结果Array, 用于vue渲染
-    var blogs = []
     //vue 渲染页面
-    new Vue({
+    var blogs = new Vue({
         el:"main",
         data:{
-            blogs
+            "blogs":[]
         }
     });
-    //先加载七篇
-    $(window).ready(function() {
-        for(var i=0; i<7; i++)
+    //先加载十二篇博文
+    $(window).ready(function(){
+        while(blogs.blogs.length < 12)
         {
+            if(get_lock){
+                break;
+            }
 　　         get_more_blog();
 　　     }
         $("#loading").remove();
     });
     //滚动到底,请求剩余数据
-    $(window).scroll(function(){
+    $(document).scroll(function(){
         if(!get_lock)
         {
-            if($(this).scrollTop() + $(this).height() >= $(document).height())
+            if($(window).scrollTop() + $(window).height() >= $(document).height())
             {
     　　         get_more_blog();
     　　     }
@@ -262,17 +262,19 @@
     }
     //请求更多的博文
     function get_more_blog(){
-        $.ajax({
-            type : "GET",
-            url : "/timeline" + url,
-            async : false,
-            success:function(datas){
-                for (var i=0; i<datas.length; i++){
-                    blogs.push(datas[i]);
+        if (!get_lock){
+            $.ajax({
+                type : "GET",
+                url : "/timeline" + url,
+                async : false,
+                success:function(datas){
+                    for (var i=0; i<datas.length; i++){
+                        blogs.blogs.push(datas[i]);
+                    }
                 }
-            }
-        });
-        next_url();
+            });
+            next_url();
+        }
     }
 </script>
 </html>
