@@ -402,7 +402,7 @@ body.typora-export { padding-left: 20px; padding-right: 20px; }
                     $.ajax({
                         type: 'post',
                         data: $('#post').serialize(),
-                        url: "http://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
+                        url: "https://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
                         cache: false,
                         success: function (message) {
                             if(message["status"]=="success"){
@@ -421,7 +421,7 @@ body.typora-export { padding-left: 20px; padding-right: 20px; }
         $("#post").children("input").val("");
         $.ajax({
             type: 'GET',
-            url: "http://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
+            url: "https://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
             success: function (data) {
                 comments.comments = data;
             }
