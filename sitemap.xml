@@ -2,34 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://blog.cathaysian.cn/articles/Apache-Django-Win/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
     <url>
-        <loc>https://blog.cathaysian.cn/articles/centos7-python3/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <loc>https://blog.cathaysian.cn/articles/CentOS7-Python3/</loc>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Django-Admin-Name/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
     <url>
-        <loc>https://blog.cathaysian.cn/articles/django-background-tasks/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <loc>https://blog.cathaysian.cn/articles/Django-background-tasks/</loc>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Github-Page-Server/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
     <url>
-        <loc>https://blog.cathaysian.cn/articles/hack-school-lesson/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <loc>https://blog.cathaysian.cn/articles/Hack-school-lesson/</loc>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Nginx-Uwsgi-Django/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.cathaysian.cn/articles/preview-zh/</loc>
-        <lastmod>2018-02-15T17:09:25Z</lastmod>
+        <lastmod>2018-02-16T06:28:13Z</lastmod>
     </url>
 </urlset>
