@@ -144,7 +144,7 @@
 <main style="margin: 0 0 100px 0;">
     <div class="article" v-for="blog in blogs">
         <div class="message">
-            <div class="title" v-bind:href="['/articles/' + blog.permalink ]">
+            <div class="title" v-bind:href="['/articles/' + blog.permalink +'/']">
                 {{ blog.title }}
             </div>
             <div class="summary">
