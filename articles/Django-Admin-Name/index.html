@@ -304,13 +304,8 @@ table tbody + tbody { border-top: 2px solid rgb(221, 221, 221); }
 <link href="https://fonts.googleapis.com/css?family=Dancing+Script&amp;subset=latin-ext" rel="stylesheet">
 </head>
 <body class='typora-export' >
-<header style="text-align: center; padding: 0 0 30px 0;">
-    <div style="padding: 20px 0 40px 0; border-bottom: 2px solid black;">
-        <a href="/" target="_blank"><img style="width:200px;height:200px;border-radius:100%;" src="/portrait.ico"></a>
-    </div>
-    <div style="position: relative; top: -30px; display: block; font-weight: 400; font-size: 40px; font-family: 'Dancing Script', cursive; background-color: rgb(254, 254, 254); width: 270px; margin: auto;">
-        <a style="color: #000000;text-decoration:none;" href="/about.html" target="_blank">Aber Sheeran</a>
-    </div>
+<header style="height:100px;">
+
 </header>
 <div  id='write'  class = 'is-node'><p>众所周知，Django默认的后台是英文。在修改了Settings之后，Django自带的user改成了中文，自己写的App对应的依旧是英文。
 于是花了一些时间来查咋改名字。毕竟中国人更适应中文。</p><h3><a name='header-n5' class='md-header-anchor '></a>修改App名称</h3><p>对应的App目录下的<code>apps.py</code>文件里有Django自动生成的<code>AppNameConfig</code>类  (如果没有，说明这个App不是<code>manage.py startapp AppName</code>命令生成的)。
