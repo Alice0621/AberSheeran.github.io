@@ -76,12 +76,12 @@ article a:active{
     text-decoration:none;
 }
 article title{
-    display: inline;
+    display: block;
     font-size: 1.6em;
+    font-weight: 500;
 }
 article summary{
     max-height: 288px;
-    padding: 7px;
     margin-bottom: 7px;
     overflow: hidden;
     font-family: 'Noto Sans SC Sliced', sans-serif;
@@ -123,6 +123,7 @@ article aside .corpus img{
 article aside time{
     display: inline;
     font-size: 1em;
+    font-weight: 400;
     flex-grow: 1;
     display: flex;
     justify-content: flex-end;

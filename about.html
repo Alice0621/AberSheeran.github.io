@@ -34,6 +34,8 @@
         border-bottom: 2px solid black;
     }
     .portrait img{
+        width: 10em;
+        height: 10em;
         border-radius: 100%;
     }
     .name{
@@ -41,7 +43,7 @@
         top: -23px;
         display: block;
         font-weight: 400;
-        font-size: 40px;
+        font-size: 2em;
         font-family: 'Dancing Script', cursive;
         background-color: #FFFFFF;
         width: 270px;
@@ -78,6 +80,9 @@
         }
     }
     @media (max-width: 900px) {
+        body{
+            font-size: 17px;
+        }
         .line-border{
             max-width: 50%;
         }
@@ -87,7 +92,7 @@
 
 <header>
     <div class="portrait">
-        <a href="/" target="_blank"><img style="width:200px;height:200px;" src="portrait.ico"></a>
+        <a href="/" target="_blank"><img src="portrait.ico"></a>
     </div>
     <div class="name">
         Aber Sheeran

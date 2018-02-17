@@ -1,426 +1,526 @@
-<!doctype html>
-<html>
-<head>
-<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>静态文件服务器</title><style type='text/css'>html {overflow-x: initial !important;}:root { --node-fill: #ECECFF; --node-border: #CCCCFF; --note-fill: #fff5ad; --note-border: #aaaa33; --cluster-fill: #ffffde  !important; --cluster-border: #aaaa33  !important; }
-.mermaid .label { color: var(--text-color); }
-.node rect, .node circle, .node ellipse, .node polygon { fill: var(--node-fill); stroke: var(--node-border); stroke-width: 1px; }
-.edgePath .path { stroke: var(--text-color); }
-.edgeLabel { background-color: var(--bg-color); }
-.cluster rect { fill: rgb(255, 255, 222) !important; rx: 4 !important; stroke: rgb(170, 170, 51) !important; stroke-width: 1px !important; }
-.cluster text { fill: var(--text-color); }
-.actor { stroke: var(--node-border); fill: var(--node-fill); }
-text.actor { fill: var(--text-color); stroke: none; }
-.actor-line { stroke: grey; }
-.messageLine0 { stroke-width: 1.5; stroke: var(--text-color); }
-.messageLine1 { stroke-width: 1.5; stroke: var(--text-color); }
-#arrowhead { fill: var(--text-color); }
-#crosshead path { fill: var(--text-color)  !important; stroke: var(--text-color)  !important; }
-.messageText { fill: var(--text-color); stroke: none; }
-.labelBox { stroke: var(--node-border); fill: var(--node-fill); }
-.labelText { fill: var(--text-color); stroke: none; }
-.loopText { fill: var(--text-color); stroke: none; }
-.loopLine { stroke-width: 2; stroke: var(--node-border); }
-.note { stroke: var(--note-border); fill: var(--note-fill); }
-.noteText { fill: var(--text-color); stroke: none; font-size: 14px; }
-.section { stroke: none; opacity: 0.2; }
-.section0 { fill: rgba(102, 102, 255, 0.49); }
-.section2 { fill: rgb(255, 244, 0); }
-.section1, .section3 { fill: white; opacity: 0.2; }
-.sectionTitle0 { fill: var(--text-color); }
-.sectionTitle1 { fill: var(--text-color); }
-.sectionTitle2 { fill: var(--text-color); }
-.sectionTitle3 { fill: var(--text-color); }
-.sectionTitle { text-anchor: start; font-size: 11px; }
-.grid .tick { stroke: lightgrey; opacity: 0.3; shape-rendering: crispEdges; }
-.grid path { stroke-width: 0; }
-.today { fill: none; stroke: red; stroke-width: 2px; }
-.task { stroke-width: 2; }
-.taskText { text-anchor: middle; font-size: 11px; }
-.taskTextOutsideRight { fill: black; text-anchor: start; font-size: 11px; }
-.taskTextOutsideLeft { fill: black; text-anchor: end; font-size: 11px; }
-.taskText0, .taskText1, .taskText2, .taskText3 { fill: white; }
-.task0, .task1, .task2, .task3 { fill: rgb(138, 144, 221); stroke: rgb(83, 79, 188); }
-.taskTextOutside0, .taskTextOutside2 { fill: var(--text-color); }
-.taskTextOutside1, .taskTextOutside3 { fill: var(--text-color); }
-.active0, .active1, .active2, .active3 { fill: rgb(191, 199, 255); stroke: rgb(83, 79, 188); }
-.activeText0, .activeText1, .activeText2, .activeText3 { fill: black !important; }
-.done0, .done1, .done2, .done3 { stroke: grey; fill: lightgrey; stroke-width: 2; }
-.doneText0, .doneText1, .doneText2, .doneText3 { fill: black !important; }
-.crit0, .crit1, .crit2, .crit3 { stroke: rgb(255, 136, 136); fill: red; stroke-width: 2; }
-.activeCrit0, .activeCrit1, .activeCrit2, .activeCrit3 { stroke: rgb(255, 136, 136); fill: rgb(191, 199, 255); stroke-width: 2; }
-.doneCrit0, .doneCrit1, .doneCrit2, .doneCrit3 { stroke: rgb(255, 136, 136); fill: lightgrey; stroke-width: 2; cursor: pointer; shape-rendering: crispEdges; }
-.doneCritText0, .doneCritText1, .doneCritText2, .doneCritText3 { fill: black !important; }
-.activeCritText0, .activeCritText1, .activeCritText2, .activeCritText3 { fill: black !important; }
-.titleText { text-anchor: middle; font-size: 18px; fill: black; }
-.node text { font-size: 14px; }
-div.mermaidTooltip { position: absolute; text-align: center; max-width: 200px; padding: 2px; font-size: 12px; background: rgb(255, 255, 222); border: 1px solid rgb(170, 170, 51); border-radius: 2px; pointer-events: none; z-index: 100; }
-#write .md-diagram-panel .md-diagram-panel-preview div { width: initial; }
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>静态文件服务器</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mermaid/7.0.0/mermaid.min.css">
+      
+      
+      
+      
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/7.0.0/mermaid.min.js"></script>
+      
+      
+      
 
+      <style> 
+      @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
+/**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
 
-.CodeMirror { height: auto; }
-.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; }
-.CodeMirror-lines { padding: 4px 0px; }
-.CodeMirror pre { }
-.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { background-color: white; }
-.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background-color: rgb(247, 247, 247); white-space: nowrap; }
-.CodeMirror-linenumbers { }
-.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
-.CodeMirror div.CodeMirror-cursor { border-left: 1px solid black; z-index: 3; }
-.CodeMirror div.CodeMirror-secondarycursor { border-left: 1px solid silver; }
-.CodeMirror.cm-keymap-fat-cursor div.CodeMirror-cursor { width: auto; border: 0px; background: rgb(119, 238, 119); z-index: 1; }
-.CodeMirror div.CodeMirror-cursor.CodeMirror-overwrite { }
-.cm-tab { display: inline-block; }
-.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property { color: rgb(217, 79, 138); }
-.cm-s-typora-default pre.cm-header1:not(.cm-atom) :not(.cm-overlay) { font-size: 2rem; line-height: 2rem; }
-.cm-s-typora-default pre.cm-header2:not(.cm-atom) :not(.cm-overlay) { font-size: 1.4rem; line-height: 1.4rem; }
-.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number { color: rgb(149, 132, 134); }
-.cm-s-typora-default .cm-table-row, .cm-s-typora-default .cm-block-start { font-family: monospace; }
-.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code { color: rgb(74, 90, 159); font-family: monospace; }
-.cm-s-typora-default .cm-tag { color: rgb(169, 68, 66); }
-.cm-s-typora-default .cm-string { color: rgb(126, 134, 169); }
-.cm-s-typora-default .cm-link { color: rgb(196, 122, 15); text-decoration: underline; }
-.cm-s-typora-default .cm-variable-2, .cm-s-typora-default .cm-variable-1 { color: inherit; }
-.cm-s-typora-default .cm-overlay { font-family: monospace; }
-.CodeMirror.cm-s-typora-default div.CodeMirror-cursor { border-left: 3px solid rgb(228, 98, 154); }
-.cm-s-typora-default .CodeMirror-activeline-background { left: -60px; right: -30px; background: rgba(204, 204, 204, 0.2); }
-.cm-s-typora-default .CodeMirror-gutters { border-right: none; background-color: inherit; }
-.cm-s-typora-default .cm-trailing-space-new-line::after, .cm-startspace::after, .cm-starttab .cm-tab::after { content: "•"; position: absolute; left: 0px; opacity: 0; font-family: LetterGothicStd, monospace; }
-.os-windows .cm-startspace::after, .os-windows .cm-starttab .cm-tab::after { left: -0.1em; }
-.cm-starttab .cm-tab::after { content: " "; }
-.cm-startspace, .cm-tab, .cm-starttab, .cm-trailing-space-a, .cm-trailing-space-b, .cm-trailing-space-new-line { font-family: monospace; position: relative; }
-.cm-s-typora-default .cm-trailing-space-new-line::after { content: "↓"; opacity: 0.3; }
-.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
-.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
-.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
-.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
-.cm-s-inner .cm-variable { color: black; }
-.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
-.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
-.cm-s-inner .cm-property { color: black; }
-.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
-.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
-.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
-.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
-.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
-.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
-.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
-.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
-.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
-.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
-.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: blue; }
-.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
-.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
-.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
-.cm-negative { color: rgb(221, 68, 68); }
-.cm-positive { color: rgb(34, 153, 34); }
-.cm-header, .cm-strong { font-weight: bold; }
-.cm-del { text-decoration: line-through; }
-.cm-em { font-style: italic; }
-.cm-link { text-decoration: underline; }
-.cm-error { color: rgb(255, 0, 0); }
-.cm-invalidchar { color: rgb(255, 0, 0); }
-.cm-constant { color: rgb(38, 139, 210); }
-.cm-defined { color: rgb(181, 137, 0); }
-div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
-div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
-.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
-.CodeMirror { position: relative; overflow: hidden; }
-.CodeMirror-scroll { margin-bottom: -30px; margin-right: -30px; padding-bottom: 30px; padding-right: 30px; height: 100%; outline: none; position: relative; box-sizing: content-box; }
-.CodeMirror-sizer { position: relative; }
-.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { position: absolute; z-index: 6; display: none; }
-.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow-x: hidden; overflow-y: scroll; }
-.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow-y: hidden; overflow-x: scroll; }
-.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
-.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
-.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
-.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
-.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: none !important; border: none !important; }
-.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
-.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
-.CodeMirror-lines { cursor: text; }
-.CodeMirror pre { border-radius: 0px; border-width: 0px; background: transparent; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
-.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
-.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
-.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
-.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
-.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
-.CodeMirror-widget { }
-.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
-.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
-.CodeMirror-measure pre { position: static; }
-.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
-.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
-.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
-.CodeMirror-selected { background: rgb(217, 217, 217); }
-.CodeMirror-focused .CodeMirror-selected { background: rgb(215, 212, 240); }
-.cm-searching { background: rgba(255, 255, 0, 0.4); }
-.CodeMirror span { }
-@media print {
-  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
 }
-.CodeMirror-lint-markers { width: 16px; }
-.CodeMirror-lint-tooltip { background-color: infobackground; border: 1px solid black; border-radius: 4px; color: infotext; font-family: monospace; overflow: hidden; padding: 2px 5px; position: fixed; white-space: pre-wrap; z-index: 10000; max-width: 600px; opacity: 0; transition: opacity 0.4s; font-size: 0.8em; }
-.CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning { background-position: left bottom; background-repeat: repeat-x; }
-.CodeMirror-lint-mark-error { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg=="); }
-.CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning { background-position: center center; background-repeat: no-repeat; cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: middle; position: relative; }
-.CodeMirror-lint-message-error, .CodeMirror-lint-message-warning { padding-left: 18px; background-position: left top; background-repeat: no-repeat; }
-.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII="); }
-.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII="); }
-.CodeMirror-lint-marker-multiple { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC"); background-repeat: no-repeat; background-position: right bottom; width: 100%; height: 100%; }
 
-
-:root { --bg-color: #ffffff; --text-color: #333333; --code-block-bg-color: inherit; }
-html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
-a:active, a:hover { outline: 0px; }
-.in-text-selection, ::selection { background: rgb(181, 214, 252); text-shadow: none; }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: visible; }
-.for-image #write { padding-left: 8px; padding-right: 8px; }
-body.typora-export { padding-left: 30px; padding-right: 30px; }
-@media screen and (max-width: 500px) {
-  body.typora-export { padding-left: 0px; padding-right: 0px; }
-  .CodeMirror-sizer { margin-left: 0px !important; }
-  .CodeMirror-gutters { display: none !important; }
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
 }
-.typora-export #write { margin: 0px auto; }
-#write > p:first-child, #write > ul:first-child, #write > ol:first-child, #write > pre:first-child, #write > blockquote:first-child, #write > div:first-child, #write > table:first-child { margin-top: 30px; }
-#write li > table:first-child { margin-top: -20px; }
-img { max-width: 100%; vertical-align: middle; }
-input, button, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
-input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
-::before, ::after, * { box-sizing: border-box; }
-#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write div, #write pre { width: inherit; }
-#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6 { position: relative; }
-h1 { font-size: 2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.4rem; }
-h5 { font-size: 1.2rem; }
-h6 { font-size: 1rem; }
-p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
-.typora-export p { white-space: normal; }
-.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0rem; -webkit-margin-after: 0rem; }
-.hidden { display: none; }
-.md-blockmeta { color: rgb(204, 204, 204); font-weight: bold; font-style: italic; }
-a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; }
-#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; margin: 4px 0px 0px; }
-figure { max-width: 100%; overflow-x: auto; margin: 0px; }
-tr { break-inside: avoid; break-after: auto; }
-thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
-table.md-table td { min-width: 80px; }
-.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
-.CodeMirror { text-align: left; }
-.CodeMirror-placeholder { opacity: 0.3; }
-.CodeMirror pre { padding: 0px 4px; }
-.CodeMirror-lines { padding: 0px; }
-div.hr:focus { cursor: none; }
-pre { white-space: pre-wrap; }
-.CodeMirror-gutters { margin-right: 4px; }
-.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: var(--code-block-bg-color); position: relative !important; }
-.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
-.md-fences.mock-cm { white-space: pre-wrap; }
-.show-fences-line-number .md-fences { padding-left: 0px; }
-.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
-.CodeMirror-line { break-inside: avoid; }
-.footnotes { opacity: 0.8; font-size: 0.9rem; padding-top: 1em; padding-bottom: 1em; }
-.footnotes + .footnotes { margin-top: -1em; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: transparent; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: normal; text-align: left; box-sizing: content-box; direction: ltr; }
-li div { padding-top: 0px; }
-blockquote { margin: 1rem 0px; }
-li p, li .mathjax-block { margin: 0.5rem 0px; }
-li { margin: 0px; position: relative; }
-blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; }
-@media print {
-  html, body { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
-  .typora-export * { -webkit-print-color-adjust: exact; }
-  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
-  p { orphans: 4; }
-  html.blink-to-pdf { font-size: 13px; }
-  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
-  .typora-export #write::after { height: 0px; }
-  @page { margin: 20mm 0mm; }
-}
-.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
-a img, img a { cursor: pointer; }
-pre.md-meta-block { font-size: 0.8rem; min-height: 2.86rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
-p > img:only-child { display: block; margin: auto; }
-p .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
-#write .MathJax_Display { margin: 0.8em 0px 0px; }
-.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
-p + .mathjax-block { margin-top: -1.143rem; }
-.mathjax-block:not(:empty)::after { display: none; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: none; box-shadow: none; }
-.task-list { list-style-type: none; }
-.task-list-item { position: relative; padding-left: 1em; }
-.task-list-item input { position: absolute; top: 0px; left: 0px; }
-.math { font-size: 1rem; }
-.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
-.md-toc-content { position: relative; margin-left: 0px; }
-.md-toc::after, .md-toc-content::after { display: none; }
-.md-toc-item { display: block; color: rgb(65, 131, 196); }
-.md-toc-item a { text-decoration: none; }
-.md-toc-inner:hover { }
-.md-toc-inner { display: inline-block; cursor: pointer; }
-.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: bold; }
-.md-toc-h2 .md-toc-inner { margin-left: 2em; }
-.md-toc-h3 .md-toc-inner { margin-left: 4em; }
-.md-toc-h4 .md-toc-inner { margin-left: 6em; }
-.md-toc-h5 .md-toc-inner { margin-left: 8em; }
-.md-toc-h6 .md-toc-inner { margin-left: 10em; }
-@media screen and (max-width: 48em) {
-  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
-  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
-  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
-  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
-}
-a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
-.footnote-line a:not(.reversefootnote) { color: inherit; }
-.md-attr { display: none; }
-.md-fn-count::after { content: "."; }
-.md-tag { opacity: 0.5; }
-.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: monospace; }
-code { text-align: left; }
-h1 .md-tag, h2 .md-tag, h3 .md-tag, h4 .md-tag, h5 .md-tag, h6 .md-tag { font-weight: initial; opacity: 0.35; }
-a.md-print-anchor { border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: none !important; background: transparent !important; text-decoration: initial !important; text-shadow: initial !important; }
-.md-inline-math .MathJax_SVG .noError { display: none !important; }
-.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0em; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
-.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
-.MathJax_SVG .MJX-monospace { font-family: monospace; }
-.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: normal; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
-.MathJax_SVG * { transition: none; }
-.md-diagram-panel > svg { max-width: 100%; }
-[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
 
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
 
-html { font-size: 19px; }
-html, body { margin: auto; background: rgb(254, 254, 254); }
-body { font-family: Vollkorn, Palatino, Times; color: rgb(51, 51, 51); line-height: 1.4; text-align: justify; }
-#write { max-width: 960px; margin: 0px auto 2em; line-height: 1.53; }
-#write > h2:first-child, #write > h3:first-child, #write > h4:first-child, #write > p:first-child { margin-top: 1.2em; }
-#write > h1:first-child, h1 { margin-top: 1.6em; font-weight: normal; }
-h1 { font-size: 3em; }
-h2 { margin-top: 2em; font-weight: normal; }
-h3 { font-weight: normal; font-style: normal; margin-top: 3em; }
-h1, h2 { text-align: center; }
-h2::after { border-bottom: 1px solid rgb(47, 47, 47); content: ""; width: 100px; display: block; margin: 0px auto; height: 1px; }
-h1 + h2, h2 + h3 { margin-top: 0.83em; }
-p, .mathjax-block { margin-top: 0px; }
-ul { list-style: square; padding-left: 1.2em; }
-ol { padding-left: 1.2em; }
-blockquote { margin-left: 1em; padding-left: 1em; border-left: 1px solid rgb(221, 221, 221); }
-code, pre { font-family: Consolas, Menlo, Monaco, monospace, serif; font-size: 0.9em; background: white; overflow-x: auto; }
-.md-fences { margin-left: 1em; padding-left: 1em; border: 1px solid rgb(221, 221, 221); padding-bottom: 8px; padding-top: 6px; margin-bottom: 1.5em; }
-a { color: rgb(36, 132, 193); text-decoration: none; }
-a:hover { text-decoration: underline; }
-a img { border: none; }
-h1 a, h1 a:hover { color: rgb(51, 51, 51); text-decoration: none; }
-hr { color: rgb(221, 221, 221); height: 1px; margin: 2em 0px; border-top: 1px solid rgb(221, 221, 221); border-bottom: none; border-left: 0px; border-right: 0px; }
-.md-table-edit { background: rgb(237, 237, 237); padding-top: 4px; }
-table { margin-bottom: 1.33333rem; }
-table th, table td { padding: 8px; line-height: 1.33333rem; vertical-align: top; border-top: 1px solid rgb(221, 221, 221); }
-table th { font-weight: bold; }
-table thead th { vertical-align: bottom; }
-table caption + thead tr:first-child th, table caption + thead tr:first-child td, table colgroup + thead tr:first-child th, table colgroup + thead tr:first-child td, table thead:first-child tr:first-child th, table thead:first-child tr:first-child td { border-top: 0px; }
-table tbody + tbody { border-top: 2px solid rgb(221, 221, 221); }
-.task-list { padding: 0px; }
-.task-list-item { padding-left: 1.6rem; }
-.task-list-item input::before { content: "√"; display: inline-block; width: 1.33333rem; height: 1.6rem; vertical-align: middle; text-align: center; color: rgb(221, 221, 221); background-color: rgb(254, 254, 254); }
-.task-list-item input:checked::before, .task-list-item input[checked]::before { color: inherit; }
-.md-tag { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
-#write pre.md-meta-block { min-height: 35px; padding: 0.5em 1em; }
-#write pre.md-meta-block { white-space: pre; background: rgb(248, 248, 248); border-width: 0px 30px; border-top-style: initial; border-bottom-style: initial; border-top-color: initial; border-bottom-color: initial; border-image: initial; color: rgb(153, 153, 153); width: 100vw; max-width: calc(100% + 60px); margin-left: -30px; border-left-style: solid; border-left-color: rgb(248, 248, 248); border-right-style: solid; border-right-color: rgb(248, 248, 248); margin-bottom: 2em; margin-top: -1.33333rem; padding-top: 26px; padding-bottom: 10px; line-height: 1.8em; font-size: 0.76em; padding-left: 0px; }
-.md-img-error.md-image > .md-meta { vertical-align: bottom; }
-#write > h5.md-focus::before { top: 2px; }
-.md-toc { margin-top: 40px; }
-.md-toc-content { padding-bottom: 20px; }
-.outline-expander::before { color: inherit; font-size: 14px; top: auto; content: ""; font-family: FontAwesome; }
-.outline-expander:hover::before, .outline-item-open > .outline-item > .outline-expander::before { content: ""; }
-#typora-source { font-family: Courier, monospace; color: rgb(106, 106, 106); }
-.html-for-mac #typora-sidebar { box-shadow: rgba(0, 0, 0, 0.176) 0px 6px 12px; }
-.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property, .CodeMirror.cm-s-typora-default div.CodeMirror-cursor { color: rgb(66, 139, 202); }
-.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number { color: rgb(119, 119, 119); }
-.typora-node .file-list-item-parent-loc, .typora-node .file-list-item-time, .typora-node .file-list-item-summary { font-family: arial, sans-serif; }
-@media screen and (max-width: 500px) {
-  body.typora-export { padding-left: 15px; padding-right: 15px; }
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
 }
 
 
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
 
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
 
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
 
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
 
-</style>
-<link href="https://fonts.googleapis.com/css?family=Dancing+Script&amp;subset=latin-ext" rel="stylesheet">
-</head>
-<body class='typora-export' >
-<header style="height:100px;">
+code.language-yaml {
+  color: #183691;
+}
 
-</header>
-<div  id='write'  class = 'is-node'><p>最近在造<a href='https://github.com/AberSheeran/maltose'>轮子</a>，于是用Socket标准库造了一个服务器来模拟GithubPage。造轮子的过程里，遇到很多有意思的坑，由于对HTTP协议并不熟悉，作此文以记录。</p><h2><a name='header-n4' class='md-header-anchor '></a>简介</h2><p>抛开更底层的TCP/IP协议，只看客户端和服务端的交互。那么HTTP其实只分两个部分。</p><div class="md-diagram-panel" mdtype="math_block"><svg id="mermaidChart0" width="370" xmlns="http://www.w3.org/2000/svg" height="367" viewBox="-10 -8 370 367" style="height: auto; max-width: 100%;"><g></g><g><line id="actor0" x1="75" y1="5" x2="75" y2="370" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="0" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="37.5" class="actor" style="text-anchor: middle;">Client</text></g><g><line id="actor1" x1="275" y1="5" x2="275" y2="370" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="200" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="275" y="37.5" class="actor" style="text-anchor: middle;">Server</text></g><defs><marker id="arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto"><path d="M 0,0 V 4 L6,2 Z"></path></marker></defs><defs><marker id="crosshead" markerWidth="15" markerHeight="8" orient="auto" refX="16" refY="4"><path fill="black" stroke="#000000" stroke-width="1px" d="M 9,2 V 6 L16,4 Z" style="stroke-dasharray: 0, 0;"></path><path fill="none" stroke="#000000" stroke-width="1px" d="M 0,1 L 6,7 M 6,1 L 0,7" style="stroke-dasharray: 0, 0;"></path></marker></defs><g><text x="175" y="138" class="messageText" style="text-anchor: middle;">GET /sitemap HTTP/1.1 ...</text><line x1="75" y1="145" x2="275" y2="145" class="messageLine0" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" style="fill: none;"></line></g><g><line x1="55" y1="85" x2="295" y2="85" stroke-width="2" stroke="#526e52" class="loopLine"></line><line x1="295" y1="85" x2="295" y2="165" stroke-width="2" stroke="#526e52" class="loopLine"></line><line x1="55" y1="165" x2="295" y2="165" stroke-width="2" stroke="#526e52" class="loopLine"></line><line x1="55" y1="85" x2="55" y2="165" stroke-width="2" stroke="#526e52" class="loopLine"></line><rect x="55" y="85" fill="#526e52" stroke="none" width="50" height="20" rx="0" ry="0" class="labelBox"></rect><text x="62.5" y="100" fill="white" class="labelText"><tspan x="62.5">opt</tspan></text><text x="175" y="115" fill="black" class="loopText" style="text-anchor: middle;"><tspan x="175">[ request
- ]</tspan></text></g><g><text x="175" y="238" class="messageText" style="text-anchor: middle;">HTTP/1.1 200 OK ...</text><line x1="275" y1="245" x2="75" y2="245" class="messageLine0" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" style="fill: none;"></line></g><g><line x1="55" y1="185" x2="295" y2="185" stroke-width="2" stroke="#526e52" class="loopLine"></line><line x1="295" y1="185" x2="295" y2="265" stroke-width="2" stroke="#526e52" class="loopLine"></line><line x1="55" y1="265" x2="295" y2="265" stroke-width="2" stroke="#526e52" class="loopLine"></line><line x1="55" y1="185" x2="55" y2="265" stroke-width="2" stroke="#526e52" class="loopLine"></line><rect x="55" y="185" fill="#526e52" stroke="none" width="50" height="20" rx="0" ry="0" class="labelBox"></rect><text x="62.5" y="200" fill="white" class="labelText"><tspan x="62.5">opt</tspan></text><text x="175" y="215" fill="black" class="loopText" style="text-anchor: middle;"><tspan x="175">[ response
- ]</tspan></text></g><g><rect x="0" y="305" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="342.5" class="actor" style="text-anchor: middle;">Client</text></g><g><rect x="200" y="305" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="275" y="342.5" class="actor" style="text-anchor: middle;">Server</text></g></svg></div><p>客户端的请求由三部分组成，</p><ol start='' ><li><p>请求行：类似于<code>GET / HTTP/1.1</code></p><p>分三个部分：</p><ol start='' ><li>请求方法：一般常用的是GET与POST</li><li>请求资源：URI，基本上可以当作URL去掉域名和协议之后的剩下的部分</li><li>请求协议：现在常见的是HTTP/1.1，不过HTTP/2.0越来越流行。</li></ol></li><li><p>请求头：类似于<code>HOST: blog.cathaysian.cn</code>，一般的Web框架或者爬虫框架，都把这个部分解析成一个Map。</p></li><li><p>请求体：一般是提交数据存放的地方，当然也见过骚操作把数据放进请求头的。</p></li></ol><p>服务端的响应分三部分，</p><ol start='' ><li><p>状态行：类似于<code>HTTP/1.1 200 OK</code></p><p>分三个部分：</p><ol start='' ><li>响应协议：同上，常见的为HTTP/1.1</li><li>状态码：也就是所谓的200，302，404，502等等</li><li>状态码的文本描述：例如，200对应的是OK，404对应的是NOT FOUND</li></ol></li><li><p>响应头：类似于请求头，在封装好的框架里也是一个Map，这个里面不仅指定了响应内容的类型，是否压缩等等，也会设置cookie，session等用以标识身份的玩意。所谓的登陆，其实就是截取了这部分，在之后的请求中发送过去，让服务器知道“Who are you？”</p></li><li><p>响应体：这部分也就是服务器回复的给你的内容。譬如 HTML页面</p></li></ol><h2><a name='header-n56' class='md-header-anchor '></a>萌新趟坑</h2><p>&nbsp;</p><p>了解了这些之后，一个模拟GithubPage的静态服务器就胸有成竹了。理论上的流程如下：</p><p><img src='GithubPage流程图.png' alt='GithubPage流程图' /></p><p>当我写完之后，本地测试好了maltose生成的页面效果，push到Github上，就坏了。</p><p>由于设计之初，我是打算前后端分离的(手动滑稽。没错，静态页面我也要搞前后端分离)。然后ajax请求的json怎么都解析不了，在对比GithubPage的响应头和我的PreviewServer响应头之后，我<del>凭多年的爬虫经验</del>猜出可能是Content-Type的锅。</p><p>于是改改改，果然。当ajax请求的是json，它自己就把json给解析了。而HTTP不靠URL来判断请求的资源类型，靠的是Content-Type。然后我在PreviewServer里写了一个函数来判断响应的文件类型，成功过坑。</p><p>&nbsp;</p><p>然后就是一些奇怪的坑了，因为写PreviewServer之初，我对HTTP的了解并不系统，全靠Web框架和Requests库活着(捂脸)。看了一些人博客上写的静态文件服务器，搞错了文件不存在的异常(大约是这些博客太古老了吧)。</p><p>其次是URL的中文问题，之前玩爬虫的时候遇见过，所以很快反应过来用urllib标准库里的unquote来解析。</p><p>还有就是很奇怪的一件事，在我PreviewServer成功运行十分钟左右之后，莫名出现了一个空白请求。这个请求什么内容都没有，我修改了代码，捕捉到这个空白请求的时候，把整个请求全部打印出来，结果也只是空白。谷歌了也没有谷歌到别人提到这个问题。总之最后一个try把这个玩意忽略了。</p><p>&nbsp;</p><p>最后，上代码！Win10上实测从无故障，抗住了每秒十余次的请求量(滑稽</p><pre class="md-fences md-end-block" lang="python" style="break-inside: unset;"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 3.84px;"></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 30px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">socket</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">os</span>.<span class="cm-property">path</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">threading</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">re</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">logging</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">sys</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">time</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">from</span> <span class="cm-variable">urllib</span>.<span class="cm-property">parse</span> <span class="cm-keyword">import</span> <span class="cm-variable">unquote</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">logging</span>.<span class="cm-property">basicConfig</span>(</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">level</span>=<span class="cm-variable">logging</span>.<span class="cm-property">DEBUG</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-builtin">format</span>=<span class="cm-string">'[%(levelname)s]-[%(asctime)s]==&gt; %(message)s'</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">datefmt</span>=<span class="cm-string">'%Y-%m-%d %H:%M:%S'</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">class</span> <span class="cm-def">Main</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__init__</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">ip</span>: <span class="cm-builtin">str</span>, <span class="cm-variable">port</span>: <span class="cm-builtin">int</span>, <span class="cm-variable">path</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">path</span> = <span class="cm-variable">path</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">pattern</span> = <span class="cm-variable">re</span>.<span class="cm-property">compile</span>(<span class="cm-string">r'GET (?P&lt;file&gt;\S+) HTTP'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">server</span> = <span class="cm-variable">socket</span>.<span class="cm-property">socket</span>(<span class="cm-variable">socket</span>.<span class="cm-property">AF_INET</span>, <span class="cm-variable">socket</span>.<span class="cm-property">SOCK_STREAM</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">server</span>.<span class="cm-property">bind</span>((<span class="cm-variable">ip</span>, <span class="cm-variable">port</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">server</span>.<span class="cm-property">listen</span>(<span class="cm-number">120</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">logging</span>.<span class="cm-property">info</span>(<span class="cm-string">"Running in {0}:{1}"</span>.<span class="cm-property">format</span>(<span class="cm-variable">ip</span>, <span class="cm-variable">port</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">logging</span>.<span class="cm-property">info</span>(<span class="cm-string">"File root directory in {0}"</span>.<span class="cm-property">format</span>(<span class="cm-variable">path</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__del__</span>(<span class="cm-variable-2">self</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">self</span>.<span class="cm-property">server</span>.<span class="cm-property">close</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">logging</span>.<span class="cm-property">info</span>(<span class="cm-string">'Stopping Server.'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__set_response_file_type</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">filename</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request_file_type</span> = <span class="cm-variable">filename</span>.<span class="cm-property">split</span>(<span class="cm-string">"."</span>)[<span class="cm-operator">-</span><span class="cm-number">1</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">request_file_type</span> == <span class="cm-string">'json'</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"application/json;"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable">request_file_type</span> == <span class="cm-string">'html'</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"text/html;"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable">request_file_type</span> == <span class="cm-string">"xml"</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"application/xml;"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable">request_file_type</span> == <span class="cm-string">"js"</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"application/javascript"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable">request_file_type</span> == <span class="cm-string">"css"</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-string">"text/css"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># TODO 增加其他类型文件的响应头</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-keyword">None</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__deal_response</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">status_code</span>: <span class="cm-builtin">int</span>, <span class="cm-variable">header</span>: <span class="cm-builtin">dict</span>, <span class="cm-variable">body</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">status_code</span> == <span class="cm-number">200</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response_code</span> = <span class="cm-string">b"HTTP/1.1 200 OK\r\n"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">elif</span> <span class="cm-variable">status_code</span> == <span class="cm-number">404</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response_code</span> = <span class="cm-string">b"HTTP/1.1 404 NOT Found\r\n"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># TODO 增加其他状态码</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response_header</span> = <span class="cm-string">b"Server: My Static Page Preview Server\r\n"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">for</span> <span class="cm-variable">key</span>, <span class="cm-variable">value</span> <span class="cm-keyword">in</span> <span class="cm-variable">header</span>.<span class="cm-property">items</span>():</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response_header</span> += (<span class="cm-string">"{}:{}\r\n"</span>.<span class="cm-property">format</span>(<span class="cm-variable">key</span>, <span class="cm-variable">value</span>)).<span class="cm-property">encode</span>(<span class="cm-string">"UTF-8"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">try</span>: <span class="cm-comment"># 处理body</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">body</span> = <span class="cm-variable">body</span>.<span class="cm-property">encode</span>(<span class="cm-string">"UTF-8"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">except</span> <span class="cm-variable">AttributeError</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">pass</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response</span> = <span class="cm-variable">response_code</span> <span class="cm-operator">+</span> <span class="cm-variable">response_header</span> <span class="cm-operator">+</span> <span class="cm-string">b"\r\n"</span> <span class="cm-operator">+</span> <span class="cm-variable">body</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">response</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__deal_request</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">request</span>: <span class="cm-builtin">str</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 会出现奇怪的空白访问,啥也没有,try一下,不处理</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">try</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 获取请求的路径</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request_file</span> = <span class="cm-variable-2">self</span>.<span class="cm-property">pattern</span>.<span class="cm-property">match</span>(<span class="cm-variable">request</span>.<span class="cm-property">splitlines</span>()[<span class="cm-number">0</span>]).<span class="cm-property">group</span>(<span class="cm-string">"file"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request_file</span> = <span class="cm-variable">unquote</span>(<span class="cm-variable">request_file</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">except</span> <span class="cm-variable">IndexError</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">sys</span>.<span class="cm-property">exit</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 如果最后是/,按照GithubPage的规则,解析到index.html上</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">if</span> <span class="cm-variable">request_file</span>[<span class="cm-operator">-</span><span class="cm-number">1</span>] == <span class="cm-string">"/"</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request_file</span> += <span class="cm-string">"index.html"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 切掉第一个/, 否则拼接路径会出错</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">os</span>.<span class="cm-property">path</span>.<span class="cm-property">join</span>(<span class="cm-variable-2">self</span>.<span class="cm-property">path</span>, <span class="cm-variable">request_file</span>[<span class="cm-number">1</span>:])</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">__link</span>(<span class="cm-variable-2">self</span>, <span class="cm-variable">sock</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request</span> = <span class="cm-variable">sock</span>.<span class="cm-property">recv</span>(<span class="cm-number">1024</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request</span> = <span class="cm-variable">request</span>.<span class="cm-property">decode</span>(<span class="cm-string">"UTF-8"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">request_file</span> = <span class="cm-variable-2">self</span>.<span class="cm-property">__deal_request</span>(<span class="cm-variable">request</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 打开文件,并设置响应内容</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">try</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">file</span> = <span class="cm-builtin">open</span>(<span class="cm-variable">request_file</span>, <span class="cm-string">"rb"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">file_data</span> = <span class="cm-variable">file</span>.<span class="cm-property">read</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">file</span>.<span class="cm-property">close</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">except</span> <span class="cm-variable">FileNotFoundError</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">logging</span>.<span class="cm-property">warning</span>(<span class="cm-string">"404 Not Found {}"</span>.<span class="cm-property">format</span>(<span class="cm-variable">request_file</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response</span> = <span class="cm-variable-2">self</span>.<span class="cm-property">__deal_response</span>(<span class="cm-number">404</span>, {<span class="cm-string">"mood"</span>:<span class="cm-string">"What the fuck are your request?"</span>}, <span class="cm-string">b"The file not found!"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">else</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">logging</span>.<span class="cm-property">info</span>(<span class="cm-string">"Send file '{}'"</span>.<span class="cm-property">format</span>(<span class="cm-variable">request_file</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response_header</span> = {<span class="cm-string">"Content-Type"</span>: <span class="cm-variable-2">self</span>.<span class="cm-property">__set_response_file_type</span>(<span class="cm-variable">request_file</span>)}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">response</span> = <span class="cm-variable-2">self</span>.<span class="cm-property">__deal_response</span>(<span class="cm-number">200</span>, <span class="cm-variable">response_header</span>, <span class="cm-variable">file_data</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># +1s</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment"># 为了模拟真实的Github服务器反馈速度</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">time</span>.<span class="cm-property">sleep</span>(<span class="cm-number">1</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">sock</span>.<span class="cm-property">send</span>(<span class="cm-variable">response</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">sock</span>.<span class="cm-property">close</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">def</span> <span class="cm-def">run</span>(<span class="cm-variable-2">self</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">while</span> <span class="cm-keyword">True</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">sock</span>, <span class="cm-variable">_</span> = <span class="cm-variable-2">self</span>.<span class="cm-property">server</span>.<span class="cm-property">accept</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">client</span> = <span class="cm-variable">threading</span>.<span class="cm-property">Thread</span>(<span class="cm-variable">target</span>=<span class="cm-variable-2">self</span>.<span class="cm-property">__link</span>, <span class="cm-variable">args</span>=(<span class="cm-variable">sock</span>,))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">client</span>.<span class="cm-property">daemon</span> = <span class="cm-keyword">True</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">client</span>.<span class="cm-property">start</span>()</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">if</span> <span class="cm-variable">__name__</span> == <span class="cm-string">'__main__'</span>:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">server</span> = <span class="cm-variable">Main</span>(<span class="cm-string">"0.0.0.0"</span>, <span class="cm-number">8000</span>, <span class="cm-string">"D:\\Documents"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">server</span>.<span class="cm-property">run</span>()</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 2903px;"></div><div class="CodeMirror-gutters" style="display: none; height: 2933px;"></div></div></div></pre><p>&nbsp;</p><p>造完这个轮子，让我有种自己写一个web框架的冲动。</p></div>
-<div id="comments" style="margin:50px auto;padding: 50px 0 0 0;text-align:center;position:relative;border-top: 3px solid aliceblue;">
-    <form id="post">
-        <input name="message" placeholder="说些什么吧" type="text" style="font-size:20px;width:260px;padding:0 10px 3px 10px;border:none;border-bottom:2px solid #000000;"/>
-        <img v-on:click="send" style="width:30px;height:30px;position:absolute;" src="https://png.icons8.com/ios/64/000000/paper-plane.png"/>
-        <input name="kill press Enter event" style="display:none;"/>
-    </form>
-    <div style="padding:10px;margin:20px auto;font-size:20px;">
-        如需讨论,请<a href="https://github.com/AberSheeran/AberSheeran.github.io/issues" target="_blank">提issue</a>
-    </div>
-    <div style="padding:10px;margin:20px auto;font-size:20px;" v-for="comment in comments">
-        {{ comment }}
-    </div>
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+.markdown-preview.markdown-preview {
+  
+  font-family: 'Noto Sans SC Sliced', sans-serif;
+  font-weight: 100;
+  /**/
+  /* 时序图居中 */
+  /* 图片居中 */
+}
+.markdown-preview.markdown-preview h1 {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid black;
+}
+.markdown-preview.markdown-preview h1,
+.markdown-preview.markdown-preview h2,
+.markdown-preview.markdown-preview h3,
+.markdown-preview.markdown-preview h4,
+.markdown-preview.markdown-preview h5,
+.markdown-preview.markdown-preview h6 {
+  font-weight: 300;
+}
+.markdown-preview.markdown-preview li {
+  margin: 5px 0;
+}
+.markdown-preview.markdown-preview .mermaid {
+  text-align: center;
+}
+.markdown-preview.markdown-preview img {
+  margin: 0 auto;
+  display: block;
+}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <div id="details" style="display:none;">
+<title>静态文件服务器</title>
+<date>2018-02-10</date>
+<update>2018-02-10</update>
+<tags>Python,HTTP</tags>
+<corpus>编程杂记</corpus>
+<permalink>Github-Page-Server</permalink>
+<summary></summary>
 </div>
-</body>
-<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script>
-    $(document).ready(function(){
-        getComments();
-    });
-    var comments = new Vue({
-        el:"#comments",
-        data:{
-            comments
-        },
-        methods: {
-            send: function(){
-                if ($("#post").children("input").val()){
-                    $.ajax({
-                        type: 'post',
-                        data: $('#post').serialize(),
-                        url: "https://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
-                        cache: false,
-                        success: function (message) {
-                            if(message["status"]=="success"){
-                                getComments();
-                            }else{
-                                alert("Error! 请联系 Chen____Ye@163.com");
-                            }
-                        }
-                    })
-                }
-            }
-        }
-    });
+<h1 class="mume-header" id="%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8">静态文件服务器</h1>
 
-    function getComments(){
-        $("#post").children("input").val("");
-        $.ajax({
-            type: 'GET',
-            url: "https://hk.cathaysian.cn/comments?domain="+location.host+"&url="+location.pathname,
-            success: function (data) {
-                comments.comments = data;
-            }
-        })
-    }
+<p>最近在造<a href="https://github.com/AberSheeran/maltose">轮子</a>，于是用Socket标准库造了一个服务器来模拟GithubPage。造轮子的过程里，遇到很多有意思的坑，由于对HTTP协议并不熟悉，作此文以记录。</p>
+<h2 class="mume-header" id="%E7%AE%80%E4%BB%8B">简介</h2>
+
+<p>抛开更底层的TCP/IP协议，只看客户端和服务端的交互。那么HTTP其实只分两个部分。</p>
+<div class="mermaid">sequenceDiagram
+        opt request
+            Client->>Server: GET /sitemap HTTP/1.1 ...
+        end
+        opt response
+            Server->>Client: HTTP/1.1 200 OK ...
+        end
+</div>
+<p>客户端的请求由三部分组成，</p>
+<ol>
+<li>
+<p>请求行：类似于<code>GET / HTTP/1.1</code></p>
+<p>分三个部分：</p>
+<ol>
+<li>请求方法：一般常用的是GET与POST</li>
+<li>请求资源：URI，基本上可以当作URL去掉域名和协议之后的剩下的部分</li>
+<li>请求协议：现在常见的是HTTP/1.1，不过HTTP/2.0越来越流行。</li>
+</ol>
+</li>
+<li>
+<p>请求头：类似于<code>HOST: blog.cathaysian.cn</code>，一般的Web框架或者爬虫框架，都把这个部分解析成一个Map。</p>
+</li>
+<li>
+<p>请求体：一般是提交数据存放的地方，当然也见过骚操作把数据放进请求头的。</p>
+</li>
+</ol>
+<p>服务端的响应分三部分，</p>
+<ol>
+<li>
+<p>状态行：类似于<code>HTTP/1.1 200 OK</code></p>
+<p>分三个部分：</p>
+<ol>
+<li>响应协议：同上，常见的为HTTP/1.1</li>
+<li>状态码：也就是所谓的200，302，404，502等等</li>
+<li>状态码的文本描述：例如，200对应的是OK，404对应的是NOT FOUND</li>
+</ol>
+</li>
+<li>
+<p>响应头：类似于请求头，在封装好的框架里也是一个Map，这个里面不仅指定了响应内容的类型，是否压缩等等，也会设置cookie，session等用以标识身份的玩意。所谓的登陆，其实就是截取了这部分，在之后的请求中发送过去，让服务器知道“Who are you？”</p>
+</li>
+<li>
+<p>响应体：这部分也就是服务器回复的给你的内容。譬如 HTML页面</p>
+</li>
+</ol>
+<h2 class="mume-header" id="%E8%90%8C%E6%96%B0%E8%B6%9F%E5%9D%91">萌新趟坑</h2>
+
+<p>一个模拟GithubPage的静态服务器理论上的流程如下：</p>
+<p><img src="data:image/png;charset=utf-8;base64,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uMQEP8OHDzd//vOf7ePjjz/enHrqqWb33XePOFfxtttuu9mbKNBRE+GkSZPM1KlTbS2QatGuvvrqiHMJAEBlxT740UyMP//5z22txbbbbmtGjx5tDjrooKizlUgdOnQwI0aMMD169DBDhw61qzGrVui2225jtloAQGrEerRXXV2dufDCC23gs+OOO5qJEycS+JTAoYceau6//37TvHlz89prr9kmMAAA0iLWwc+9995r/ud//sc0adLE3H333WbXXXeNOktVQ02G48aNs/t20aJF5oEHHog6SwAAVERsg5833njDnpxl5MiR5jvf+U7EOao+CiavueYa+1gdyd96661oMwQAQAXUrFy5ss77hPp+FLpMfDFp/dTcpQ65ffr0MZdddllJPhPBrr/+ejNlyhQ7/P2OO+7I+r5S/r75iKpMsr2Vkbbt7d27t71fsGBBxb8bDbk52aZPn16Sz0tbeU7q9tbUqWONR1RLzK9atcpOxiezZ882l156qWnVqpWdzwfld8wxx5i1a9fazs+HH3544HtK9fvmK6oyyfaGx/aG5062BD/xEPR7UJ4r871Rbm8sm73Gjx9v788888yIc5IeZ5xxhr2/6667os0IAABlFrvg529/+5t58803TYsWLex8PqiME044we5z9bV6/vnno84OAABlE7vg509/+pO9P/vss80222wTcW7SQ/vazfj82GOPRZwbAADKJ1bBz6effmpeeukleyI+7rjjos5O6qgj5te//nUzb94889lnn0WdHQAAyiJWwY86On/xxRd2IkPNP4PKUucxdf7TbzBnzpyoswMAQFnEKvj561//au+7du0abUZSzO1791sAAFBtYhX8vPLKK/b+Rz/6UcQ5Sa8f//jH9l7NjwAAVKPYBD/r1q0zmzdvNm3btrXreCEa2veaX2nTpk3mo48+ijo7AACUXGyCH83mLO3bt482I8isobZs2bKIc4J8+Sf9mjp1qr0BlbJx40Zz1VVX2XsgrmIT/Lz33nv2Pi7Bz9atW80NN9yQyVep0uQ6MGiG0TicqHbbbTd7T/ATP/meWLp06WKee+65vMox4sf/u+tYob91zHH8ga7eO2bMmHrvEZUFHaf8z+eSTxC9/fbbm4MPPthMnDgx9OcXEjBpH/Tq1YuyjYLURp0Bx9X8xGXldo0222uvvcyECRPM8OHDQ40+03uO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" alt="GithubPage&#x6D41;&#x7A0B;&#x56FE;"></p>
+<p>当我写完之后，本地测试好了maltose生成的页面效果，push到Github上，就坏了。</p>
+<p>由于设计之初，我是打算前后端分离的(手动滑稽。没错，静态页面我也要搞前后端分离)。然后ajax请求的json怎么都解析不了，在对比GithubPage的响应头和我的PreviewServer响应头之后，我<s>凭多年的爬虫经验</s>猜出可能是Content-Type的锅。</p>
+<p>于是改改改，果然。当ajax请求的是json，它自己就把json给解析了。而HTTP不靠URL来判断请求的资源类型，靠的是Content-Type。然后我在PreviewServer里写了一个函数来判断响应的文件类型，成功过坑。</p>
+<p>然后就是一些奇怪的坑了，因为写PreviewServer之初，我对HTTP的了解并不系统，全靠Web框架和Requests库活着(捂脸)。看了一些人博客上写的静态文件服务器，搞错了文件不存在的异常(大约是这些博客太古老了吧)。</p>
+<p>其次是URL的中文问题，之前玩爬虫的时候遇见过，所以很快反应过来用urllib标准库里的unquote来解析。</p>
+<p>还有就是很奇怪的一件事，在我PreviewServer成功运行十分钟左右之后，莫名出现了一个空白请求。这个请求什么内容都没有，我修改了代码，捕捉到这个空白请求的时候，把整个请求全部打印出来，结果也只是空白。谷歌了也没有谷歌到别人提到这个问题。总之最后一个try把这个玩意忽略了。</p>
+<p>最后，上代码！Win10上实测从无故障，抗住了每秒十余次的请求量(滑稽</p>
+<pre class="language-python"><span class="token keyword">import</span> socket
+<span class="token keyword">import</span> os<span class="token punctuation">.</span>path
+<span class="token keyword">import</span> threading
+<span class="token keyword">import</span> re
+<span class="token keyword">import</span> logging
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> time
+<span class="token keyword">from</span> urllib<span class="token punctuation">.</span>parse <span class="token keyword">import</span> unquote
+
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>
+    level<span class="token operator">=</span>logging<span class="token punctuation">.</span>DEBUG<span class="token punctuation">,</span>
+    format<span class="token operator">=</span><span class="token string">'[%(levelname)s]-[%(asctime)s]==> %(message)s'</span><span class="token punctuation">,</span>
+    datefmt<span class="token operator">=</span><span class="token string">'%Y-%m-%d %H:%M:%S'</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Main</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ip<span class="token punctuation">:</span> str<span class="token punctuation">,</span> port<span class="token punctuation">:</span> int<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>path <span class="token operator">=</span> path
+        self<span class="token punctuation">.</span>pattern <span class="token operator">=</span> re<span class="token punctuation">.</span>compile<span class="token punctuation">(</span>r<span class="token string">'GET (?P&lt;file>\S+) HTTP'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>bind<span class="token punctuation">(</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>listen<span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Running in {0}:{1}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>ip<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"File root directory in {0}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__del__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">'Stopping Server.'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__set_response_file_type</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        request_file_type <span class="token operator">=</span> filename<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> request_file_type <span class="token operator">==</span> <span class="token string">'json'</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">"application/json;"</span>
+        <span class="token keyword">elif</span> request_file_type <span class="token operator">==</span> <span class="token string">'html'</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">"text/html;"</span>
+        <span class="token keyword">elif</span> request_file_type <span class="token operator">==</span> <span class="token string">"xml"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">"application/xml;"</span>
+        <span class="token keyword">elif</span> request_file_type <span class="token operator">==</span> <span class="token string">"js"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">"application/javascript"</span>
+        <span class="token keyword">elif</span> request_file_type <span class="token operator">==</span> <span class="token string">"css"</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">"text/css"</span>
+        <span class="token comment" spellcheck="true"># TODO 增加其他类型文件的响应头</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+
+    <span class="token keyword">def</span> <span class="token function">__deal_response</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> status_code<span class="token punctuation">:</span> int<span class="token punctuation">,</span> header<span class="token punctuation">:</span> dict<span class="token punctuation">,</span> body<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span>
+            response_code <span class="token operator">=</span> b<span class="token string">"HTTP/1.1 200 OK\r\n"</span>
+        <span class="token keyword">elif</span> status_code <span class="token operator">==</span> <span class="token number">404</span><span class="token punctuation">:</span>
+            response_code <span class="token operator">=</span> b<span class="token string">"HTTP/1.1 404 NOT Found\r\n"</span>
+        <span class="token comment" spellcheck="true"># TODO 增加其他状态码</span>
+        response_header <span class="token operator">=</span> b<span class="token string">"Server: My Static Page Preview Server\r\n"</span>
+        <span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> header<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            response_header <span class="token operator">+=</span> <span class="token punctuation">(</span><span class="token string">"{}:{}\r\n"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 处理body</span>
+            body <span class="token operator">=</span> body<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> AttributeError<span class="token punctuation">:</span>
+            <span class="token keyword">pass</span>
+        response <span class="token operator">=</span> response_code <span class="token operator">+</span> response_header <span class="token operator">+</span> b<span class="token string">"\r\n"</span> <span class="token operator">+</span> body
+        <span class="token keyword">return</span> response
+
+    <span class="token keyword">def</span> <span class="token function">__deal_request</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">:</span> str<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 会出现奇怪的空白访问,啥也没有,try一下,不处理</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 获取请求的路径</span>
+            request_file <span class="token operator">=</span> self<span class="token punctuation">.</span>pattern<span class="token punctuation">.</span>match<span class="token punctuation">(</span>request<span class="token punctuation">.</span>splitlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token string">"file"</span><span class="token punctuation">)</span>
+            request_file <span class="token operator">=</span> unquote<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span>
+        <span class="token keyword">except</span> IndexError<span class="token punctuation">:</span>
+            sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 如果最后是/,按照GithubPage的规则,解析到index.html上</span>
+        <span class="token keyword">if</span> request_file<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"/"</span><span class="token punctuation">:</span>
+            request_file <span class="token operator">+=</span> <span class="token string">"index.html"</span>
+        <span class="token comment" spellcheck="true"># 切掉第一个/, 否则拼接路径会出错</span>
+        <span class="token keyword">return</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> request_file<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__link</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> sock<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        request <span class="token operator">=</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span>
+        request <span class="token operator">=</span> request<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
+        request_file <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_request<span class="token punctuation">(</span>request<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 打开文件,并设置响应内容</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            file <span class="token operator">=</span> open<span class="token punctuation">(</span>request_file<span class="token punctuation">,</span> <span class="token string">"rb"</span><span class="token punctuation">)</span>
+            file_data <span class="token operator">=</span> file<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            file<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> FileNotFoundError<span class="token punctuation">:</span>
+            logging<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">"404 Not Found {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            response <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_response<span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"mood"</span><span class="token punctuation">:</span><span class="token string">"What the fuck are your request?"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> b<span class="token string">"The file not found!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Send file '{}'"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            response_header <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Content-Type"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>__set_response_file_type<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">}</span>
+            response <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_response<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> response_header<span class="token punctuation">,</span> file_data<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># +1s</span>
+        <span class="token comment" spellcheck="true"># 为了模拟真实的Github服务器反馈速度</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+        sock<span class="token punctuation">.</span>send<span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+        sock<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            sock<span class="token punctuation">,</span> _ <span class="token operator">=</span> self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>accept<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            client <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>self<span class="token punctuation">.</span>__link<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span>sock<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            client<span class="token punctuation">.</span>daemon <span class="token operator">=</span> <span class="token boolean">True</span>
+            client<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    server <span class="token operator">=</span> Main<span class="token punctuation">(</span><span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> <span class="token number">8000</span><span class="token punctuation">,</span> <span class="token string">"D:\\Documents"</span><span class="token punctuation">)</span>
+    server<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre>
+<p>造完这个轮子，让我有种自己写一个web框架的冲动。</p>
+
+      
+<div id="disqus_thread" style="margin-top:100px;"></div>
+<script>
+var disqus_config = function () {
+this.page.url = location.href;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = location.pathname; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://cathaysian-cn.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
 </script>
-</html>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8">静态文件服务器</a>
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#%E8%90%8C%E6%96%B0%E8%B6%9F%E5%9D%91">萌新趟坑</a></li>
+</ul>
+</li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    <script>
+// config mermaid init call
+// http://knsv.github.io/mermaid/#configuration
+//
+// You can edit the 'MERMAID_CONFIG' variable below.
+MERMAID_CONFIG = {
+  startOnLoad: false
+}
+
+if (window['MERMAID_CONFIG']) {
+  window['MERMAID_CONFIG'].startOnLoad = false
+  window['MERMAID_CONFIG'].cloneCssStyles = false 
+}
+mermaidAPI.initialize(window['MERMAID_CONFIG'] || {})
+
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+
+  Reveal.addEventListener('slidechanged', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+} else {
+  mermaid.init(null, document.getElementsByClassName('mermaid'))
+}
+</script>
+    
+    
+    
+    <script>
+(function bindTaskListEvent() {
+  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
+  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
+    var checkbox = taskListItemCheckboxes[i]
+    var li = checkbox.parentElement
+    if (li.tagName !== 'LI') li = li.parentElement
+    if (li.tagName === 'LI') {
+      li.classList.add('task-list-item')
+    }
+  }
+}())    
+</script>
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>
