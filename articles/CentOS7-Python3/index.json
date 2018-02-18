@@ -1,11 +1,11 @@
 {
+    "title": "CentOS7\u4e0a\u5b89\u88c5Python3",
+    "summary": "\u521d\u5b66CentOS,\u4ee5\u4f5c\u8bb0\u5f55.",
+    "date": "2017-08-03",
+    "corpus": "\u7f16\u7a0b\u6742\u8bb0",
+    "permalink": "CentOS7-Python3",
     "tags": [
         "Python"
     ],
-    "corpus": "\u7f16\u7a0b\u6742\u8bb0",
-    "summary": "\n      \n      \nCentOS7\u4e0a\u5b89\u88c5Python3\n2017-08-03\n2018-02-10\nPython\n\u7f16\u7a0b\u6742\u8bb0\nCentOS7-Python3\n\n\nCentOS7\u4e0a\u5b89\u88c5Python3\n\n\u7f16\u8bd1\u5b89\u88c5Python3\n\n\u503c\u5f97\u6ce8\u610f\u7684\u662f\uff0c\u4f7f\u7528\u4ee5\u4e0b\u6b65\u9aa4\u80fd\u5728\u6700\u65b0\u7248\u7684CentOS\u684c\u9762\u7248\u5b89\u88c5\u6210\u529fPython3\u3002\u4f46\u662f\u5f53\u6211\u4f7f\u7528\u4ee5\u4e0b\u6b65\u9aa4\u5728\u4e91\u670d\u52a1\u5668\u4e0a\u65f6\uff0c\u5931\u8d25\u4e86\u3002\nyum install yum-utils\n#\u5b89\u88c5\u7f16\u8bd1python\u7684\u7f16\u8bd1\u73af\u5883\u4ee5\u53ca\u4f9d\u8d56\u5305\nyum-builddep python\n#\u5982\u679c\u4e0b\u8f7d\u592a\u6162\uff0c\u53ef\u4ee5\u6362\u56fd\u5185\u955c\u50cf\nwget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz\n#\u89e3\u538b\uff0c\u7f16\u8bd1\ntar -xzvf Python-3.5.2.tgz -C /usr/local/Python3\ncd /usr/local/Python3/Python-3.5.2\n./configure\nmake\nmake install\n\n\u4f7f\u7528\u65f6\u53ea\u9700\u8981\u6253\u51fapython3\u548cpip3\u5373\u53ef\u3002\n\u4f7f\u7528yum\u5b89\u88c5Python3\n\n\u7ecf\u8fc7\u6d4b\u8bd5\uff0c\u5728\u817e\u8baf\u4e91\u7684CentOS7\u670d\u52a1\u5668\u4e0a\u4f7f\u7528\u8fd9\u79cd\u65b9\u6cd5\u53ef\u4ee5\u76f4\u63a5\u5b89\u88c5Python3\nyum -y update\nyum install -y https://centos7.iuscommunity.org/ius-release.rpm\nyum install -y python35u python35u-libs python35u-devel python35u-pip\n\n\u4f7f\u7528\u4e5f\u5f88\u7b80\u5355\uff0c\u6253\u51fa\u547d\u4ee4python3.5\u6216\u8005pip3.5\u5373\u53ef\u3002\n\u5982\u679c\u9700\u8981\u5176\u4ed6\u7248\u672c\uff0c\u8b6c\u59823.4\uff0c\u53ea\u9700\u8981\u628a\u4ee5\u4e0a\u547d\u4ee4\u4e2d\u7684\u6240\u6709\u768435\u6539\u621034\u5373\u53ef\u3002\n\n      \n      \nCentOS7\u4e0a\u5b89\u88c5Python3\n\n\u7f16\u8bd1\u5b89\u88c5Python3\n\u4f7f\u7528yum\u5b89\u88c5Python3\n\n\n\n\n      \u2261\n    ",
-    "permalink": "CentOS7-Python3",
-    "update": "2018-02-10",
-    "title": "CentOS7\u4e0a\u5b89\u88c5Python3",
-    "date": "2017-08-03"
+    "update": "2018-02-10"
 }
