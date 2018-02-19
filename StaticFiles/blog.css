@@ -46,13 +46,16 @@ header .portrait img{
 header .name{
     position: relative;
     top: -23px;
-    display: inline;
+    display: block;
     font-weight: 400;
     font-size: 2em;
     font-family: 'Dancing Script', cursive;
     background-color: #FFFFFF;
     padding: 0 20px;
     margin: auto;
+}
+section{
+    display: none;
 }
 article{
     position: relative;

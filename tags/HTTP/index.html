@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>仗剑不饮酒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/blog.css">
+    <link rel="stylesheet" href="/StaticFiles/blog.css">
 </head>
 
 <body>
@@ -44,6 +44,7 @@
             </aside>
         </article>
     </section>
+    <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
     <nav>
         <div class="corpus">
 
@@ -85,6 +86,7 @@
                 }
             }
         });
+        $("section").css("display", "block");
     });
     //页面跳转
     $(document).on("click", "title", function(){
