@@ -68,7 +68,6 @@ article summary{
     overflow: hidden;
     font-family: 'Noto Sans SC Sliced', sans-serif;
     font-weight: 100;
-    font-size: 0.8em;
 }
 article aside{
     display: -webkit-flex; /* Safari */
@@ -100,8 +99,8 @@ article aside .corpus{
 article aside .corpus img{
     display: block;
     float: left;
-    width: 1.4em;
-    height: 1.4em;
+    width: 1.2em;
+    height: 1.2em;
 }
 article aside time{
     display: inline;
@@ -139,7 +138,7 @@ footer p{
         margin: auto;
     }
 }
-@media (max-width: 900px) {
+@media (max-width: 940px) {
     body{
         font-size: 17px;
     }
