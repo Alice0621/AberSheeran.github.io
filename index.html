@@ -5,8 +5,8 @@
     <title>仗剑不饮酒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/StaticFiles/normalize.css">
-    <link rel="stylesheet" href="/StaticFiles/blog.css">
-
+    <link rel="stylesheet" media="(max-width: 1100px)" href="/StaticFiles/blog.css">
+    <link rel="stylesheet" media="(min-width: 1100px)" href="/StaticFiles/blog_lg.css">
 </head>
 
 <body>
@@ -34,15 +34,15 @@
                         <a v-bind:href="['/tags/'+ tag + '/']" target="_blank">{{ tag }}</a>
                     </span>
                 </div>
-                <!--
+
                 <i class="block"></i>
                 <div class="corpus">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIjSURBVEhL3dZfaE9hHMfxM9pQlPlvYTMulmiKlQvMxSgX5krN1bhRUnax2JJihY3ahUJuEUWL3JFyQ7tyQbmxJkWZG9z4r8X7c87vu749O/v5nd9ZrfnUq57nd/qd7znPeZ7znGgqswj7JtFqlJROfMfrSfAZ11BSuvEkaeZOL24mzX/nvyn8GGnPfg+WYCy+8GIcQ1cGm2FR4fewZ/4Gf/AT7/ANuog4vvBGPMCjDA7AEg71XnzEyrgXRUegCVipTjjU81GdwUxYwsL9uJs048yBRmC9Or7wLuhAFhdgCQtfQTjZ9J8NaoR3vAr1GcyGJVfhPJmehXciXH+aQKJZ6o9JLSxlF56FF/Dv31dYAT17tf0xOQ7L9BtqzdC3+OR8gO5W253a/pichCXXHTehxdmOCszAtsJv3lJYyi6sk+sO+pwzmAe94G/hTqANlrIL6x16Ff7E17EQc3EK/qJEo2DJNdRrsclZB0XLaQfCobYNQMk1ub5AB81vaK3WIW05nYAl1x0Xi551lt2paOEOPFWD6AWiL4hnziCWYw1G4UdDzsNyDreTZpxm7E6acbQ69J94W2zFsBqF7Mch5yCqoNSg2O50FLrQibIMKrzAOvo0aVQnZzQRbU6kpR1DSTPJZbxEyR/jRXIDzxGeqwEjOBz3CtFQar3+wH30IO3DrhSn8RW/8BBnMQCd+xL0nMdlC/RSuIe0D7tyqOhFbMVUJ4r+AsrSBIs3PFN+AAAAAElFTkSuQmCC">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoklEQVRYR2NkGGDAOMD2M2BzQAIDA0M/AwODAJUc94GBgaGQgYFhATbzsDkApIGfSpbDjAGZKUisA/5DFVIrevCah82SUQeMhsBoCIyGwGgIjIbAaAiMhsBoCAyaEKByuxRrCxyrICwEBtwBhFrFxEYVzVrFNHMALTomH3H1tLAFswO0GyVPpUTwkIGBAdTdO0Bsz4hK9hJnDKGERpwpFKgCALWxOiH0B0d7AAAAAElFTkSuQmCC">
                     <span>
                         <a v-bind:href="['/corpus/'+ blog.corpus + '/']" target="_blank">{{ blog.corpus }}</a>
                     </span>
                 </div>
-                -->
+
                 <i class="block"></i>
                 <time>
                     {{ blog.date }}

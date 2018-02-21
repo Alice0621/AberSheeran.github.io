@@ -1,13 +1,13 @@
 [
     {
         "title": "\u6d45\u8c08\u8bbe\u5907\u81ea\u9002\u5e94",
-        "update": "2018-02-20",
-        "date": "2018-02-20",
+        "permalink": "CSS-Device-adaptation",
         "tags": [
             "CSS"
         ],
         "summary": "\u968f\u7740\u65f6\u4ee3\u53d1\u5c55\uff0c\u4e00\u4e2a\u7f51\u9875\u88ab\u4e0d\u540c\u7cfb\u7edf\u4e0d\u540c\u5927\u5c0f\u7684\u8bbe\u5907\u5df2\u7ecf\u662f\u7a00\u758f\u5e73\u5e38\u7684\u4e86\u3002\u7f51\u9875\u7684\u81ea\u9002\u5e94\u4e5f\u6210\u4e3a\u4e86\u6240\u6709\u524d\u7aef\u5de5\u7a0b\u5e08\u9996\u5148\u9700\u8981\u8003\u8651\u7684\u4e00\u4ef6\u4e8b\u60c5\u3002",
-        "permalink": "CSS-Device-adaptation",
-        "corpus": "\u7f16\u7a0b\u6742\u8bb0"
+        "date": "2018-02-20",
+        "corpus": "\u7f16\u7a0b\u6742\u8bb0",
+        "update": "2018-02-20"
     }
 ]
