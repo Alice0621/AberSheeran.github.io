@@ -68,6 +68,7 @@ article summary{
     overflow: hidden;
     font-family: 'Noto Sans SC Sliced', sans-serif;
     font-weight: 100;
+    font-size: 0.8em;
 }
 article aside{
     display: -webkit-flex; /* Safari */
