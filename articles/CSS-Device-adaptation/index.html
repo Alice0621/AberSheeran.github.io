@@ -4,19 +4,19 @@
       <title>浅谈设备自适应</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+      
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
-
-
-
-
-
-
-
-
-
-      <style>
+      <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
 /**
  * prism.js Github theme based on GitHub's theme.
@@ -210,7 +210,7 @@ code.language-yaml {
 /* Please visit the URL below for more information: */
 /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
 .markdown-preview.markdown-preview {
-
+  
   font-family: 'Noto Sans SC Sliced', sans-serif;
   font-weight: 100;
   font-size: 20px;
@@ -239,7 +239,7 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
-
+ 
       </style>
     </head>
     <body for="html-export">
@@ -283,6 +283,7 @@ code.language-yaml {
 <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Noto Sans SC'</span>, sans-serif<span class="token punctuation">;</span>
 </pre>
 <p>至于拉丁世界的字体那就太多了，毕竟也就几十个字符的事情。</p>
+<p>插一句，字体大小也是十分重要的，我的建议是在body中使用px单位设定好一个基础字体大小，然后其他标签里都使用em，这样在下面使用媒体查询时，只需要修改body的字体大小就可以轻松对不同大小设备做字体大小适配。</p>
 <h2 class="mume-header" id="%E7%BC%96%E5%86%99">编写</h2>
 
 <p>自适应页面大体可以分为两种，一种是查询屏幕的高宽来确定该使用哪一些CSS进行渲染，雅虎的Pure，推特的Bootstrap都是这样做的。另一种就是flex布局，让浏览器来决定你页面的渲染效果。</p>
@@ -357,11 +358,11 @@ s.setAttribute('data-timestamp', +new Date());
 </div>
       <a id="sidebar-toc-btn">≡</a>
     </body>
-
-
-
-
-
+    
+    
+    
+    
+    
     <script>
 (function bindTaskListEvent() {
   var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
@@ -373,9 +374,9 @@ s.setAttribute('data-timestamp', +new Date());
       li.classList.add('task-list-item')
     }
   }
-}())
+}())    
 </script>
-
+    
 <script>
 
 var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
@@ -388,5 +389,5 @@ sidebarTOCBtn.addEventListener('click', function(event) {
   }
 })
 </script>
-
+      
   </html>
