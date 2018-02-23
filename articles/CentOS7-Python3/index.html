@@ -291,6 +291,9 @@ yum <span class="token function">install</span> -y python35u python35u-libs pyth
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
 <script>
+function load_err(){
+    document.getElementById('disqus_thread').innerHTML = '<div style="text-align:center;margin:auto;">评论托管于Disqus 大陆内无法常规访问！</div>';
+}
 var disqus_config = function () {
 this.page.url = location.href;
 this.page.identifier = location.pathname;
@@ -300,11 +303,11 @@ this.page.identifier = location.pathname;
 var d = document, s = d.createElement('script');
 s.src = 'https://cathaysian-cn.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
+s.setAttribute('onerror', 'load_err()');
 (d.head || d.body).appendChild(s);
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
 </div>
       <div class="md-sidebar-toc"><ul>
 <li><a href="#centos7%E4%B8%8A%E5%AE%89%E8%A3%85python3">CentOS7上安装Python3</a>

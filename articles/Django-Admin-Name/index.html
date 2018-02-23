@@ -305,6 +305,9 @@ admin<span class="token punctuation">.</span>site<span class="token punctuation"
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
 <script>
+function load_err(){
+    document.getElementById('disqus_thread').innerHTML = '<div style="text-align:center;margin:auto;">评论托管于Disqus 大陆内无法常规访问！</div>';
+}
 var disqus_config = function () {
 this.page.url = location.href;
 this.page.identifier = location.pathname;
@@ -314,11 +317,11 @@ this.page.identifier = location.pathname;
 var d = document, s = d.createElement('script');
 s.src = 'https://cathaysian-cn.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
+s.setAttribute('onerror', 'load_err()');
 (d.head || d.body).appendChild(s);
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
 </div>
       <div class="md-sidebar-toc"><ul>
 <li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89django%E5%90%8E%E5%8F%B0%E5%90%8D%E7%A7%B0">自定义Django后台名称</a>
