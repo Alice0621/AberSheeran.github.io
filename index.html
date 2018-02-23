@@ -49,6 +49,7 @@
                 </time>
             </aside>
         </article>
+        <div style="margin:30px 0;"><span id="more" style="border:2px #000000 solid;">More</span></div>
     </section>
     <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
 </main>
@@ -85,22 +86,17 @@
 　　     }
         $("section").css("display", "block");
     });
-    //滚动到底,请求剩余数据
-    $(document).scroll(function(){
-        if(!get_lock)
+
+    $(document).on("click", "#more", function(){
+        var now_num = blogs.blogs.length;
+        while(blogs.blogs.length < now_num+6)
         {
-            if($(window).scrollTop() + $(window).height() >= $(document).height())
-            {
-    　　         get_more_blog();
-    　　     }
+            if(get_lock){
+                $(this).remove();
+                break;
+            }
+            get_more_blog();
         }
-    });
-    //预览的展开和回缩
-    $(document).on("mouseover", ".preview", function(){
-       $(this).prev().children(".summary").fadeIn(1000);
-       $(this).fadeOut(1);
-       $(this).delay(5000).fadeIn(1);
-       $(this).prev().children(".summary").delay(3999).fadeOut(1);
     });
     //页面跳转
     $(document).on("click", "article title", function(){
