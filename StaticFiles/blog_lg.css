@@ -139,3 +139,11 @@ footer img{
 footer p{
     font-size: 14px;
 }
+
+#more{
+    text-align: end;
+}
+#more a:hover{
+    background-color: black;
+    color: #FFFFFF;
+}

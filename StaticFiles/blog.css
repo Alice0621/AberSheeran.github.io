@@ -141,3 +141,11 @@ footer p{
         font-size: 17px;
     }
 }
+
+#more{
+    text-align: center;
+}
+#more a:hover{
+    background-color: black;
+    color: #FFFFFF;
+}
