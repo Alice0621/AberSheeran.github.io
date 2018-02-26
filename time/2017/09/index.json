@@ -1,12 +1,12 @@
 [
     {
+        "title": "\u81ea\u5b9a\u4e49Django\u540e\u53f0\u540d\u79f0",
         "date": "2017-09-03",
         "summary": "\u4f17\u6240\u5468\u77e5\uff0cDjango\u9ed8\u8ba4\u7684\u540e\u53f0\u662f\u82f1\u6587\u3002\u5728\u4fee\u6539\u4e86Settings\u4e4b\u540e\uff0cDjango\u81ea\u5e26\u7684user\u6539\u6210\u4e86\u4e2d\u6587\uff0c\u81ea\u5df1\u5199\u7684App\u5bf9\u5e94\u7684\u4f9d\u65e7\u662f\u82f1\u6587\u3002\n\u4e8e\u662f\u82b1\u4e86\u4e00\u4e9b\u65f6\u95f4\u6765\u67e5\u548b\u6539\u540d\u5b57\u3002\u6bd5\u7adf\u4e2d\u56fd\u4eba\u66f4\u9002\u5e94\u4e2d\u6587\u3002",
-        "update": "2018-02-10",
-        "title": "\u81ea\u5b9a\u4e49Django\u540e\u53f0\u540d\u79f0",
         "tags": [
             "Django"
         ],
+        "update": "2018-02-10",
         "corpus": "\u7f16\u7a0b\u6742\u8bb0",
         "permalink": "Django-Admin-Name"
     }
