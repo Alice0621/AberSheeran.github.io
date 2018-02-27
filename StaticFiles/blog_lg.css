@@ -13,7 +13,7 @@ header {
 header nav{
     margin: auto;
 }
-header nav .portrait{
+header nav #portrait{
     display: block;
     margin: 20px auto;
     width: 6em;
@@ -26,6 +26,14 @@ header nav .items{
 header nav .item{
     padding: 5px 10px;
 }
+header nav .item a{
+    text-decoration: none;
+    color: #000000;
+}
+header nav .item a:hover{
+    background-color: black;
+    color: #FFFFFF;
+}
 main{
     width: 72%;
     position: absolute;
@@ -33,11 +41,12 @@ main{
     bottom: 0;
     right: 0;
     overflow-y: scroll;
+    padding-right: 5%;
 }
 section{
     display: none;
     margin-left: 0px;
-    width: 80%;
+    max-width: 1000px;
 }
 section:first-child{
     padding-top: 100px;
@@ -46,7 +55,7 @@ article{
     position: relative;
     border-top: 2px solid #eee;
     padding-top: 20px;
-    max-width: 900px;
+    max-width: 1000px;
     padding-bottom: 100px;
 }
 article a:link{
@@ -69,6 +78,7 @@ article title{
     display: block;
     font-size: 1.6em;
     margin-bottom: 10px;
+    font-weight: 400;
 }
 article summary{
     max-height: 288px;
@@ -144,6 +154,10 @@ footer p{
     text-align: end;
 }
 #more a:hover{
+    background-color: black;
+    color: #FFFFFF;
+}
+#more a:active{
     background-color: black;
     color: #FFFFFF;
 }
