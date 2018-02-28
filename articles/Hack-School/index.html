@@ -276,11 +276,11 @@ cache<span class="token punctuation">.</span>post<span class="token punctuation"
 <span class="token punctuation">)</span>
 </pre>
 <p>然后构建注入：</p>
-<ul>
-<li>
+<h3 class="mume-header" id="usertype">usertype</h3>
+
 <p>把<code>usertype</code>变成 * 一试。发现反馈信息登陆成功，然而我满心欢喜拿这个Session访问首页的时候，还是没有权限的首页。改成其他，也是同样的&quot;登陆成功&quot;。</p>
-</li>
-<li>
+<h3 class="mume-header" id="user-pass">user-pass</h3>
+
 <p>然后尝试从PHP的一个exp表达式漏洞注入，这个漏洞具体使用就是把一个普通的变量变成<code>Array</code>，如果后台使用了exp表达式，那么就能执行我们设计的SQL语句。然而我把user[0]，user[1]发过去之后，程序给了我一个503错误，从错误反馈我们可以看到如下代码</p>
 <ul>
 <li>学生数据库：<pre class="language-bash">SELECT <span class="token string">"XM"</span>, <span class="token string">"XB"</span>, <span class="token string">"DQSZJ"</span>, <span class="token string">"CSRQ"</span>, <span class="token string">"RXRQ"</span>, <span class="token string">"ZYDM"</span>, <span class="token string">"ZYMC"</span>, <span class="token string">"XY"</span>, <span class="token string">"XZB"</span>, <span class="token string">"MM"</span>, <span class="token string">"ZYFX"</span>, <span class="token string">"XSLB"</span>, <span class="token string">"SFZH"</span>, <span class="token string">"SFZX"</span>
@@ -304,16 +304,12 @@ Filename: /ahnu/program/support/controllers/login.php Line Number: 217
 </pre>
 </li>
 </ul>
-<p>不难看出，学生登陆的SQL逻辑是这样的：</p>
-<ul>
-<li>学号 ==&gt; 查询密码 ==&gt; 对比</li>
-</ul>
+<p>不难看出，学生登陆的SQL逻辑是这样的：<br>
+* 学号 ==&gt; 查询密码 ==&gt; 对比</p>
 <p>可以大胆地猜测，MM字段就是对应密码。<br>
 但教师和管理员都是 账号+加密后密码 进行Where查询。</p>
 <p>而通过Array报错不难看出，此处代码应是<code>$_POST[&quot;user&quot;]</code>直接引用，也就是说或许没有中间处理过！</p>
 <p>那么我们可以尝试直接构建SQL语句放入<code>$_POST[&quot;user&quot;]</code>进行注入!</p>
-</li>
-</ul>
 
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
@@ -340,7 +336,12 @@ this.page.identifier = location.pathname;
       <div class="md-sidebar-toc"><ul>
 <li><a href="#%E6%B8%97%E9%80%8F%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F">渗透教务系统</a>
 <ul>
-<li><a href="#sql%E6%B3%A8%E5%85%A5">SQL注入</a></li>
+<li><a href="#sql%E6%B3%A8%E5%85%A5">SQL注入</a>
+<ul>
+<li><a href="#usertype">usertype</a></li>
+<li><a href="#user-pass">user-pass</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
