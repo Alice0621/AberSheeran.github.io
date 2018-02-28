@@ -304,11 +304,13 @@ Filename: /ahnu/program/support/controllers/login.php Line Number: 217
 </pre>
 </li>
 </ul>
-<p>不难看出，学生登陆的SQL逻辑是这样的：<br>
-* 学号 ==&gt; 查询密码 ==&gt; 对比</p>
-<p>可以大胆地猜测，MM字段就是对应密码。<br>
-但教师和管理员都是 账号+加密后密码 进行Where查询。</p>
-<p>而通过Array报错不难看出，此处代码应是<code>$_POST[&quot;user&quot;]</code>直接引用，也就是说或许没有中间处理过！</p>
+<p>不难看出，学生登陆的SQL逻辑是这样的：</p>
+<blockquote>
+<p>学号 ==&gt; 查询密码 ==&gt; 对比</p>
+</blockquote>
+<p>可以大胆地猜测，MM字段就是对应密码。然而这目前没什么用，所以我们暂且记下不去管。</p>
+<p>也能看出教师和管理员都是 账号+加密后密码 进行Where查询。因为我可以知道密码明文和与之对应的加密后的结果，所以尝试了一波加密算法猜测，似乎不是常规的加密。所以也暂且记下不去管。</p>
+<p>而通过Array报错不难看出，此处代码应是<code>$_POST[&quot;user&quot;]</code>直接使用，也就是说或许没有中间处理过！</p>
 <p>那么我们可以尝试直接构建SQL语句放入<code>$_POST[&quot;user&quot;]</code>进行注入!</p>
 
       
