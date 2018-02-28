@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>仗剑不饮酒</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/StaticFiles/normalize.css">
+    <link rel="stylesheet" media="(max-width: 1100px)" href="/StaticFiles/blog.css">
+    <link rel="stylesheet" media="(min-width: 1100px)" href="/StaticFiles/blog_lg.css">
+</head>
+
+<body>
+<header>
+    <nav>
+        <img src="/portrait.ico" alt="Aber Sheeran" id="portrait">
+        <div class="items">
+            <div class="item">
+                <a href="/corpus/校园时光/" target="_blank">
+                    校园时光
+                </a>
+            </div>
+            <div class="item">
+                <a href="/about.html" target="_blank">
+                    关于
+                </a>
+            </div>
+            <div class="item">
+                <a href="/about.html" target="_blank">
+                    联系
+                </a>
+            </div>
+            <div class="item">
+                <a href="/about.html" target="_blank">
+                    赞助
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <section>
+        <article v-for="blog in blogs">
+            <title v-bind:href="['/articles/' + blog.permalink +'/']">{{ blog.title }}</title>
+            <summary>{{ blog.summary }}</summary>
+            <aside>
+                <div class="tags">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIpSURBVGhD7ZlNS1VBGICvi0Iqsm+Sora66wP37d20DjcR5E4XLoo2mSFRIRIR/oKWgTsXrRIDQSmIShHJdWHoVjDsee0MvBwOed9z5+MI88CDnOGemXm4Z9TLbWUymUymYAzfd+hxTMpj3PNgDybDV4SYLKQcsYHDeL9NR1HfnySkKuIqWpCN6znk+iieLnkEg+AjQqgKuVMaEwfRO3UjbuEI6scnWUjdiH7cRbnnrQwUJAnp5HG6ie6+WRkoqApxZ+RbMSZ6C/FxJoZwCi/vX/2jKsTxBd24lxBfB7uKaCEhI4QoIaEjhOAhMSKEoCGxIoRgITEjhHuo1/MSEjviLv5Bt94v7EZHrZDUEb/xOmrMIQ/R3SA2IUJodEi7EUKtR2sc3U1iiBhLhPAd3WtNhz1kjDViAvVeTCFCiBhrxFPUe/iBvWjGZ4w1YhL12ut4BWvjI8Ya8Qz1mmuo/+WvTScx1ojnqNdaxUvojTox1ogXqNdYwVpn4iAsMdaIl6jnll+5FzEY7cRYI+Rjr57zK17A4PwvxhLRhdOo55K/4ucxGlUxD9AS8Qr1HJ/xHEanHKO1RnzCs5iMqpiDIl6jfv0ynsHk6JhyRF/xU5CIN6gjlvAUNoZH+BN1xBPcwdsoETOoIxZRf6RtDPrxkIPvNiwxc+pa/IiNjChzDTdRb965gCfx0HADt1BHzOMJPHQM4DZKxAdM/m1tJ8g78w6P7V9lMpmItFp/AeHfxal8moBYAAAAAElFTkSuQmCC">
+                    <span class="tag" v-for="tag in blog.tags">
+                        <a v-bind:href="['/tags/'+ tag + '/']" target="_blank">{{ tag }}</a>
+                    </span>
+                </div>
+
+                <i class="block"></i>
+                <div class="corpus">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoklEQVRYR2NkGGDAOMD2M2BzQAIDA0M/AwODAJUc94GBgaGQgYFhATbzsDkApIGfSpbDjAGZKUisA/5DFVIrevCah82SUQeMhsBoCIyGwGgIjIbAaAiMhsBoCAyaEKByuxRrCxyrICwEBtwBhFrFxEYVzVrFNHMALTomH3H1tLAFswO0GyVPpUTwkIGBAdTdO0Bsz4hK9hJnDKGERpwpFKgCALWxOiH0B0d7AAAAAElFTkSuQmCC">
+                    <span>
+                        <a v-bind:href="['/corpus/'+ blog.corpus + '/']" target="_blank">{{ blog.corpus }}</a>
+                    </span>
+                </div>
+
+                <i class="block"></i>
+                <time>
+                    {{ blog.date }}
+                </time>
+            </aside>
+        </article>
+    </section>
+    <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
+</main>
+<footer>
+    <div style="margin:0 auto 10px">
+        <a href="https://github.com/AberSheeran" target="_blank">
+            <img src="https://png.icons8.com/ios/50/000000/github.png"/>
+        </a>
+    </div>
+    <p>Copyright&copy;2018</p>
+    <p>Designed by <a href="https://github.com/AberSheeran/maltose" target="_blank" style="text-decoration: underline;">AberSheeran</a></p>
+</footer>
+</body>
+<script type="text/javascript" src="/StaticFiles/jQuery.3.2.1.min.js"></script>
+<script src="/StaticFiles/Vue.2.5.13.js"></script>
+<script>
+    //请求锁, true时不再请求页面
+    var get_lock = false;
+    //请求结果Array, 用于vue渲染
+    var blogs = [];
+    //加载内容
+    $(window).ready(function(){
+        $.ajax({
+            type : "GET",
+            url : "index.json",
+            async : false,
+            success:function(datas){
+                for (var i=0; i<datas.length; i++){
+                    blogs.push(datas[i]);
+                }
+            }
+        });
+        $("section").css("display", "block");
+    });
+    //页面跳转
+    $(document).on("click", "title", function(){
+        window.open($(this).attr("href"));
+    });
+    //vue 渲染页面
+    new Vue({
+        el:"main",
+        data:{
+            "blogs":blogs
+        }
+    })
+</script>
+</html>
