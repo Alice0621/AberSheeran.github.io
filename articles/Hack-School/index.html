@@ -308,9 +308,10 @@ Filename: /ahnu/program/support/controllers/login.php Line Number: 217
 <ul>
 <li>学号 ==&gt; 查询密码 ==&gt; 对比</li>
 </ul>
-<p>可以大胆地猜测，MM字段就是对应密码。但教师和管理员都是 账号+加密后密码 进行Where查询。</p>
+<p>可以大胆地猜测，MM字段就是对应密码。<br>
+但教师和管理员都是 账号+加密后密码 进行Where查询。</p>
 <p>而通过Array报错不难看出，此处代码应是<code>$_POST[&quot;user&quot;]</code>直接引用，也就是说或许没有中间处理过！</p>
-<p>那么</p>
+<p>那么我们可以尝试直接构建SQL语句放入<code>$_POST[&quot;user&quot;]</code>进行注入!</p>
 </li>
 </ul>
 
