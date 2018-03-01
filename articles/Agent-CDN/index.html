@@ -220,7 +220,9 @@ code.language-yaml {
 }
 .markdown-preview.markdown-preview h1 {
   font-weight: 400;
-  text-align: center;
+}
+.markdown-preview.markdown-preview h2 {
+  border-bottom: 2px #ccc solid;
 }
 .markdown-preview.markdown-preview h2,
 .markdown-preview.markdown-preview h3,
@@ -230,7 +232,7 @@ code.language-yaml {
   font-weight: 300;
 }
 .markdown-preview.markdown-preview li {
-  margin: 5px 0;
+  margin: 8px 0;
 }
 .markdown-preview.markdown-preview .mermaid {
   text-align: center;
@@ -254,8 +256,10 @@ code.language-yaml {
 <summary>由于我使用的Markdown编辑器渲染到HTML之后默认使用的是Cloudflare的CDN，而我并不能提前知道它将使用的所有CDN链接，所以借助手头的海外服务器进行了一个代理。</summary>
 </div>
 <h1 class="mume-header" id="%E4%BB%A3%E7%90%86cdn%E7%BD%91%E7%AB%99">代理CDN网站</h1>
-<div id="detail" style="text-align:center;margin-bottom: 20px;">
-  /<a href="/corpus/编程杂记/">编程杂记</a>/2018-02-26/
+<div id="detail" style="margin-bottom: 20px;display:flex;flex-wrap: wrap;justify-content: flex-end;">
+  <span>/Corpus: <a style="color:#000000;" href="/corpus/编程杂记/">编程杂记</a></span>
+  <span>/Create: 2018-02-26</span>
+  <span>/Update: 2018-02-26</span>
 </div>
 
 <p>由于cdnjs.cloudflare.com因为众所周知的原因不能访问，所以我自己写了一个代理来访问它。</p>
