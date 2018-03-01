@@ -249,7 +249,7 @@ code.language-yaml {
       <div id="details" style="display:none;">
 <title>渗透教务系统</title>
 <date>2018-02-28</date>
-<update>2018-02-28</update>
+<update>2018-03-01</update>
 <tags>Hack,PHP,Nginx</tags>
 <corpus>校园时光</corpus>
 <permalink>Hack-School</permalink>
@@ -259,7 +259,7 @@ code.language-yaml {
 <div id="detail" style="margin-bottom: 20px;display:flex;flex-wrap: wrap;justify-content: flex-end;">
   <span>/Corpus: <a style="color:#000000;" href="/corpus/校园时光/">校园时光</a></span>
   <span>/Create: 2018-02-28</span>
-  <span>/Update: 2018-02-28</span>
+  <span>/Update: 2018-03-01</span>
 </div>
 
 <p>虽然<strong>未签订合约的渗透属于违法行为</strong>，但我暂时没有造成任何损害，也没有成功，所以大胆的放出渗透过程。五年后再来看这篇文章，或许又是一番感受。</p>
@@ -320,7 +320,15 @@ Filename: /ahnu/program/support/controllers/login.php Line Number: 217
 <p>也能看出教师和管理员都是 账号+加密后密码 进行Where查询。因为我可以知道密码明文和与之对应的加密后的结果，所以尝试了一波加密算法猜测，似乎不是常规的加密。所以也暂且记下不去管。</p>
 <p>而通过Array报错不难看出，此处代码应是<code>$_POST[&quot;user&quot;]</code>直接使用，也就是说或许没有中间处理过！</p>
 <p>那么我们可以尝试直接构建SQL语句放入<code>$_POST[&quot;user&quot;]</code>进行注入!然而经尝试，均失败。</p>
-<p>那么根据大佬给的帮助，现在知道了是CI框架，</p>
+<p>然后根据大佬给的帮助，知道了是CI框架，那么考虑从CI框架的漏洞尝试入侵，未果。</p>
+<blockquote>
+<p>to be continue...</p>
+</blockquote>
+<h2 class="mume-header" id="%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5">端口入侵</h2>
+
+<blockquote>
+<p>to be continue...</p>
+</blockquote>
 
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
@@ -354,6 +362,7 @@ this.page.identifier = location.pathname;
 <li><a href="#user-pass">user-pass</a></li>
 </ul>
 </li>
+<li><a href="#%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5">端口入侵</a></li>
 </ul>
 </li>
 </ul>
