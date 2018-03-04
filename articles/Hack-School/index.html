@@ -265,8 +265,7 @@ code.language-yaml {
 <p>虽然<strong>未签订合约的渗透属于违法行为</strong>，但我暂时没有造成任何损害，也没有成功，所以大胆的放出渗透过程。五年后再来看这篇文章，或许又是一番感受。</p>
 <h2 class="mume-header" id="%E7%8C%9C%E6%9E%84%E6%9E%B6">猜构架</h2>
 
-<p>根据常规使用反馈的头，可以知道是Nginx进行反向代理的。再通过下面的注入方法，可以获知程序语言是PHP。根据登陆页脚的版权申明可以看到是2013-2014年的网站。从端口扫描结果来看，数据库用的是Mysql，系统用的Linux。基本可以肯定是LNMP了。</p>
-<p>更：感谢某不知名大佬的帮助，从header的ci_Session看出这是CI框架。</p>
+<p>根据常规使用反馈的头，可以知道是Nginx进行反向代理的。再通过下面的注入方法，可以获知程序语言是PHP。根据登陆页脚的版权申明可以看到是2013-2014年的网站。从端口扫描结果来看，数据库用的是Mysql，系统用的Linux。基本可以肯定是LNMP了。但由于我不懂PHP，也就无从得知是什么框架。</p>
 <h2 class="mume-header" id="sql%E6%B3%A8%E5%85%A5">SQL注入</h2>
 
 <p>按照习惯，渗透首先看能不能注入。再想别的办法。</p>
@@ -291,7 +290,7 @@ cache<span class="token punctuation">.</span>post<span class="token punctuation"
 <p>把<code>usertype</code>变成 * 一试。发现反馈信息登陆成功，然而我满心欢喜拿这个Session访问首页的时候，还是没有权限的首页。改成其他，也是同样的&quot;登陆成功&quot;。</p>
 <h4 class="mume-header" id="user-pass">user-pass</h4>
 
-<p>然后尝试从CI框架的key漏洞注入，我把user[0], user[1]发过去之后，程序给了我一个503错误，从错误反馈我们可以看到如下代码</p>
+<p>然后尝试从PHP的exp表达式漏洞注入，这个漏洞的关键在于把一个str类型的key变成一个Array，其中第二个是要执行的SQL语句。当把user[0], user[1]发过去之后，程序给了我一个503错误，从错误反馈我们可以看到如下代码</p>
 <ul>
 <li>学生数据库：<pre class="language-bash">SELECT <span class="token string">"XM"</span>, <span class="token string">"XB"</span>, <span class="token string">"DQSZJ"</span>, <span class="token string">"CSRQ"</span>, <span class="token string">"RXRQ"</span>, <span class="token string">"ZYDM"</span>, <span class="token string">"ZYMC"</span>, <span class="token string">"XY"</span>, <span class="token string">"XZB"</span>, <span class="token string">"MM"</span>, <span class="token string">"ZYFX"</span>, <span class="token string">"XSLB"</span>, <span class="token string">"SFZH"</span>, <span class="token string">"SFZX"</span>
 FROM <span class="token string">"AHNU"</span><span class="token keyword">.</span><span class="token string">"XSJBXXB"</span>
@@ -329,6 +328,8 @@ where XN<span class="token operator">=</span><span class="token string">'Array'<
 Filename: /ahnu/program/support/controllers/query/cjquery.php
 Line Number: 56
 </pre>
+<p>更： 一位不知名的大佬告诉我这是CI框架。<br>
+那么谷歌一番之后发现CI框架唯一的SQL注入漏洞是key注入，然而从上可知key都是写死的。遂尝试学习CI框架，来挖洞。</p>
 <h2 class="mume-header" id="%E7%AB%AF%E5%8F%A3">端口</h2>
 
 <p>nmap一把梭，结果如下:</p>
