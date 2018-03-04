@@ -291,7 +291,7 @@ cache<span class="token punctuation">.</span>post<span class="token punctuation"
 <p>把<code>usertype</code>变成 * 一试。发现反馈信息登陆成功，然而我满心欢喜拿这个Session访问首页的时候，还是没有权限的首页。改成其他，也是同样的&quot;登陆成功&quot;。</p>
 <h4 class="mume-header" id="user-pass">user-pass</h4>
 
-<p>然后尝试从PHP的一个exp表达式漏洞注入，这个漏洞具体使用就是把一个普通的变量变成<code>Array</code>，如果后台使用了exp表达式，那么就能执行我们设计的SQL语句。然而我把user[0]，user[1]发过去之后，程序给了我一个503错误，从错误反馈我们可以看到如下代码</p>
+<p>然后尝试从CI框架的key漏洞注入，我把user[0], user[1]发过去之后，程序给了我一个503错误，从错误反馈我们可以看到如下代码</p>
 <ul>
 <li>学生数据库：<pre class="language-bash">SELECT <span class="token string">"XM"</span>, <span class="token string">"XB"</span>, <span class="token string">"DQSZJ"</span>, <span class="token string">"CSRQ"</span>, <span class="token string">"RXRQ"</span>, <span class="token string">"ZYDM"</span>, <span class="token string">"ZYMC"</span>, <span class="token string">"XY"</span>, <span class="token string">"XZB"</span>, <span class="token string">"MM"</span>, <span class="token string">"ZYFX"</span>, <span class="token string">"XSLB"</span>, <span class="token string">"SFZH"</span>, <span class="token string">"SFZX"</span>
 FROM <span class="token string">"AHNU"</span><span class="token keyword">.</span><span class="token string">"XSJBXXB"</span>
@@ -319,7 +319,7 @@ Filename: /ahnu/program/support/controllers/login.php Line Number: 217
 <p>学号 ==&gt; 查询密码 ==&gt; 对比</p>
 </blockquote>
 <p>可以大胆地猜测，MM字段就是对应密码。然而这目前没什么用，所以我们暂且记下不去管。</p>
-<p>也能看出教师和管理员都是 账号+加密后密码 进行Where查询。因为我可以知道密码明文和与之对应的加密后的结果，所以尝试了一波加密算法猜测，似乎不是常规的加密。所以也暂且记下不去管。</p>
+<p>也能看出教师和管理员都是 账号+加密后密码 进行Where查询。此时我可以知道密码明文和与之对应的加密后的结果，但没什么用，暂且记下不去管。</p>
 <h3 class="mume-header" id="%E5%85%B6%E4%BB%96%E9%A1%B5%E9%9D%A2">其他页面</h3>
 
 <p>然后登陆后的页面也有同样的Error，由于太多了，就不一一列举。同样的Array报错，譬如查询成绩的页面，可以爆出如下信息：(xxxxxxxx是我隐去的学号)</p>
