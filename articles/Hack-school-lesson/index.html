@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -267,7 +267,7 @@ code.language-yaml {
 <h2 class="mume-header" id="hacking">Hacking</h2>
 
 <p>我校教务系统很骚气，虽然是2014-2015年用LNMP开发的，但前后端分离。</p>
-<pre class="language-javascript">$<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+<pre data-role="codeBlock" data-info="javascript" class="language-javascript">$<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
     url<span class="token punctuation">:</span> <span class="token string">"http://jwgl.ahnu.edu.cn/login/check.shtml"</span><span class="token punctuation">,</span>
     type<span class="token punctuation">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span>
     dataType<span class="token punctuation">:</span> <span class="token string">"json"</span><span class="token punctuation">,</span>
@@ -282,17 +282,42 @@ code.language-yaml {
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
-</pre>
-<p>页面Js一找，一发<code>requests.session</code>登陆完成。</p>
-<p>因为之前使用爬虫爬过教务系统，发现它根本没有检测用户行为的设定。所以我直接解析学校选课页面的Js代码，在一堆前端验证+__<strong>拼音缩写</strong>__之中，我找到了选课的Js代码，太长就不贴了。</p>
-<p>页面内Js代码的思路如下：</p>
+</pre><p>页面Js一找，一发<code>requests.session</code>登陆完成。</p>
+<p>查看学校选课页面的Js代码，在一堆前端验证+<strong>拼音缩写</strong>之中找到了这个</p>
+<pre data-role="codeBlock" data-info="js" class="language-javascript"> <span class="token keyword">function</span> <span class="token function">save</span><span class="token punctuation">(</span>xkkh<span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+  $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span><span class="token string">'/xk/xxk/savexxk?action=ok'</span><span class="token punctuation">,</span>
+    dataType<span class="token punctuation">:</span><span class="token string">'json'</span><span class="token punctuation">,</span>
+    data<span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">'xkkh'</span><span class="token punctuation">:</span>xkkh<span class="token punctuation">}</span><span class="token punctuation">,</span>
+    type<span class="token punctuation">:</span><span class="token string">'POST'</span><span class="token punctuation">,</span>
+    success<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      location<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token keyword">function</span> <span class="token function">delxkkh</span><span class="token punctuation">(</span>xkkh<span class="token punctuation">)</span>
+ <span class="token punctuation">{</span>
+  $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span><span class="token string">'/xk/xxk/delxxk?action=ok'</span><span class="token punctuation">,</span>
+    dataType<span class="token punctuation">:</span><span class="token string">'json'</span><span class="token punctuation">,</span>
+    data<span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">'xkkh'</span><span class="token punctuation">:</span>xkkh<span class="token punctuation">}</span><span class="token punctuation">,</span>
+    type<span class="token punctuation">:</span><span class="token string">'POST'</span><span class="token punctuation">,</span>
+    success<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      location<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+</pre><p>页面内Js代码的思路如下：</p>
 <blockquote>
 <p>检查完课程的剩余量之后，将{&quot;xkkh&quot;: lesson_coding}这样的json信息发送到对应网址来选课。</p>
 </blockquote>
-<p>接下来是最骚的操作！</p>
-<p>由于选课没有开始，我并不能看到选课按钮会执行什么代码(没错，选课不开始，就没有选课按钮)。只好看着它几十个拼音缩写的变量来分析可能会怎么样。最后猜了一段代码出来。第二天一看，我的代码思路没问题，但lesson_coding不是显示在页面源码的coding，而是在页面源码的coding基础上，在代表学年学期的字符串上加一个括号！</p>
+<p>但由于选课没有开始，我并不能看到选课按钮会执行什么代码(没错，选课不开始，就没有选课按钮)。只好看着它几十个拼音缩写的变量来分析课程代码可能会怎么样。最后猜了一段代码出来。第二天一看，我的代码思路没问题，但lesson_coding不是显示在页面源码的coding，而是在页面源码的coding基础上，在代表学年学期的字符串上加一个括号！</p>
 <p>也就是说，通过审查元素你可能会看到这样的<code>2017-2018-1-07492110-0101224-1</code>。但你应该发到教务系统的应该是<code>(2017-2018-1)-07492110-0101224-1</code>。</p>
-<p>小小的修改之后，成功抢到了两门网课(当然是截胡了别人的交易)。抢课程序在<a href="https://github.com/AberSheeran/Myself/blob/master/MySchool/GetLessons/GetLessons.py">Github</a>上。</p>
+<p>小小的修改之后，成功抢到了两门网课(当然是截胡了别人的交易)。脚本见<a href="https://github.com/AberSheeran/Ahnu">Github</a></p>
 <p>最后......隔壁的欧皇凭运气一开局就抢到了两门网课！我***</p>
 
       

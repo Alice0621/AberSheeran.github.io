@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -262,22 +262,21 @@ code.language-yaml {
   <span>/Update: 2018-02-27</span>
 </div>
 
-<p>我校操蛋的教学评价，需要进行三位数的键盘和鼠标交替操作，还必须要填。写了一个脚本，此篇以作记录。如有校友看到，亦可在我的<a href="https://github.com/AberSheeran/Myself">Github</a>上找到代码，直接使用。</p>
+<p>我校操蛋的教学评价，需要进行三位数的键盘和鼠标交替操作，还必须要填。写了一个脚本，此篇以作记录。如有校友看到，亦可在我的<a href="https://github.com/AberSheeran/Ahnu">Github</a>上找到代码，直接使用。</p>
 <h2 class="mume-header" id="%E5%88%86%E6%9E%90%E9%A1%B5%E9%9D%A2">分析页面</h2>
 
 <p>在我爬取学校页面的时候就已经感觉到了，学校对用户行为没有丝毫的限制。也就是说，只需要登陆了，我们就可以嘿嘿嘿了。</p>
 <p>打开教学评价页面，依旧是学校用jQuery's ajax做的发送数据。(感觉开发教务系统的人，技能點也就权限控制高一些了)</p>
 <p>登陆之后，首先一发Bs4来获取所有教学评价页面。</p>
-<pre class="language-python"><span class="token keyword">def</span> <span class="token function">get_links</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">get_links</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">"""获取教学评价页面每一个link"""</span>
     result_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
     page <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>self<span class="token punctuation">.</span>get_page<span class="token punctuation">(</span><span class="token string">"http://jwgl.ahnu.edu.cn/jxpj/xsjxpj"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"html.parser"</span><span class="token punctuation">)</span>
     <span class="token keyword">for</span> each_tag <span class="token keyword">in</span> page<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         result_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">"http://jwgl.ahnu.edu.cn"</span> <span class="token operator">+</span> each_tag<span class="token punctuation">[</span><span class="token string">'href'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
     <span class="token keyword">return</span> result_list
-</pre>
-<p>然后每一个页面都按照给定的列表进行拼接数据。</p>
-<pre class="language-python"><span class="token keyword">def</span> <span class="token function">deal_teaching_evaluation_page</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> page_url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+</pre><p>然后每一个页面都按照给定的列表进行拼接数据。</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">deal_teaching_evaluation_page</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> page_url<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">"""处理单个教学评价页面"""</span>
     post_data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true"># 将发送的信息</span>
     page <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>self<span class="token punctuation">.</span>get_page<span class="token punctuation">(</span>page_url<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"html.parser"</span><span class="token punctuation">)</span>
@@ -294,11 +293,8 @@ code.language-yaml {
         headers<span class="token operator">=</span>self<span class="token punctuation">.</span>headers<span class="token punctuation">,</span>
         data<span class="token operator">=</span>post_data<span class="token punctuation">,</span>
     <span class="token punctuation">)</span>
-</pre>
-<p>打分部分我全部是按照它给定的最高值来取的，如果想给低一点，也可以先取到最大值<code>each_input[&quot;max&quot;]</code>，然后随机数什么的一发入魂。</p>
+</pre><p>打分部分我全部是按照它给定的最高值来取的，如果想给低一点，也可以先取到最大值<code>each_input[&quot;max&quot;]</code>，然后随机数什么的一发入魂。</p>
 <p>评语部分，随便写，反正SQL注入是不可能的。我校教务系统防御力异常的强，除了比较丑的页面，令人发指的并发处理和<strong>全是拼音首字母缩写的变量</strong>以外，基本没什么缺点了。</p>
-<hr>
-<p>登陆教务系统的方法可以看看<a href="https://github.com/AberSheeran/Myself/blob/master/MySchool/Base.py">这个</a>，也是我写的，很简单。</p>
 
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
