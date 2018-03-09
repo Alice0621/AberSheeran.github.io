@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -269,37 +273,32 @@ code.language-yaml {
 
 <p>对应的App目录下的<code>apps.py</code>文件里有Django自动生成的<code>AppNameConfig</code>类  (如果没有，说明这个App不是<code>manage.py startapp AppName</code>命令生成的)。<br>
 一般这个类里只有默认的一个属性<code>name</code>，我们自己增加两条属性</p>
-<pre class="language-python"><span class="token keyword">class</span> <span class="token class-name">AppNameConfig</span><span class="token punctuation">(</span>AppConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">class</span> <span class="token class-name">AppNameConfig</span><span class="token punctuation">(</span>AppConfig<span class="token punctuation">)</span><span class="token punctuation">:</span>
     name <span class="token operator">=</span> <span class="token string">'appname'</span>
     verbose_name <span class="token operator">=</span> u<span class="token string">"应用名称"</span>
     verbose_name_plural <span class="token operator">=</span> u<span class="token string">"应用名称"</span>
-</pre>
-<p>然后在对应的App目录下<code>__init__.py</code>文件里增加一条语句</p>
-<pre class="language-python">default_app_config <span class="token operator">=</span> <span class="token string">'AppName.apps.AppNameConfig'</span>
-</pre>
-<h2 class="mume-header" id="%E4%BF%AE%E6%94%B9model%E5%90%8D%E7%A7%B0">修改Model名称</h2>
+</pre><p>然后在对应的App目录下<code>__init__.py</code>文件里增加一条语句</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">default_app_config <span class="token operator">=</span> <span class="token string">'AppName.apps.AppNameConfig'</span>
+</pre><h2 class="mume-header" id="%E4%BF%AE%E6%94%B9model%E5%90%8D%E7%A7%B0">修改Model名称</h2>
 
 <p>在自己定义的model类里面增加<code>class Meta</code>然后重启服务器即可</p>
-<pre class="language-python"><span class="token keyword">class</span> <span class="token class-name">Example</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">class</span> <span class="token class-name">Example</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token comment" spellcheck="true"># other statements</span>
     <span class="token keyword">class</span> <span class="token class-name">Meta</span><span class="token punctuation">:</span>
         verbose_name <span class="token operator">=</span> u<span class="token string">"模块名称"</span>
         verbose_name_plural <span class="token operator">=</span> u<span class="token string">"模块名称"</span>
-</pre>
-<h2 class="mume-header" id="%E4%BF%AE%E6%94%B9model%E5%86%85%E5%AD%97%E6%AE%B5%E5%90%8D%E7%A7%B0">修改Model内字段名称</h2>
+</pre><h2 class="mume-header" id="%E4%BF%AE%E6%94%B9model%E5%86%85%E5%AD%97%E6%AE%B5%E5%90%8D%E7%A7%B0">修改Model内字段名称</h2>
 
 <p>这几乎是所有Django教程里都会提到的，定义时增加<code>verbose_name</code>参数即可</p>
-<pre class="language-python"><span class="token keyword">class</span> <span class="token class-name">Example</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">class</span> <span class="token class-name">Example</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
     Name <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>verbose_name<span class="token operator">=</span><span class="token string">"姓名"</span><span class="token punctuation">,</span> max_length<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">)</span>
-</pre>
-<h2 class="mume-header" id="%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84django%E6%A0%87%E9%A2%98">修改默认的Django标题</h2>
+</pre><h2 class="mume-header" id="%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84django%E6%A0%87%E9%A2%98">修改默认的Django标题</h2>
 
 <p>Django自带的后台页面左上角硕大的Django字样和页面标题，还有后台首页的标题都可以很容易的进行修改。只需要在任何一个导入了<code>django.admin</code>模块的文件(<a href="http://xn--urls-k84fr97g7xco3bv44gj4aq81g208al6w.py">我一般选择项目的总urls.py</a>)里写入</p>
-<pre class="language-python">admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>site_header <span class="token operator">=</span> <span class="token string">'我在左上角'</span>
+<pre data-role="codeBlock" data-info="python" class="language-python">admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>site_header <span class="token operator">=</span> <span class="token string">'我在左上角'</span>
 admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>site_title <span class="token operator">=</span> <span class="token string">'我在浏览器标签'</span>
 admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>index_title <span class="token operator">=</span> <span class="token string">'我在后台首页'</span>
-</pre>
-<hr>
+</pre><hr>
 <p>挖个坑，等suitV2文档写好，准备写一篇使用suitV2来美化后台的。</p>
 
       

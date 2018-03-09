@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -279,14 +283,12 @@ code.language-yaml {
 <p>传统上，网页都是调用本地的字体库来显示页面字体，但是现在设备那么多种，虽然大佬们研究出了一套安全字体<sup>(1)</sup>的列表，但事实上，效果并不好。</p>
 <p>此时谷歌推出的在线字体库就显得十分有用了。对于繁体汉字，在我写下这篇文章的时候，已经有五种字体可供使用，其中我最喜欢的一种可以在我的<a href="about.html">about</a>看到。<br>
 而简体汉字只有仅有的两种</p>
-<pre class="language-css"><span class="token atrule"><span class="token rule">@import</span> <span class="token url">url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css)</span><span class="token punctuation">;</span></span>
+<pre data-role="codeBlock" data-info="css" class="language-css"><span class="token atrule"><span class="token rule">@import</span> <span class="token url">url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css)</span><span class="token punctuation">;</span></span>
 <span class="token atrule"><span class="token rule">@import</span> <span class="token url">url(https://fonts.googleapis.com/earlyaccess/notosanssc.css)</span><span class="token punctuation">;</span></span>
-</pre>
-<p>分别对应着</p>
-<pre class="language-css"><span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Noto Sans SC Sliced'</span>, sans-serif<span class="token punctuation">;</span>
+</pre><p>分别对应着</p>
+<pre data-role="codeBlock" data-info="css" class="language-css"><span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Noto Sans SC Sliced'</span>, sans-serif<span class="token punctuation">;</span>
 <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Noto Sans SC'</span>, sans-serif<span class="token punctuation">;</span>
-</pre>
-<p>至于拉丁世界的字体那就太多了，毕竟也就几十个字符的事情。</p>
+</pre><p>至于拉丁世界的字体那就太多了，毕竟也就几十个字符的事情。</p>
 <p>插一句，字体大小也是十分重要的，我的建议是在body中使用px单位设定好一个基础字体大小，然后其他标签里都使用em，这样在下面使用媒体查询时，只需要修改body的字体大小就可以轻松对不同大小设备做字体大小适配。</p>
 <h2 class="mume-header" id="%E7%BC%96%E5%86%99">编写</h2>
 
@@ -295,27 +297,22 @@ code.language-yaml {
 <h3 class="mume-header" id="%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2">媒体查询</h3>
 
 <p>例如下例，它的含义就是在屏幕宽度不小于1300px时使用其中的CSS。</p>
-<pre class="language-css">&lt;style>
+<pre data-role="codeBlock" data-info="css" class="language-css">&lt;style>
 <span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 1300px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
     <span class="token selector">article</span><span class="token punctuation">{</span>
         <span class="token property">margin</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 &lt;/style>
-</pre>
-<p>或者<code>@media (max-width: 900px) {}</code>，来设定屏幕宽度不大于900px的行为。</p>
+</pre><p>或者<code>@media (max-width: 900px) {}</code>，来设定屏幕宽度不大于900px的行为。</p>
 <p>你也可以在link中使用，来决定使用哪一套css。</p>
-<pre class="language-css">&lt;link rel=<span class="token string">"stylesheet"</span> media=<span class="token string">"(max-width: 800px)"</span> href=<span class="token string">"example.css"</span> />
-</pre>
-<p>媒体查询还有逻辑运算等等，可以在<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries">MDN</a>上看到更多使用方法。</p>
+<pre data-role="codeBlock" data-info="css" class="language-css">&lt;link rel=<span class="token string">"stylesheet"</span> media=<span class="token string">"(max-width: 800px)"</span> href=<span class="token string">"example.css"</span> />
+</pre><p>媒体查询还有逻辑运算等等，可以在<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries">MDN</a>上看到更多使用方法。</p>
 <h3 class="mume-header" id="flex%E5%B8%83%E5%B1%80">Flex布局</h3>
 
-<p>首先让我们看看MDN上对此的描述</p>
-<blockquote>
-<p>CSS3 弹性盒子(Flexible Box 或 Flexbox)，是一种用于在页面上布置元素的布局模式，使得当页面布局必须适应不同的屏幕尺寸和不同的显示设备时，元素可预测地运行。对于许多应用程序，弹性盒子模型提供了对块模型的改进，因为它不使用浮动，flex容器的边缘也不会与其内容的边缘折叠。<br>
-在定义方面来说，弹性布局是指通过调整其内元素的宽高，从而在任何显示设备上实现对可用显示空间最佳填充的能力。弹性容器扩展其内元素来填充可用空间，或将其收缩来避免溢出。<br>
-块级布局更侧重于垂直方向、行内布局更侧重于水平方向，与此相对的，弹性盒子布局算法是方向无关的。虽然块级布局对于单独一个页面来说是行之有效的，但其仍缺乏足够的定义来支持那些必须随用户代理(user agent)不同或设备方向从水平转为垂直等各种变化而变换方向、调整大小、拉伸、收缩的应用程序组件。 弹性盒子布局主要适用于应用程序的组件及小规模的布局，而（新兴的）栅格布局则针对大规模的布局。这二者都是 CSS 工作组为在不同用户代理、不同书写模式和其他灵活性要求下的网页应用程序有更好的互操作性而做出的更广泛的努力的一部分。</p>
-</blockquote>
+<p>CSS3 弹性盒子(Flexible Box 或 Flexbox)，是一种用于在页面上布置元素的布局模式，使得当页面布局必须适应不同的屏幕尺寸和不同的显示设备时，元素可预测地运行。对于许多应用程序，弹性盒子模型提供了对块模型的改进，因为它不使用浮动，flex容器的边缘也不会与其内容的边缘折叠。</p>
+<p>在定义方面来说，弹性布局是指通过调整其内元素的宽高，从而在任何显示设备上实现对可用显示空间最佳填充的能力。弹性容器扩展其内元素来填充可用空间，或将其收缩来避免溢出。</p>
+<p>块级布局更侧重于垂直方向、行内布局更侧重于水平方向，与此相对的，弹性盒子布局算法是方向无关的。虽然块级布局对于单独一个页面来说是行之有效的，但其仍缺乏足够的定义来支持那些必须随用户代理(user agent)不同或设备方向从水平转为垂直等各种变化而变换方向、调整大小、拉伸、收缩的应用程序组件。 弹性盒子布局主要适用于应用程序的组件及小规模的布局，而（新兴的）栅格布局则针对大规模的布局。这二者都是 CSS 工作组为在不同用户代理、不同书写模式和其他灵活性要求下的网页应用程序有更好的互操作性而做出的更广泛的努力的一部分。</p>
 <p>Flex布局以轴为主线，分主轴和侧轴，有时候也会叫竖轴和横轴(横竖嘛🙂)。</p>
 <p><img src="https://mdn.mozillademos.org/files/12998/flexbox.png" alt="Flex&#x5E03;&#x5C40;"></p>
 <p>通过定义<code>display: flex</code>或者<code>display: inline-flex</code>来使用。</p>

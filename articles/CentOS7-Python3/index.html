@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -265,7 +269,7 @@ code.language-yaml {
 <h2 class="mume-header" id="%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85python3">编译安装Python3</h2>
 
 <p>值得注意的是，使用以下步骤能在最新版的CentOS桌面版安装成功Python3。但是当我使用以下步骤在云服务器上时，失败了。</p>
-<pre class="language-bash">yum <span class="token function">install</span> yum-utils
+<pre data-role="codeBlock" data-info="bash" class="language-bash">yum <span class="token function">install</span> yum-utils
 <span class="token comment" spellcheck="true">#安装编译python的编译环境以及依赖包</span>
 yum-builddep python
 <span class="token comment" spellcheck="true">#如果下载太慢，可以换国内镜像</span>
@@ -276,16 +280,14 @@ yum-builddep python
 ./configure
 <span class="token function">make</span>
 <span class="token function">make</span> <span class="token function">install</span>
-</pre>
-<p>使用时只需要打出<code>python3</code>和<code>pip3</code>即可。</p>
+</pre><p>使用时只需要打出<code>python3</code>和<code>pip3</code>即可。</p>
 <h2 class="mume-header" id="%E4%BD%BF%E7%94%A8yum%E5%AE%89%E8%A3%85python3">使用yum安装Python3</h2>
 
 <p>经过测试，在腾讯云的CentOS7服务器上使用这种方法可以直接安装Python3</p>
-<pre class="language-bash">yum -y update
+<pre data-role="codeBlock" data-info="bash" class="language-bash">yum -y update
 yum <span class="token function">install</span> -y https://centos7.iuscommunity.org/ius-release.rpm
 yum <span class="token function">install</span> -y python35u python35u-libs python35u-devel python35u-pip
-</pre>
-<p>使用也很简单，打出命令<code>python3.5</code>或者<code>pip3.5</code>即可。<br>
+</pre><p>使用也很简单，打出命令<code>python3.5</code>或者<code>pip3.5</code>即可。<br>
 如果需要其他版本，譬如3.4，只需要把以上命令中的所有的35改成34即可。</p>
 
       

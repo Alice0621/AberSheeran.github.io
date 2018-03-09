@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -270,14 +274,13 @@ code.language-yaml {
 <p>下载之后，用pip命令安装，可以在python的安装目录下找到\lib\site-packages\mod_wsgi\server\mod_wsgi.cp35-win_amd64.pyd。</p>
 <p>注意到安装的这个版本的mod_wsgi的是指定ap24vc14，于是我们到<a href="https://www.apachelounge.com/download/VC14/">Apache官网</a>找找到对应的版本，下载解压。<br>
 找到httpd.conf文件，加入</p>
-<pre class="language-">LoadModule wsgi_module &quot;path\to\python\lib\site-packages\mod_wsgi\server\mod_wsgi.cp35-win_amd64.pyd&quot;
-</pre>
-<p>这将使Apache能使用该模块。</p>
+<pre data-role="codeBlock" data-info="" class="language-"><code>LoadModule wsgi_module &quot;path\to\python\lib\site-packages\mod_wsgi\server\mod_wsgi.cp35-win_amd64.pyd&quot;
+</code></pre><p>这将使Apache能使用该模块。</p>
 <h2 class="mume-header" id="%E5%8D%95%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE">单站点配置</h2>
 
 <p>将项目文件拷贝到服务器后，需要运行命令<code>python manage.py collectstatic</code>，这将把项目需要的静态文件拷贝到在项目setting.py中设置的STATIC_ROOT的目录中，包括django自带的admin的静态文件。<br>
 然后在httpd.conf文件中需要添加以下代码</p>
-<pre class="language-">WSGIPythonHome /path/to/python
+<pre data-role="codeBlock" data-info="" class="language-"><code>WSGIPythonHome /path/to/python
 WSGIPythonPath /path/to/DjangoProject
 
 WSGIScriptAlias / /path/to/DjangoProject/ProjectName/wsgi.py
@@ -299,8 +302,7 @@ Alias /media/ /path/to/DjangoProject/media/
 &lt;Directory /path/to/DjangoProject/media&gt;
     Require all granted
 &lt;/Directory&gt;
-</pre>
-<p>接下来运行Apache目录下bin中httpd.exe文件，单个项目的部署就结束了。</p>
+</code></pre><p>接下来运行Apache目录下bin中httpd.exe文件，单个项目的部署就结束了。</p>
 <h2 class="mume-header" id="%E5%A4%9A%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE">多站点配置</h2>
 
 <p>对于多个Django项目部署，我们可以从单个项目出发。</p>
@@ -308,10 +310,9 @@ Alias /media/ /path/to/DjangoProject/media/
 <p>而<code>WSGIPythonPath /path/to/DjangoProject</code>决定了Apache部署的Django项目目录。</p>
 <p>很容易知道我们只需要增加<code>WSGIPythonPath</code>的值，用分号隔开。<br>
 如同这样</p>
-<pre class="language-">WSGIPythonPath /path/to/DjangoProject_0;/path/to/DjangoProject_1;
-</pre>
-<p>再将原本写在httpd.conf文件的配置删去。在extra/httpd-vhosts.conf文件中添加需要添加的站点。需要在httpd.conf中增加一行<code>Include conf/extra/httpd-vhosts.conf</code>以引用该文件。</p>
-<pre class="language-">&lt;VirtualHost *:80&gt;
+<pre data-role="codeBlock" data-info="" class="language-"><code>WSGIPythonPath /path/to/DjangoProject_0;/path/to/DjangoProject_1;
+</code></pre><p>再将原本写在httpd.conf文件的配置删去。在extra/httpd-vhosts.conf文件中添加需要添加的站点。需要在httpd.conf中增加一行<code>Include conf/extra/httpd-vhosts.conf</code>以引用该文件。</p>
+<pre data-role="codeBlock" data-info="" class="language-"><code>&lt;VirtualHost *:80&gt;
     DocumentRoot &quot;path/to/project&quot;
     ServerName domain
     ServerAlias domain
@@ -325,8 +326,7 @@ Alias /media/ /path/to/DjangoProject/media/
         &lt;/Files&gt;
     &lt;/Directory&gt;
 &lt;/VirtualHost&gt;
-</pre>
-<p>以上是基本配置，静态文件或其他文件的配置如同单项目配置一样。</p>
+</code></pre><p>以上是基本配置，静态文件或其他文件的配置如同单项目配置一样。</p>
 
       
 <div id="disqus_thread" style="margin-top:100px;"></div>

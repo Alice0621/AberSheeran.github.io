@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/mermaid/7.0.0/mermaid.min.css">
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -273,8 +277,7 @@ code.language-yaml {
         opt response
             Server->>Client: HTTP/1.1 200 OK ...
         end
-</div>
-<p>客户端的请求由三部分组成，</p>
+</div><p>客户端的请求由三部分组成，</p>
 <ol>
 <li>
 <p>请求行：类似于<code>GET / HTTP/1.1</code></p>
@@ -316,14 +319,12 @@ code.language-yaml {
 
 <p>理论我们已经知道了，响应与请求都是通过Socket发送，那么它们实际上是什么格式呢？</p>
 <p>Request：</p>
-<pre class="language-python">GET <span class="token operator">/</span>about<span class="token punctuation">.</span>html HTTP<span class="token operator">/</span><span class="token number">1.1</span>\r\nHost<span class="token punctuation">:</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span>\r\n<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-</pre>
-<p>可以注意到每一“行”都由<code>\r\n</code>隔开，由于此处为GET请求，所以没有Body。事实上请求体和请求头中间需要两个<code>\r\n</code>隔开。</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">GET <span class="token operator">/</span>about<span class="token punctuation">.</span>html HTTP<span class="token operator">/</span><span class="token number">1.1</span>\r\nHost<span class="token punctuation">:</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span>\r\n<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</pre><p>可以注意到每一“行”都由<code>\r\n</code>隔开，由于此处为GET请求，所以没有Body。事实上请求体和请求头中间需要两个<code>\r\n</code>隔开。</p>
 <p>同样的<br>
 Response：</p>
-<pre class="language-python">HTTP<span class="token operator">/</span><span class="token number">1.1</span> <span class="token number">200</span> OK\r\nServer<span class="token punctuation">:</span>Preview Server\r\n\r\n<span class="token operator">&lt;</span>!DOCTYPE HTML<span class="token operator">></span><span class="token operator">&lt;</span>html<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
-</pre>
-<p>响应体与响应头之间也该由两个<code>\r\n</code>隔开。</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">HTTP<span class="token operator">/</span><span class="token number">1.1</span> <span class="token number">200</span> OK\r\nServer<span class="token punctuation">:</span>Preview Server\r\n\r\n<span class="token operator">&lt;</span>!DOCTYPE HTML<span class="token operator">></span><span class="token operator">&lt;</span>html<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">></span>
+</pre><p>响应体与响应头之间也该由两个<code>\r\n</code>隔开。</p>
 <p>编写一个服务器，哪怕是简易的，我们都应该使用函数来处理它们，这有助于代码的可读性。</p>
 <p>作为习惯，我们一般把请求头和响应头作为一个Dict来处理。</p>
 <p>使用Python处理起来很简单，只需要先编码为UTF-8(因为Socket传输的都是bytes)，然后调用str的函数<code>splitlines</code>——这个函数的作用就是按分隔符来切割字符串，刚好符合我们的需求！</p>
@@ -333,7 +334,7 @@ Response：</p>
 由于一开始就是冲着模拟Github Page去的，所以支持Content-Type是必需的。HTTP协议判断响应内容的类型就是凭借这个在响应头的值，如果没有这个值，那么使用ajax可能会出现问题。在Jquery中，如果ajax的响应内容的Content-Type是json，那么它会自动解析。如果没有这个值，它就会把响应内容作为一个字符串来使用。</li>
 </ul>
 <p>最后上一个我写的代码作为参考</p>
-<pre class="language-python"><span class="token keyword">import</span> socket
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">import</span> socket
 <span class="token keyword">import</span> os<span class="token punctuation">.</span>path
 <span class="token keyword">import</span> threading
 <span class="token keyword">from</span> multiprocessing <span class="token keyword">import</span> Process
@@ -459,7 +460,6 @@ logging<span class="token punctuation">.</span>basicConfig<span class="token pun
     server <span class="token operator">=</span> Main<span class="token punctuation">(</span><span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">,</span> <span class="token string">"D:/Documents"</span><span class="token punctuation">)</span>
     server<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </pre>
-
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
 <script>

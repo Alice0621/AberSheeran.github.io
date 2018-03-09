@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -267,35 +271,30 @@ code.language-yaml {
 
 <p>按例，<code>pip install django-background-tasks</code>来安装。</p>
 <p>然后加入INSTALLED_APPS：</p>
-<pre class="language-python">INSTALLED_APPS <span class="token operator">=</span> <span class="token punctuation">(</span>
+<pre data-role="codeBlock" data-info="python" class="language-python">INSTALLED_APPS <span class="token operator">=</span> <span class="token punctuation">(</span>
     <span class="token comment" spellcheck="true"># ...</span>
     <span class="token string">'background_task'</span><span class="token punctuation">,</span>
     <span class="token comment" spellcheck="true"># ...</span>
 <span class="token punctuation">)</span>
-</pre>
-<p>创建对应的数据库</p>
-<pre class="language-python">python manage<span class="token punctuation">.</span>py makemigrations background_task
+</pre><p>创建对应的数据库</p>
+<pre data-role="codeBlock" data-info="python" class="language-python">python manage<span class="token punctuation">.</span>py makemigrations background_task
 python manage<span class="token punctuation">.</span>py migrate
-</pre>
-<p>接下来就可以使用了，例如我有一个函数需要在被激活之后60秒才运行</p>
-<pre class="language-python"><span class="token keyword">from</span> background_task <span class="token keyword">import</span> background
+</pre><p>接下来就可以使用了，例如我有一个函数需要在被激活之后60秒才运行</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> background_task <span class="token keyword">import</span> background
 
 @background<span class="token punctuation">(</span>schedule<span class="token operator">=</span><span class="token number">60</span><span class="token punctuation">)</span>
 <span class="token keyword">def</span> <span class="token function">task</span><span class="token punctuation">(</span>user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
     do<span class="token punctuation">.</span>somethings
-</pre>
-<p>这样定义<code>task</code>，在我们使用的时候，直接调用它就行了。调用这个函数，不会被马上执行，并且会被加入background_task对应的数据库里，我们可以在Django后台看到任务完成情况，并且进行管理。</p>
+</pre><p>这样定义<code>task</code>，在我们使用的时候，直接调用它就行了。调用这个函数，不会被马上执行，并且会被加入background_task对应的数据库里，我们可以在Django后台看到任务完成情况，并且进行管理。</p>
 <p>最后，我们需要另开一个进程来运行这些定时任务</p>
-<pre class="language-">python manage.py process_tasks
-</pre>
-<p>如果想后台运行此进程，<code>nohup python manage.py process_tasks &gt; tasks.log &amp;</code>即可。运行的错误日志会被保存到<code>tasks.log</code>中。</p>
+<pre data-role="codeBlock" data-info="" class="language-"><code>python manage.py process_tasks
+</code></pre><p>如果想后台运行此进程，<code>nohup python manage.py process_tasks &gt; tasks.log &amp;</code>即可。运行的错误日志会被保存到<code>tasks.log</code>中。</p>
 <ul>
 <li>
 <p>如果需要函数被激活之后，每隔一段时间就运行一次，只需要在调用时加上一个关键字参数<code>repeat</code>即可</p>
-<pre class="language-python"><span class="token comment" spellcheck="true"># some statements</span>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token comment" spellcheck="true"># some statements</span>
 task<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> repeat<span class="token operator">=</span><span class="token number">60</span><span class="token operator">*</span><span class="token number">60</span><span class="token operator">*</span><span class="token number">6</span><span class="token punctuation">)</span>
-</pre>
-<p>例如此处，函数被激活之后，每隔60*60*6秒就运行一次。</p>
+</pre><p>例如此处，函数被激活之后，每隔60*60*6秒就运行一次。</p>
 </li>
 </ul>
 

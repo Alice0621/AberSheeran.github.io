@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
       
       
       
@@ -241,6 +241,10 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
  
       </style>
     </head>
@@ -267,7 +271,7 @@ code.language-yaml {
 
 <p>由于没找到能直接用的标准库，所以选择用了这个简单易用的第三方库。</p>
 <p>调用它很简单，官方给的例子如下</p>
-<pre class="language-python"><span class="token keyword">import</span> sys
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">import</span> sys
 <span class="token keyword">import</span> time
 <span class="token keyword">import</span> logging
 <span class="token keyword">from</span> watchdog<span class="token punctuation">.</span>observers <span class="token keyword">import</span> Observer
@@ -288,8 +292,7 @@ code.language-yaml {
     <span class="token keyword">except</span> KeyboardInterrupt<span class="token punctuation">:</span>
         observer<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
     observer<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</pre>
-<p>忽略掉其他细枝末节，关键在<code>observer.schedule(event_handler, path, recursive=True)</code>这一行，它的含义是</p>
+</pre><p>忽略掉其他细枝末节，关键在<code>observer.schedule(event_handler, path, recursive=True)</code>这一行，它的含义是</p>
 <blockquote>
 <p>在path这个路径下触发更改事件时，将事件传递给event_handler进行处理。</p>
 </blockquote>
@@ -322,7 +325,7 @@ code.language-yaml {
 </li>
 </ul>
 <p>建立如下的子类</p>
-<pre class="language-python"><span class="token keyword">from</span> watchdog<span class="token punctuation">.</span>events <span class="token keyword">import</span> FileSystemEventHandler
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> watchdog<span class="token punctuation">.</span>events <span class="token keyword">import</span> FileSystemEventHandler
 
 <span class="token keyword">class</span> <span class="token class-name">MonitorFileEventHandler</span><span class="token punctuation">(</span>FileSystemEventHandler<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
@@ -337,8 +340,7 @@ code.language-yaml {
         <span class="token keyword">if</span> file<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"html"</span><span class="token punctuation">:</span>
             logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Delete article {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>file<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
             delete_blog<span class="token punctuation">(</span>file<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</pre>
-<p>这个类只对更改和删除做出反应。你当然可以自己复写如上方法来做自己想做的事情。</p>
+</pre><p>这个类只对更改和删除做出反应。你当然可以自己复写如上方法来做自己想做的事情。</p>
 <p>event有如下的属性：</p>
 <ul>
 <li>
@@ -360,7 +362,7 @@ code.language-yaml {
 </ul>
 <p>你可以在复写的方法里使用它们来做到一些有趣的事情。</p>
 <p>然后我又编写了一个类来调用这个事件类</p>
-<pre class="language-python"><span class="token keyword">from</span> watchdog<span class="token punctuation">.</span>observers <span class="token keyword">import</span> Observer
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> watchdog<span class="token punctuation">.</span>observers <span class="token keyword">import</span> Observer
 
 <span class="token keyword">class</span> <span class="token class-name">MonitorFile</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -371,17 +373,15 @@ code.language-yaml {
     <span class="token keyword">def</span> <span class="token function">__del__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
         self<span class="token punctuation">.</span>observer<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>observer<span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</pre>
-<p>接下来只需要实例化一下这个类，然后保持自身不被kill就OK了。</p>
+</pre><p>接下来只需要实例化一下这个类，然后保持自身不被kill就OK了。</p>
 <p>类似于这样</p>
-<pre class="language-python">main <span class="token operator">=</span> MonitorFile<span class="token punctuation">(</span><span class="token string">"D:/"</span><span class="token punctuation">)</span>
+<pre data-role="codeBlock" data-info="python" class="language-python">main <span class="token operator">=</span> MonitorFile<span class="token punctuation">(</span><span class="token string">"D:/"</span><span class="token punctuation">)</span>
 <span class="token keyword">try</span><span class="token punctuation">:</span>
     <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
         time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
 <span class="token keyword">except</span> KeyboardInterrupt<span class="token punctuation">:</span>
     <span class="token keyword">pass</span>
-</pre>
-<p>也欢迎去我的轮子<a href="https://github.com/AberSheeran/maltose/blob/master/preview.py">maltose</a>里看Watchdog的使用</p>
+</pre><p>也欢迎去我的轮子<a href="https://github.com/AberSheeran/maltose/blob/master/preview.py">maltose</a>里看Watchdog的使用</p>
 
       
 <div id="disqus_thread" style="margin-top:100px;"></div>

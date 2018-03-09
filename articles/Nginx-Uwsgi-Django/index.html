@@ -4,19 +4,19 @@
       <title>Uwsgi部署Django</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.8.3/katex.min.css">
-
-
-
-
-
-
-
-
-
-
-      <style>
+      <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
 /**
  * prism.js Github theme based on GitHub's theme.
@@ -210,7 +210,7 @@ code.language-yaml {
 /* Please visit the URL below for more information: */
 /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
 .markdown-preview.markdown-preview {
-
+  
   font-family: 'Noto Sans SC Sliced', sans-serif;
   font-weight: 100;
   font-size: 20px;
@@ -241,7 +241,11 @@ code.language-yaml {
   margin: 0 auto;
   display: block;
 }
-
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
+ 
       </style>
     </head>
     <body for="html-export">
@@ -264,14 +268,13 @@ code.language-yaml {
 
 <h2 class="mume-header" id="%E4%B8%8B%E8%BD%BDnginxuwsgi-mysql">下载Nginx，uwsgi, Mysql</h2>
 
-<p>我用的是CentOS7和Python3.5，所以如下（安装新版Python参照我另一篇<a href="/articles/Centos7-Python3/">博客</a></p>
-<pre class="language-bash">yum <span class="token function">install</span> -y nginx mariadb mariadb-devel mariadb-server
+<p>我用的是CentOS7和Python3.5，所以如下（安装新版Python参照我另一篇<a href="articles\Centos7-Python3">博客</a></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">yum <span class="token function">install</span> -y nginx mariadb mariadb-devel mariadb-server
 pip3.5 <span class="token function">install</span> uwsgi
-</pre>
-<h3 class="mume-header" id="%E7%BC%96%E5%86%99uwsginginx-mysql%E9%85%8D%E7%BD%AE">编写uwsgi，nginx, mysql配置</h3>
+</pre><h3 class="mume-header" id="%E7%BC%96%E5%86%99uwsginginx-mysql%E9%85%8D%E7%BD%AE">编写uwsgi，nginx, mysql配置</h3>
 
 <p>按照<a href="http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/">官方文档</a>的说法，我写了如下配置，保存在项目根目录下的uwsgi.ini中</p>
-<pre class="language-ini"><span class="token selector">[uwsgi]</span>
+<pre data-role="codeBlock" data-info="ini" class="language-ini"><span class="token selector">[uwsgi]</span>
 <span class="token constant">socket</span> <span class="token attr-value"><span class="token punctuation">=</span> /website/proxy/DOCUMENTS/uwsgi.sock</span>
 <span class="token constant">chmod-socket</span> <span class="token attr-value"><span class="token punctuation">=</span> 777</span>
 <span class="token constant">processes</span> <span class="token attr-value"><span class="token punctuation">=</span> 4</span>
@@ -281,9 +284,8 @@ pip3.5 <span class="token function">install</span> uwsgi
 <span class="token constant">wsgi-file</span> <span class="token attr-value"><span class="token punctuation">=</span> proxy/wsgi.py</span>
 <span class="token constant">daemonize</span> <span class="token attr-value"><span class="token punctuation">=</span> DOCUMENTS/uwsgi.log</span>
 <span class="token constant">pidfile</span> <span class="token attr-value"><span class="token punctuation">=</span> DOCUMENTS/proxy-master.pid</span>
-</pre>
-<p>然后nginx中这样写</p>
-<pre class="language-conf">upstream django {
+</pre><p>然后nginx中这样写</p>
+<pre data-role="codeBlock" data-info="conf" class="language-conf"><code>upstream django {
     server unix://website/proxy/DOCUMENTS/uwsgi.sock;
 }
 server {
@@ -297,12 +299,11 @@ server {
         alias /website/proxy/static/;
     }
 }
-</pre>
-<p>uwsgi_pass的值和uwsgi.ini配置中socket的值必须一致。</p>
+</code></pre><p>uwsgi_pass的值和uwsgi.ini配置中socket的值必须一致。</p>
 <h4 class="mume-header" id="%E9%85%8D%E7%BD%AEmysql">配置mysql</h4>
 
 <p>在<code>/etc/my.cnf</code>加入以下代码以配置默认编码为UTF8</p>
-<pre class="language-ini"><span class="token selector">[client]</span>
+<pre data-role="codeBlock" data-info="ini" class="language-ini"><span class="token selector">[client]</span>
 <span class="token constant">default-character-set</span><span class="token attr-value"><span class="token punctuation">=</span>utf8</span>
 
 <span class="token selector">[mysql]</span>
@@ -314,18 +315,16 @@ server {
 <span class="token constant">character-set-server</span><span class="token attr-value"><span class="token punctuation">=</span>utf8</span>
 <span class="token constant">collation-server</span><span class="token attr-value"><span class="token punctuation">=</span>utf8_unicode_ci</span>
 skip-character-set-client-handshake
-</pre>
-<p>接下来三条命令</p>
-<pre class="language-bash"><span class="token comment" spellcheck="true"># start mariadb</span>
+</pre><p>接下来三条命令</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment" spellcheck="true"># start mariadb</span>
 <span class="token function">sudo</span> systemctl start mariadb
 <span class="token comment" spellcheck="true"># Harden MySQL Server</span>
 <span class="token function">sudo</span> mysql_secure_installation
 <span class="token function">sudo</span> systemctl <span class="token function">enable</span> mariadb
-</pre>
-<h4 class="mume-header" id="nginx%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">nginx开机自启动</h4>
+</pre><h4 class="mume-header" id="nginx%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">nginx开机自启动</h4>
 
 <p>使用<code>vi /etc/init.d/nginx</code>写入如下代码</p>
-<pre class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token shebang important">#!/bin/bash</span>
 <span class="token comment" spellcheck="true"># chkconfig: - 85 15</span>
 nginx<span class="token operator">=</span>/usr/sbin/nginx
 conf<span class="token operator">=</span>/etc/nginx/nginx.conf
@@ -367,16 +366,14 @@ conf<span class="token operator">=</span>/etc/nginx/nginx.conf
     <span class="token punctuation">;</span><span class="token punctuation">;</span>
 
 esac
-</pre>
-<p>然后使用三条命令：</p>
-<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> +x /etc/init.d/nginx
+</pre><p>然后使用三条命令：</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> +x /etc/init.d/nginx
 <span class="token function">sudo</span> <span class="token function">chkconfig</span> --add nginx
 <span class="token function">sudo</span> <span class="token function">chkconfig</span> nginx on
-</pre>
-<h4 class="mume-header" id="uwsgi%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">uwsgi开机自启动</h4>
+</pre><h4 class="mume-header" id="uwsgi%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">uwsgi开机自启动</h4>
 
 <p>同理，使用<code>vi /etc/nginx/uwsgi</code>写入</p>
-<pre class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token shebang important">#!/bin/bash</span>
 <span class="token comment" spellcheck="true"># chkconfig: - 85 15</span>
 uwsgi<span class="token operator">=</span>/usr/local/bin/uwsgi
 path<span class="token operator">=</span>/path/to/djangoproject/
@@ -406,13 +403,11 @@ pid<span class="token operator">=</span>ProjectName-master.pid
     <span class="token punctuation">;</span><span class="token punctuation">;</span>
 
 esac
-</pre>
-<p>然后使用三条命令：</p>
-<pre class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> +x /etc/init.d/uwsgi
+</pre><p>然后使用三条命令：</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">sudo</span> <span class="token function">chmod</span> +x /etc/init.d/uwsgi
 <span class="token function">sudo</span> <span class="token function">chkconfig</span> --add uwsgi
 <span class="token function">sudo</span> <span class="token function">chkconfig</span> uwsgi on
-</pre>
-<p>最后，使用命令<code>sudo service uwsgi start</code>和<code>sudo service nginx start</code>开启网站。</p>
+</pre><p>最后，使用命令<code>sudo service uwsgi start</code>和<code>sudo service nginx start</code>开启网站。</p>
 <h2 class="mume-header" id="%E5%A4%9A%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95">多站点配置方法</h2>
 
 <p>因为暂时还没这个需求，就懒的去看文档了，<a href="http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/Emperor.html">http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/Emperor.html</a> 里提到了多站点的配置<br>
@@ -476,11 +471,11 @@ this.page.identifier = location.pathname;
 })();
 </script>
 
-
-
-
-
-
+    
+    
+    
+    
+    
     <script>
 (function bindTaskListEvent() {
   var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
@@ -492,9 +487,9 @@ this.page.identifier = location.pathname;
       li.classList.add('task-list-item')
     }
   }
-}())
+}())    
 </script>
-
+    
 <script>
 
 var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
@@ -507,5 +502,5 @@ sidebarTOCBtn.addEventListener('click', function(event) {
   }
 })
 </script>
-
+      
   </html>
