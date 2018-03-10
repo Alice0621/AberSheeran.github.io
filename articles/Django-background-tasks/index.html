@@ -297,7 +297,12 @@ task<span class="token punctuation">(</span><span class="token number">2</span><
 </pre><p>例如此处，函数被激活之后，每隔60*60*6秒就运行一次。</p>
 </li>
 </ul>
+<h2 class="mume-header" id="extend">Extend</h2>
 
+<p>Django-background-tasks这个库是作为Django的一个app而存在的，所以Django的ORM对它依旧可以使用。</p>
+<p>只需要导入对应的model-class就可以控制、访问任务完成的情况。</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">from</span> background_task<span class="token punctuation">.</span>models <span class="token keyword">import</span> Task
+</pre>
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
 <script>
@@ -324,6 +329,7 @@ this.page.identifier = location.pathname;
 <li><a href="#django%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1">Django定时任务</a>
 <ul>
 <li><a href="#how-to-use">How to use</a></li>
+<li><a href="#extend">Extend</a></li>
 </ul>
 </li>
 </ul>
