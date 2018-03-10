@@ -4,19 +4,19 @@
       <title>自定义Django后台名称</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
-      
-      
-      
-      
-      
-      
-      
-      
-      
 
-      <style> 
+      <link rel="stylesheet" href="https://agent.cathaysian.cn/cloudflare?url=ajax/libs/KaTeX/0.9.0/katex.min.css">
+
+
+
+
+
+
+
+
+
+
+      <style>
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
 /**
  * prism.js Github theme based on GitHub's theme.
@@ -210,7 +210,7 @@ code.language-yaml {
 /* Please visit the URL below for more information: */
 /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
 .markdown-preview.markdown-preview {
-  
+
   font-family: 'Noto Sans SC Sliced', sans-serif;
   font-weight: 100;
   font-size: 20px;
@@ -245,7 +245,7 @@ code.language-yaml {
   background-color: #fff;
   border: #ccc 1px solid;
 }
- 
+
       </style>
     </head>
     <body for="html-export">
@@ -294,7 +294,7 @@ code.language-yaml {
     Name <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>verbose_name<span class="token operator">=</span><span class="token string">"姓名"</span><span class="token punctuation">,</span> max_length<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">)</span>
 </pre><h2 class="mume-header" id="%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E7%9A%84django%E6%A0%87%E9%A2%98">修改默认的Django标题</h2>
 
-<p>Django自带的后台页面左上角硕大的Django字样和页面标题，还有后台首页的标题都可以很容易的进行修改。只需要在任何一个导入了<code>django.admin</code>模块的文件(<a href="http://xn--urls-k84fr97g7xco3bv44gj4aq81g208al6w.py">我一般选择项目的总urls.py</a>)里写入</p>
+<p>Django自带的后台页面左上角硕大的Django字样和页面标题，还有后台首页的标题都可以很容易的进行修改。只需要在任何一个导入了<code>django.admin</code>模块的文件写入。我一般选择项目的总urls.py里写入</p>
 <pre data-role="codeBlock" data-info="python" class="language-python">admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>site_header <span class="token operator">=</span> <span class="token string">'我在左上角'</span>
 admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>site_title <span class="token operator">=</span> <span class="token string">'我在浏览器标签'</span>
 admin<span class="token punctuation">.</span>site<span class="token punctuation">.</span>index_title <span class="token operator">=</span> <span class="token string">'我在后台首页'</span>
@@ -351,11 +351,11 @@ this.page.identifier = location.pathname;
 })();
 </script>
 
-    
-    
-    
-    
-    
+
+
+
+
+
     <script>
 (function bindTaskListEvent() {
   var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
@@ -367,9 +367,9 @@ this.page.identifier = location.pathname;
       li.classList.add('task-list-item')
     }
   }
-}())    
+}())
 </script>
-    
+
 <script>
 
 var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
@@ -382,5 +382,5 @@ sidebarTOCBtn.addEventListener('click', function(event) {
   }
 })
 </script>
-      
+
   </html>
