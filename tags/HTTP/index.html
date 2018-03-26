@@ -36,7 +36,7 @@
     <section>
         <article v-for="blog in blogs">
             <title v-bind:href="['/articles/' + blog.permalink +'/']">{{ blog.title }}</title>
-            <summary>{{ blog.summary }}</summary>
+            <!--summary>{{ blog.summary }}</summary-->
             <aside>
                 <div class="tags">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIpSURBVGhD7ZlNS1VBGICvi0Iqsm+Sora66wP37d20DjcR5E4XLoo2mSFRIRIR/oKWgTsXrRIDQSmIShHJdWHoVjDsee0MvBwOed9z5+MI88CDnOGemXm4Z9TLbWUymUymYAzfd+hxTMpj3PNgDybDV4SYLKQcsYHDeL9NR1HfnySkKuIqWpCN6znk+iieLnkEg+AjQqgKuVMaEwfRO3UjbuEI6scnWUjdiH7cRbnnrQwUJAnp5HG6ie6+WRkoqApxZ+RbMSZ6C/FxJoZwCi/vX/2jKsTxBd24lxBfB7uKaCEhI4QoIaEjhOAhMSKEoCGxIoRgITEjhHuo1/MSEjviLv5Bt94v7EZHrZDUEb/xOmrMIQ/R3SA2IUJodEi7EUKtR2sc3U1iiBhLhPAd3WtNhz1kjDViAvVeTCFCiBhrxFPUe/iBvWjGZ4w1YhL12ut4BWvjI8Ya8Qz1mmuo/+WvTScx1ojnqNdaxUvojTox1ogXqNdYwVpn4iAsMdaIl6jnll+5FzEY7cRYI+Rjr57zK17A4PwvxhLRhdOo55K/4ucxGlUxD9AS8Qr1HJ/xHEanHKO1RnzCs5iMqpiDIl6jfv0ynsHk6JhyRF/xU5CIN6gjlvAUNoZH+BN1xBPcwdsoETOoIxZRf6RtDPrxkIPvNiwxc+pa/IiNjChzDTdRb965gCfx0HADt1BHzOMJPHQM4DZKxAdM/m1tJ8g78w6P7V9lMpmItFp/AeHfxal8moBYAAAAAElFTkSuQmCC">
