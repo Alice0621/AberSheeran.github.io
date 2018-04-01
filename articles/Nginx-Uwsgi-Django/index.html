@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -273,7 +274,7 @@ code.language-yaml {
 pip3.5 <span class="token function">install</span> uwsgi
 </pre><h3 class="mume-header" id="%E7%BC%96%E5%86%99uwsginginx-mysql%E9%85%8D%E7%BD%AE">编写uwsgi，nginx, mysql配置</h3>
 
-<p>按照<a href="http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/">官方文档</a>的说法，如下配置，保存在项目根目录下的uwsgi.ini中</p>
+<p>按照<a href="http://uwsgi-docs-zh.readthedocs.io/zh_CN/latest/">官方文档</a>的说法，如下配置，保存在项目根目录下的<code>uwsgi.ini</code>中</p>
 <pre data-role="codeBlock" data-info="ini" class="language-ini"><span class="token selector">[uwsgi]</span>
 <span class="token constant">socket</span> <span class="token attr-value"><span class="token punctuation">=</span> django.sock</span>
 <span class="token constant">chmod-socket</span> <span class="token attr-value"><span class="token punctuation">=</span> 777</span>
@@ -285,7 +286,7 @@ pip3.5 <span class="token function">install</span> uwsgi
 <span class="token constant">daemonize</span> <span class="token attr-value"><span class="token punctuation">=</span> proxy.log</span>
 <span class="token constant">pidfile</span> <span class="token attr-value"><span class="token punctuation">=</span> proxy-master.pid</span>
 <span class="token constant">virtualenv</span> <span class="token attr-value"><span class="token punctuation">=</span> venv</span>
-</pre><p>然后nginx中这样写</p>
+</pre><p>然后在<code>/etc/nginx/conf.d/proxy.conf</code>中这样写</p>
 <pre data-role="codeBlock" data-info="conf" class="language-conf"><code>upstream django {
     server unix://website/proxy/uwsgi.sock;
 }
@@ -473,6 +474,7 @@ this.page.identifier = location.pathname;
 })();
 </script>
 
+    
     
     
     
