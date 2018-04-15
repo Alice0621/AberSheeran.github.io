@@ -1,5 +1,16 @@
 [
     {
+        "title": "socket.SO_REUSEADDR",
+        "date": "2018-04-15",
+        "update": "2018-04-15",
+        "tags": [
+            "Python"
+        ],
+        "corpus": "\u7f16\u7a0b\u6742\u8bb0",
+        "permalink": "socket.SO_REUSEADDR",
+        "summary": "\n      \n      \nsocket.SO_REUSEADDR\n2018-04-15\n2018-04-15\nP"
+    },
+    {
         "title": "\u76d1\u542c\u6587\u4ef6\u4e8b\u4ef6",
         "update": "2018-02-21",
         "date": "2018-02-21",
