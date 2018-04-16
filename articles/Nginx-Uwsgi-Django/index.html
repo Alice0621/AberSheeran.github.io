@@ -318,16 +318,16 @@ server {
 <span class="token constant">collation-server</span><span class="token attr-value"><span class="token punctuation">=</span>utf8_unicode_ci</span>
 skip-character-set-client-handshake
 </pre><p>接下来三条命令</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment" spellcheck="true"># start mariadb</span>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># start mariadb</span>
 <span class="token function">sudo</span> systemctl start mariadb
-<span class="token comment" spellcheck="true"># Harden MySQL Server</span>
+<span class="token comment"># Harden MySQL Server</span>
 <span class="token function">sudo</span> mysql_secure_installation
 <span class="token function">sudo</span> systemctl <span class="token function">enable</span> mariadb
 </pre><h4 class="mume-header" id="nginx%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">nginx开机自启动</h4>
 
 <p>使用<code>vi /etc/init.d/nginx</code>写入如下代码</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token comment" spellcheck="true"># chkconfig: - 85 15</span>
+<span class="token comment"># chkconfig: - 85 15</span>
 nginx<span class="token operator">=</span>/usr/sbin/nginx
 conf<span class="token operator">=</span>/etc/nginx/nginx.conf
 
@@ -376,7 +376,7 @@ esac
 
 <p>同理，使用<code>vi /etc/init.d/uwsgi</code>写入</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token shebang important">#!/bin/bash</span>
-<span class="token comment" spellcheck="true"># chkconfig: - 85 15</span>
+<span class="token comment"># chkconfig: - 85 15</span>
 conf<span class="token operator">=</span>配置文件路径
 pid<span class="token operator">=</span>pidfile路径
 <span class="token keyword">case</span> <span class="token variable">$1</span> <span class="token keyword">in</span>
@@ -438,26 +438,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#uwsgi%E9%83%A8%E7%BD%B2django">Uwsgi部署Django</a>
-<ul>
-<li><a href="#%E4%B8%8B%E8%BD%BDnginxuwsgi-mysql">下载Nginx，uwsgi, Mysql</a>
-<ul>
-<li><a href="#%E7%BC%96%E5%86%99uwsginginx-mysql%E9%85%8D%E7%BD%AE">编写uwsgi，nginx, mysql配置</a>
-<ul>
-<li><a href="#%E9%85%8D%E7%BD%AEmysql">配置mysql</a></li>
-<li><a href="#nginx%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">nginx开机自启动</a></li>
-<li><a href="#uwsgi%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8">uwsgi开机自启动</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E5%A4%9A%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95">多站点配置方法</a></li>
-</ul>
-</li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -480,31 +462,5 @@ this.page.identifier = location.pathname;
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
   </html>

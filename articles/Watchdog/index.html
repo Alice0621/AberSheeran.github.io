@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -279,9 +280,9 @@ code.language-yaml {
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
     logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>level<span class="token operator">=</span>logging<span class="token punctuation">.</span>INFO<span class="token punctuation">,</span>
-                        format<span class="token operator">=</span><span class="token string">'%(asctime)s - %(message)s'</span><span class="token punctuation">,</span>
+                        <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'%(asctime)s - %(message)s'</span><span class="token punctuation">,</span>
                         datefmt<span class="token operator">=</span><span class="token string">'%Y-%m-%d %H:%M:%S'</span><span class="token punctuation">)</span>
-    path <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">if</span> len<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">'.'</span>
+    path <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span> <span class="token keyword">else</span> <span class="token string">'.'</span>
     event_handler <span class="token operator">=</span> LoggingEventHandler<span class="token punctuation">(</span><span class="token punctuation">)</span>
     observer <span class="token operator">=</span> Observer<span class="token punctuation">(</span><span class="token punctuation">)</span>
     observer<span class="token punctuation">.</span>schedule<span class="token punctuation">(</span>event_handler<span class="token punctuation">,</span> path<span class="token punctuation">,</span> recursive<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
@@ -330,16 +331,16 @@ code.language-yaml {
 <span class="token keyword">class</span> <span class="token class-name">MonitorFileEventHandler</span><span class="token punctuation">(</span>FileSystemEventHandler<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
     <span class="token keyword">def</span> <span class="token function">on_modified</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        file <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>basename<span class="token punctuation">(</span>event<span class="token punctuation">.</span>src_path<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> file<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"html"</span><span class="token punctuation">:</span>
-            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Update article {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>file<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            update_blog<span class="token punctuation">(</span>file<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token builtin">file</span> <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>basename<span class="token punctuation">(</span>event<span class="token punctuation">.</span>src_path<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">file</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"html"</span><span class="token punctuation">:</span>
+            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Update article {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span><span class="token builtin">file</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            update_blog<span class="token punctuation">(</span><span class="token builtin">file</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
     <span class="token keyword">def</span> <span class="token function">on_deleted</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        file <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>basename<span class="token punctuation">(</span>event<span class="token punctuation">.</span>src_path<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> file<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"html"</span><span class="token punctuation">:</span>
-            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Delete article {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>file<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            delete_blog<span class="token punctuation">(</span>file<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token builtin">file</span> <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>basename<span class="token punctuation">(</span>event<span class="token punctuation">.</span>src_path<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token builtin">file</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"html"</span><span class="token punctuation">:</span>
+            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Delete article {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span><span class="token builtin">file</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            delete_blog<span class="token punctuation">(</span><span class="token builtin">file</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">".html"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </pre><p>这个类只对更改和删除做出反应。你当然可以自己复写如上方法来做自己想做的事情。</p>
 <p>event有如下的属性：</p>
 <ul>
@@ -405,15 +406,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E4%BA%8B%E4%BB%B6">监听文件事件</a>
-<ul>
-<li><a href="#watchdog">Watchdog</a></li>
-</ul>
-</li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -435,31 +429,6 @@ this.page.identifier = location.pathname;
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -350,17 +351,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#apache%E9%83%A8%E7%BD%B2django">Apache部署Django</a>
-<ul>
-<li><a href="#%E5%AE%89%E8%A3%85pythonmod_wsgiapache">安装Python，mod_wsgi，Apache</a></li>
-<li><a href="#%E5%8D%95%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE">单站点配置</a></li>
-<li><a href="#%E5%A4%9A%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE">多站点配置</a></li>
-</ul>
-</li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -382,31 +374,6 @@ this.page.identifier = location.pathname;
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

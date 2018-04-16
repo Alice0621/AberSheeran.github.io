@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -319,7 +320,7 @@ code.language-yaml {
 
 <p>理论我们已经知道了，响应与请求都是通过Socket发送，那么它们实际上是什么格式呢？</p>
 <p>Request：</p>
-<pre data-role="codeBlock" data-info="python" class="language-python">GET <span class="token operator">/</span>about<span class="token punctuation">.</span>html HTTP<span class="token operator">/</span><span class="token number">1.1</span>\r\nHost<span class="token punctuation">:</span><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span>\r\n<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<pre data-role="codeBlock" data-info="python" class="language-python">GET <span class="token operator">/</span>about<span class="token punctuation">.</span>html HTTP<span class="token operator">/</span><span class="token number">1.1</span>\r\nHost<span class="token punctuation">:</span><span class="token number">127.0</span><span class="token number">.0</span><span class="token number">.1</span>\r\n<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 </pre><p>可以注意到每一“行”都由<code>\r\n</code>隔开，由于此处为GET请求，所以没有Body。事实上请求体和请求头中间需要两个<code>\r\n</code>隔开。</p>
 <p>同样的<br>
 Response：</p>
@@ -347,19 +348,19 @@ Response：</p>
 
 logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>
     level<span class="token operator">=</span>logging<span class="token punctuation">.</span>DEBUG<span class="token punctuation">,</span>
-    format<span class="token operator">=</span><span class="token string">'[%(levelname)s]-[%(asctime)s]==> %(message)s'</span><span class="token punctuation">,</span>
+    <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'[%(levelname)s]-[%(asctime)s]==> %(message)s'</span><span class="token punctuation">,</span>
     datefmt<span class="token operator">=</span><span class="token string">'%Y-%m-%d %H:%M:%S'</span><span class="token punctuation">,</span>
 <span class="token punctuation">)</span>
 
 
 <span class="token keyword">class</span> <span class="token class-name">Main</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ip<span class="token punctuation">:</span> str<span class="token punctuation">,</span> port<span class="token punctuation">:</span> int<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ip<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> port<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">:</span>
         self<span class="token punctuation">.</span>path <span class="token operator">=</span> path
-        self<span class="token punctuation">.</span>pattern <span class="token operator">=</span> re<span class="token punctuation">.</span>compile<span class="token punctuation">(</span>r<span class="token string">'GET (?P&lt;file>\S+) HTTP'</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>pattern <span class="token operator">=</span> re<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span>r<span class="token string">'GET (?P&lt;file>\S+) HTTP'</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>server <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>bind<span class="token punctuation">(</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
         self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>listen<span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span>
-        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Running in {0}:{1}\r\n\tFile root directory in {2}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>ip<span class="token punctuation">,</span> port<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Running in {0}:{1}\r\n\tFile root directory in {2}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span> port<span class="token punctuation">,</span> path<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
     <span class="token keyword">def</span> <span class="token function">__del__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
         self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -377,64 +378,64 @@ logging<span class="token punctuation">.</span>basicConfig<span class="token pun
             <span class="token keyword">return</span> <span class="token string">"application/javascript"</span>
         <span class="token keyword">elif</span> request_file_type <span class="token operator">==</span> <span class="token string">"css"</span><span class="token punctuation">:</span>
             <span class="token keyword">return</span> <span class="token string">"text/css"</span>
-        <span class="token comment" spellcheck="true"># TODO 增加其他类型文件的响应头</span>
+        <span class="token comment"># TODO 增加其他类型文件的响应头</span>
         <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> None
+            <span class="token keyword">return</span> <span class="token boolean">None</span>
 
-    <span class="token keyword">def</span> <span class="token function">__deal_response</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> status_code<span class="token punctuation">:</span> int<span class="token punctuation">,</span> header<span class="token punctuation">:</span> dict<span class="token punctuation">,</span> body<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__deal_response</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> status_code<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> header<span class="token punctuation">:</span> <span class="token builtin">dict</span><span class="token punctuation">,</span> body<span class="token punctuation">)</span><span class="token punctuation">:</span>
         <span class="token keyword">if</span> status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span>
             response_code <span class="token operator">=</span> b<span class="token string">"HTTP/1.1 200 OK\r\n"</span>
         <span class="token keyword">elif</span> status_code <span class="token operator">==</span> <span class="token number">404</span><span class="token punctuation">:</span>
             response_code <span class="token operator">=</span> b<span class="token string">"HTTP/1.1 404 NOT Found\r\n"</span>
         <span class="token keyword">elif</span> status_code <span class="token operator">==</span> <span class="token number">403</span><span class="token punctuation">:</span>
             response_code <span class="token operator">=</span> b<span class="token string">"HTTP/1.1 403 Forbidden\r\n"</span>
-        <span class="token comment" spellcheck="true"># TODO 增加其他状态码</span>
+        <span class="token comment"># TODO 增加其他状态码</span>
         response_header <span class="token operator">=</span> b<span class="token string">"Server: My Static Page Preview Server\r\n"</span>
         <span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token keyword">in</span> header<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            response_header <span class="token operator">+=</span> <span class="token punctuation">(</span><span class="token string">"{}:{}\r\n"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
-        <span class="token keyword">try</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 处理body</span>
+            response_header <span class="token operator">+=</span> <span class="token punctuation">(</span><span class="token string">"{}:{}\r\n"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span> <span class="token comment"># 处理body</span>
             body <span class="token operator">=</span> body<span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
         <span class="token keyword">except</span> AttributeError<span class="token punctuation">:</span>
             <span class="token keyword">pass</span>
         response <span class="token operator">=</span> response_code <span class="token operator">+</span> response_header <span class="token operator">+</span> b<span class="token string">"\r\n"</span> <span class="token operator">+</span> body
         <span class="token keyword">return</span> response
 
-    <span class="token keyword">def</span> <span class="token function">__deal_request</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">:</span> str<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 会出现奇怪的空白访问,啥也没有,try一下,不处理</span>
+    <span class="token keyword">def</span> <span class="token function">__deal_request</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> request<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment"># 会出现奇怪的空白访问,啥也没有,try一下,不处理</span>
         <span class="token keyword">try</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 获取请求的路径</span>
+            <span class="token comment"># 获取请求的路径</span>
             request_file <span class="token operator">=</span> self<span class="token punctuation">.</span>pattern<span class="token punctuation">.</span>match<span class="token punctuation">(</span>request<span class="token punctuation">.</span>splitlines<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>group<span class="token punctuation">(</span><span class="token string">"file"</span><span class="token punctuation">)</span>
             request_file <span class="token operator">=</span> unquote<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span>
         <span class="token keyword">except</span> IndexError<span class="token punctuation">:</span>
             sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 如果最后是/,按照GithubPage的规则,解析到index.html上</span>
+        <span class="token comment"># 如果最后是/,按照GithubPage的规则,解析到index.html上</span>
         <span class="token keyword">if</span> request_file<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">"/"</span><span class="token punctuation">:</span>
             request_file <span class="token operator">+=</span> <span class="token string">"index.html"</span>
-        <span class="token comment" spellcheck="true"># 切掉第一个/, 否则拼接路径会出错</span>
+        <span class="token comment"># 切掉第一个/, 否则拼接路径会出错</span>
         <span class="token keyword">return</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>self<span class="token punctuation">.</span>path<span class="token punctuation">,</span> request_file<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
     <span class="token keyword">def</span> <span class="token function">__link</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> sock<span class="token punctuation">)</span><span class="token punctuation">:</span>
         request <span class="token operator">=</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span>
         request <span class="token operator">=</span> request<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token string">"UTF-8"</span><span class="token punctuation">)</span>
         request_file <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_request<span class="token punctuation">(</span>request<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 打开文件,并设置响应内容</span>
+        <span class="token comment"># 打开文件,并设置响应内容</span>
         <span class="token keyword">try</span><span class="token punctuation">:</span>
-            file <span class="token operator">=</span> open<span class="token punctuation">(</span>request_file<span class="token punctuation">,</span> <span class="token string">"rb"</span><span class="token punctuation">)</span>
-            file_data <span class="token operator">=</span> file<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            file<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token builtin">file</span> <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>request_file<span class="token punctuation">,</span> <span class="token string">"rb"</span><span class="token punctuation">)</span>
+            file_data <span class="token operator">=</span> <span class="token builtin">file</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token builtin">file</span><span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token keyword">except</span> FileNotFoundError<span class="token punctuation">:</span>
-            logging<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">"404 Not Found {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            logging<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">"404 Not Found {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
             response <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_response<span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"mood"</span><span class="token punctuation">:</span><span class="token string">"What the fuck are your request?"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> b<span class="token string">"The file not found!"</span><span class="token punctuation">)</span>
         <span class="token keyword">except</span> PermissionError<span class="token punctuation">:</span>
-            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"403 PermissionError {}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"403 PermissionError {}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
             response <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_response<span class="token punctuation">(</span><span class="token number">403</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"mood"</span><span class="token punctuation">:</span><span class="token string">"What the fuck are you url?"</span><span class="token punctuation">}</span><span class="token punctuation">,</span> b<span class="token string">'May be you should append a "/" in url.'</span><span class="token punctuation">)</span>
         <span class="token keyword">else</span><span class="token punctuation">:</span>
-            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Send file '{}'"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            logging<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Send file '{}'"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">)</span>
             response_header <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Content-Type"</span><span class="token punctuation">:</span> self<span class="token punctuation">.</span>__set_response_file_type<span class="token punctuation">(</span>request_file<span class="token punctuation">)</span><span class="token punctuation">}</span>
             response <span class="token operator">=</span> self<span class="token punctuation">.</span>__deal_response<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> response_header<span class="token punctuation">,</span> file_data<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># +1s</span>
-        <span class="token comment" spellcheck="true"># 为了模拟真实的Github服务器反馈速度</span>
-        <span class="token comment" spellcheck="true"># time.sleep(1)</span>
+        <span class="token comment"># +1s</span>
+        <span class="token comment"># 为了模拟真实的Github服务器反馈速度</span>
+        <span class="token comment"># time.sleep(1)</span>
 
         sock<span class="token punctuation">.</span>send<span class="token punctuation">(</span>response<span class="token punctuation">)</span>
         sock<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -482,16 +483,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8">静态文件服务器</a>
-<ul>
-<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
-<li><a href="#%E7%BB%86%E8%8A%82">细节</a></li>
-</ul>
-</li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -547,31 +540,6 @@ if (typeof(window['Reveal']) !== 'undefined') {
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

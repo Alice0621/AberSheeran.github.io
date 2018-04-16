@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -303,11 +304,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#%E5%90%9B%E5%AD%90%E4%B8%8D%E5%99%A8">君子不器</a></li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -329,31 +327,6 @@ this.page.identifier = location.pathname;
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

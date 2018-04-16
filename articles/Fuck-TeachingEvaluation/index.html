@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -282,15 +283,15 @@ code.language-yaml {
 </pre><p>然后每一个页面都按照给定的列表进行拼接数据。</p>
 <pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">def</span> <span class="token function">deal_teaching_evaluation_page</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> page_url<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token triple-quoted-string string">"""处理单个教学评价页面"""</span>
-    post_data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true"># 将发送的信息</span>
+    post_data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment"># 将发送的信息</span>
     page <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>self<span class="token punctuation">.</span>get_page<span class="token punctuation">(</span>page_url<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"html.parser"</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 这里不能改，教务系统写死的</span>
-    <span class="token keyword">for</span> each_input <span class="token keyword">in</span> page<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span><span class="token string">"input"</span><span class="token punctuation">,</span> type<span class="token operator">=</span><span class="token string">"hidden"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># 这里不能改，教务系统写死的</span>
+    <span class="token keyword">for</span> each_input <span class="token keyword">in</span> page<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span><span class="token string">"input"</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token operator">=</span><span class="token string">"hidden"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         post_data<span class="token punctuation">[</span>each_input<span class="token punctuation">[</span><span class="token string">"name"</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> each_input<span class="token punctuation">[</span><span class="token string">"value"</span><span class="token punctuation">]</span>
-    <span class="token comment" spellcheck="true"># 打分部分，可以自行下调</span>
+    <span class="token comment"># 打分部分，可以自行下调</span>
     <span class="token keyword">for</span> each_input <span class="token keyword">in</span> page<span class="token punctuation">.</span>find_all<span class="token punctuation">(</span><span class="token string">"input"</span><span class="token punctuation">,</span> class_<span class="token operator">=</span><span class="token string">"number"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         post_data<span class="token punctuation">[</span>each_input<span class="token punctuation">[</span><span class="token string">"name"</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> each_input<span class="token punctuation">[</span><span class="token string">"max"</span><span class="token punctuation">]</span>
-    <span class="token comment" spellcheck="true"># 评语部分，随便改</span>
+    <span class="token comment"># 评语部分，随便改</span>
     post_data<span class="token punctuation">[</span><span class="token string">"PJXX"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"上课生动有趣，深入浅出，我很喜欢！"</span>
     self<span class="token punctuation">.</span>cache<span class="token punctuation">.</span>post<span class="token punctuation">(</span>
         <span class="token string">"http://jwgl.ahnu.edu.cn/jxpj/xsjxpj/saveinfo?action=ok"</span><span class="token punctuation">,</span>
@@ -322,15 +323,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#%E5%A1%AB%E5%86%99%E6%95%99%E5%AD%A6%E8%AF%84%E4%BB%B7">填写教学评价</a>
-<ul>
-<li><a href="#%E5%88%86%E6%9E%90%E9%A1%B5%E9%9D%A2">分析页面</a></li>
-</ul>
-</li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -352,31 +346,6 @@ this.page.identifier = location.pathname;
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

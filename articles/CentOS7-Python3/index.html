@@ -15,6 +15,7 @@
       
       
       
+      
 
       <style> 
       @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
@@ -270,11 +271,11 @@ code.language-yaml {
 
 <p>值得注意的是，使用以下步骤能在最新版的CentOS桌面版安装成功Python3。但是当我使用以下步骤在云服务器上时，失败了。</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">yum <span class="token function">install</span> yum-utils
-<span class="token comment" spellcheck="true">#安装编译python的编译环境以及依赖包</span>
+<span class="token comment">#安装编译python的编译环境以及依赖包</span>
 yum-builddep python
-<span class="token comment" spellcheck="true">#如果下载太慢，可以换国内镜像</span>
+<span class="token comment">#如果下载太慢，可以换国内镜像</span>
 <span class="token function">wget</span> https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz
-<span class="token comment" spellcheck="true">#解压，编译</span>
+<span class="token comment">#解压，编译</span>
 <span class="token function">tar</span> -xzvf Python-3.5.2.tgz -C /usr/local/Python3
 <span class="token function">cd</span> /usr/local/Python3/Python-3.5.2
 ./configure
@@ -312,16 +313,8 @@ this.page.identifier = location.pathname;
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-      <div class="md-sidebar-toc"><ul>
-<li><a href="#centos7%E4%B8%8A%E5%AE%89%E8%A3%85python3">CentOS7上安装Python3</a>
-<ul>
-<li><a href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85python3">编译安装Python3</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8yum%E5%AE%89%E8%A3%85python3">使用yum安装Python3</a></li>
-</ul>
-</li>
-</ul>
-</div>
-      <a id="sidebar-toc-btn">≡</a>
+      
+      
     </body>
 <script>
 (function(){
@@ -343,31 +336,6 @@ this.page.identifier = location.pathname;
     
     
     
-    <script>
-(function bindTaskListEvent() {
-  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
-  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
-    var checkbox = taskListItemCheckboxes[i]
-    var li = checkbox.parentElement
-    if (li.tagName !== 'LI') li = li.parentElement
-    if (li.tagName === 'LI') {
-      li.classList.add('task-list-item')
-    }
-  }
-}())    
-</script>
     
-<script>
-
-var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
-sidebarTOCBtn.addEventListener('click', function(event) {
-  event.stopPropagation()
-  if (document.body.hasAttribute('html-show-sidebar-toc')) {
-    document.body.removeAttribute('html-show-sidebar-toc')
-  } else {
-    document.body.setAttribute('html-show-sidebar-toc', true)
-  }
-})
-</script>
-      
+    
   </html>

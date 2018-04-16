@@ -54,7 +54,7 @@ section:first-child{
 article{
     position: relative;
     border-top: 2px solid #eee;
-    padding-top: 20px;
+    padding-top: 7px;
     max-width: 1000px;
     padding-bottom: 100px;
 }
@@ -76,7 +76,7 @@ article a:active{
 }
 article title{
     display: block;
-    font-size: 1.6em;
+    font-size: 1.3em;
     margin-bottom: 10px;
     font-weight: 400;
 }
@@ -115,7 +115,7 @@ article aside .corpus{
     font-size: .8em;
     color: #eee;
     position: absolute;
-    top: -25px;
+    top: -24px;
 }
 article aside .corpus img{
     display: none;
