@@ -64,9 +64,10 @@
                 </time>
             </aside>
         </article>
-        <div id="more" style="margin:30px auto;"><a style="border:2px #000000 solid;">More</a></div>
+        <img id="loading" style="width: 100px; display: block; margin: auto" src="/StaticFiles/loading.gif">
+        <div id="load_error" style="width: 300px; margin: auto; display: none;"></div>
+        <div id="more" style="margin:30px auto;"><a style="border:2px #000000 solid;">下个月</a></div>
     </section>
-    <img id="loading" style="width: 100px; display: block; margin: auto" src="/StaticFiles/loading.gif">
     <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
 </main>
 <footer>
@@ -82,6 +83,13 @@
 <script type="text/javascript" src="/StaticFiles/jQuery.3.2.1.min.js"></script>
 <script src="/StaticFiles/Vue.2.5.13.js"></script>
 <script>
+    var date = new Date(),
+        year = date.getFullYear(),
+        month = date.getMonth()+1;
+    if(month <= 9)
+    {
+        month = "0" + month;
+    }
     //请求锁, true时不再请求页面
     var get_lock = false;
     //vue 渲染页面
@@ -93,26 +101,42 @@
     });
     //先加载六篇博文
     $(window).ready(function(){
-        while(get_more_blog()==true){
-            break;
-        }
-        $("section").css("display", "block");
+        $("article").fadeOut(1);
+        $.when(get_more_blog()).done(function(datas){
+            for(var i=0; i<datas.length; i++){
+                blogs.blogs.push(datas[i]);
+            }
+        });
+        $("article").fadeIn(1);
         $("#loading").fadeOut(1);
     });
 
     $(document).on("click", "#more", function(){
-        var now_num = blogs.blogs.length;
-        while(blogs.blogs.length < now_num+6)
-        {
-            if(get_lock){
-                $(this).remove();
-                break;
-            }
+        if(get_lock){
+            $("#load_error").text = ("博客到底了~");
+            $(this).remove();
+        }
+        else{
             $("#loading").fadeIn(1);
-            $("more").fadeOut(1);
-            get_more_blog();
-            $("#loading").fadeOut(1);
-            $("#more").fadeIn(1);
+            $("#more").fadeOut(1);
+            $.when(get_more_blog())
+            .fail(function(){
+                $("#load_error").text("看起来"+url.split("/")[1]+"年"+url.split("/")[2]+"月"+"没有更新博客");
+                $("#load_error").fadeIn(1);
+                $("#loading").fadeOut(1);
+                $("#more").fadeIn(1);
+                setTimeout(function(){
+                    $("#load_error").fadeOut(1);
+                }, 3000);
+            })
+            .done(function(datas){
+                for(var i=0; i<datas.length; i++){
+                    blogs.blogs.push(datas[i]);
+                }
+                $("#loading").fadeOut(1);
+                $("#more").fadeIn(1);
+
+            });
         }
     });
     //页面跳转
@@ -121,13 +145,6 @@
     });
 </script>
 <script>
-    var date = new Date(),
-        year = date.getFullYear(),
-        month = date.getMonth()+1;
-    if(month <= 9)
-    {
-        month = "0" + month;
-    }
     //初始化请求页面
     var url = "/"+year+"/"+month+"/index.json"
     //将url置为下一个url
@@ -159,19 +176,21 @@
     //请求更多的博文
     function get_more_blog(){
         if (!get_lock){
+            var defer = $.Deferred();
             $.ajax({
                 type : "GET",
                 url : "/time" + url,
-                async : false,
+                async : true,
                 success:function(datas){
-                    for (var i=0; i<datas.length; i++){
-                        blogs.blogs.push(datas[i]);
-                    }
+                    defer.resolve(datas);
                 },
+                error:function(){
+                    defer.reject();
+                }
             });
             next_url();
+            return defer;
         }
-        return true;
     }
 </script>
 </html>

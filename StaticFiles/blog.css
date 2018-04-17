@@ -40,9 +40,6 @@ header nav .item a:hover{
     background-color: black;
     color: #FFFFFF;
 }
-section{
-    display: none;
-}
 article{
     position: relative;
     border-top: 2px solid #eee;
