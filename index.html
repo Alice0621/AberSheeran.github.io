@@ -66,6 +66,7 @@
         </article>
         <div id="more" style="margin:30px auto;"><a style="border:2px #000000 solid;">More</a></div>
     </section>
+    <img id="loading" style="width: 100px; display: block; margin: auto" src="/StaticFiles/loading.gif">
     <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
 </main>
 <footer>
@@ -92,14 +93,11 @@
     });
     //先加载六篇博文
     $(window).ready(function(){
-        while(blogs.blogs.length < 6)
-        {
-            if(get_lock){
-                break;
-            }
-　　         get_more_blog();
-　　     }
+        while(get_more_blog()==true){
+            break;
+        }
         $("section").css("display", "block");
+        $("#loading").fadeOut(1);
     });
 
     $(document).on("click", "#more", function(){
@@ -110,7 +108,11 @@
                 $(this).remove();
                 break;
             }
+            $("#loading").fadeIn(1);
+            $("more").fadeOut(1);
             get_more_blog();
+            $("#loading").fadeOut(1);
+            $("#more").fadeIn(1);
         }
     });
     //页面跳转
@@ -165,10 +167,11 @@
                     for (var i=0; i<datas.length; i++){
                         blogs.blogs.push(datas[i]);
                     }
-                }
+                },
             });
             next_url();
         }
+        return true;
     }
 </script>
 </html>
