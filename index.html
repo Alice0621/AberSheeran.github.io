@@ -179,8 +179,8 @@
     }
     //请求更多的博文
     function get_more_blog(){
+        next_url();
         if (!get_lock){
-            next_url();
             var defer = $.Deferred();
             $.ajax({
                 type : "GET",
