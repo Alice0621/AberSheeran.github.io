@@ -5,8 +5,8 @@
     <title>仗剑不饮酒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/StaticFiles/normalize.css">
-    <link rel="stylesheet" media="(max-width: 1100px)" href="/StaticFiles/blog.css">
-    <link rel="stylesheet" media="(min-width: 1100px)" href="/StaticFiles/blog_lg.css">
+    <link rel="stylesheet" media="(max-width: 1280px)" href="/StaticFiles/blog.css">
+    <link rel="stylesheet" media="(min-width: 1280px)" href="/StaticFiles/blog_lg.css">
 </head>
 <style>
     article{
@@ -103,7 +103,6 @@
             "blogs":[]
         }
     });
-
     //
     $(window).ready(function(){
         $.when(get_more_blog()).done(function(datas){
@@ -117,7 +116,7 @@
 
     function GET(){
         if(get_lock){
-            $("#load_error").text("博客到底了~");
+            $("#load_error").text('<end></end>');
             $("#load_error").fadeIn(1);
             $("#loading").fadeOut(500);
         }
