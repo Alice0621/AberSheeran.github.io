@@ -2,43 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://blog.cathaysian.cn/articles/Apache-Django-Win/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/CentOS7-Python3/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/CSS-Device-adaptation/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Django-Admin-Name/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Django-background-tasks/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Fuck-TeachingEvaluation/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Github-Page-Server/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Hack-School/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Hack-school-lesson/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
-    </url>
-    <url>
-        <loc>https://blog.cathaysian.cn/articles/junzibuqi/</loc>
-        <lastmod>2018-04-16T18:38:05Z</lastmod>
+        <lastmod>2018-04-25T13:54:12Z</lastmod>
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/Nginx-Uwsgi-Django/</loc>
@@ -54,6 +50,6 @@
     </url>
     <url>
         <loc>https://blog.cathaysian.cn/articles/北大岳昕的发声/</loc>
-        <lastmod>2018-04-25T13:52:33Z</lastmod>
+        <lastmod>2018-04-25T14:06:22Z</lastmod>
     </url>
 </urlset>
