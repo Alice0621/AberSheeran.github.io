@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <html>
     <head>
-      <title>如何从教务系统抢到课</title>
+      <title>北大岳昕的发声</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -252,70 +252,34 @@ code.language-yaml {
     <body for="html-export">
       <div class="mume markdown-preview   ">
       
-<h1 class="mume-header" id="%E5%A6%82%E4%BD%95%E4%BB%8E%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F%E6%8A%A2%E5%88%B0%E8%AF%BE">如何从教务系统抢到课</h1>
+<h1 class="mume-header" id="%E5%8C%97%E5%A4%A7%E5%B2%B3%E6%98%95%E7%9A%84%E5%8F%91%E5%A3%B0">北大岳昕的发声</h1>
 <div id="detail" style="margin-bottom: 20px;display:flex;flex-wrap: wrap;justify-content: flex-end;">
-  <span>/Corpus: <a style="color:#000000;" href="/corpus/校园时光/">校园时光</a></span>
-  <span>/Create: 2017-12-13</span>
-  <span>/Update: 2018-02-13</span>
+  <span>/Corpus: <a style="color:#000000;" href="/corpus/随笔/">随笔</a></span>
+  <span>/Create: 2018-04-25</span>
+  <span>/Update: 2018-04-25</span>
 </div>
 
-<p>又到了一学期一次的抢课时节，由于我校规定必须在四个分类下各修一门选修课，所以不用上课不用课本的网课往往供不应求。而有趣的是，在选课时间是整整一天。也就是说，这期间拥有已经修过的分类下的网课的人可以找别人进行换课。这让网课更加供不应求。</p>
-<p>作为一个码农，我当然不会去手动抢课。再说了，学校那个垃圾教务系统设计，刷不刷得进去全靠运气，并发支持不过百。我一个非酋不跟欧皇比运气。</p>
-<h2 class="mume-header" id="hacking">Hacking</h2>
-
-<p>我校教务系统很骚气，虽然是2014-2015年用LNMP开发的，但前后端分离。</p>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript">$<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    url<span class="token punctuation">:</span> <span class="token string">"http://jwgl.ahnu.edu.cn/login/check.shtml"</span><span class="token punctuation">,</span>
-    type<span class="token punctuation">:</span> <span class="token string">"POST"</span><span class="token punctuation">,</span>
-    dataType<span class="token punctuation">:</span> <span class="token string">"json"</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span> <span class="token string">"user="</span> <span class="token operator">+</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#user"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&amp;pass="</span> <span class="token operator">+</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#pass"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&amp;usertype="</span> <span class="token operator">+</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"input[name='usertype']:checked"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    success<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>msg<span class="token punctuation">.</span>success <span class="token operator">==</span> <span class="token string">"success"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        location<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#msg"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#msgdiv"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">"display"</span><span class="token punctuation">,</span> <span class="token string">"block"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-</pre><p>页面Js一找，一发<code>requests.session</code>登陆完成。</p>
-<p>查看学校选课页面的Js代码，在一堆前端验证+<strong>拼音缩写</strong>之中找到了这个</p>
-<pre data-role="codeBlock" data-info="js" class="language-javascript"> <span class="token keyword">function</span> <span class="token function">save</span><span class="token punctuation">(</span>xkkh<span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-  $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    url<span class="token punctuation">:</span><span class="token string">'/xk/xxk/savexxk?action=ok'</span><span class="token punctuation">,</span>
-    dataType<span class="token punctuation">:</span><span class="token string">'json'</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">'xkkh'</span><span class="token punctuation">:</span>xkkh<span class="token punctuation">}</span><span class="token punctuation">,</span>
-    type<span class="token punctuation">:</span><span class="token string">'POST'</span><span class="token punctuation">,</span>
-    success<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      location<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-
- <span class="token keyword">function</span> <span class="token function">delxkkh</span><span class="token punctuation">(</span>xkkh<span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-  $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    url<span class="token punctuation">:</span><span class="token string">'/xk/xxk/delxxk?action=ok'</span><span class="token punctuation">,</span>
-    dataType<span class="token punctuation">:</span><span class="token string">'json'</span><span class="token punctuation">,</span>
-    data<span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">'xkkh'</span><span class="token punctuation">:</span>xkkh<span class="token punctuation">}</span><span class="token punctuation">,</span>
-    type<span class="token punctuation">:</span><span class="token string">'POST'</span><span class="token punctuation">,</span>
-    success<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">{</span>
-      <span class="token function">alert</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      location<span class="token punctuation">.</span><span class="token function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
-</pre><p>页面内Js代码的思路如下：</p>
+<p>今天中午刚回到寝室，便看到群里人在发布这条<a href="https://github.com/sikaozhe1997/Xin-Yue">链接</a>。点进去一看，腾讯视为风险网站不予访问。作为Github的用户，我当然知道这个网站不会有风险。</p>
+<p>那么只剩一种可能，这个库涉政。</p>
+<p>按捺不住好奇心，我点进去看了看。开始震惊。<br>
+关于整个事件，以上链接说的很全。整个事件很符合中国特色社会主义的处理办法。让我震惊的是issue里诸如“滚出Github”的言论不绝。</p>
+<p>有些人真的是跪久了，站不起来了。岳欣学姐为什么只能到Github发声，心里没点数？腾讯把这个链接封禁，连QQ空间都不准发了（笑）。别的网站我不用看都知道全部封锁了。<br>
+这是当然啊，北京大学，大陆顶尖学府，多少王侯将相从这里出来。以他们的能量，封媒体悠悠之口多简单。那些跪着的人，不以此为怒，反而去指责岳欣学姐。在中国大陆，如果你不懂得如何突破网络封锁，那你何必用Github？Coding不仅在大陆访问更快，功能也更符合国人使用习惯。</p>
+<p>其中有些人就提到言论自由了。</p>
 <blockquote>
-<p>检查完课程的剩余量之后，将{&quot;xkkh&quot;: lesson_coding}这样的json信息发送到对应网址来选课。</p>
+<h3>言论自由</h3>
+<p>什么是言论自由？ 在我看来，言论自由是一个公民在不泄露国家机密，不造谣，不诽谤的说出自己想说的话的权力。</p>
 </blockquote>
-<p>但由于选课没有开始，我并不能看到选课按钮会执行什么代码(没错，选课不开始，就没有选课按钮)。只好看着它几十个拼音缩写的变量来分析课程代码可能会怎么样。最后猜了一段代码出来。第二天一看，我的代码思路没问题，但lesson_coding不是显示在页面源码的coding，而是在页面源码的coding基础上，在代表学年学期的字符串上加一个括号！</p>
-<p>也就是说，通过审查元素你可能会看到这样的<code>2017-2018-1-07492110-0101224-1</code>。但你应该发到教务系统的应该是<code>(2017-2018-1)-07492110-0101224-1</code>。</p>
-<p>小小的修改之后，成功抢到了两门网课(当然是截胡了别人的交易)。脚本见<a href="https://github.com/AberSheeran/Ahnu">Github</a></p>
-<p>最后......隔壁的欧皇凭运气一开局就抢到了两门网课！我***</p>
+<p>记得上次，我们学院院团委某位领导，因为看不过去我们参加别的院的活动。先是让班委转发他说的<code>有些同学不要为了学分什么都干，要有点骨气，参加物电的活动赚那么点学分值得吗？</code>，然后好不容易找到物电举办的活动的一个不合规的地方——我们学校规定班级无法发布面向全校的活动，那次活动一开始是以物电班级的名义发布的，我院领导很开心的就说不合规。后来物电直接把活动挂到他们院团委名下，我院团委领导屁都不放一个了。我当时还发了说说嘲讽了一下院团委的决定，结果不到几分钟，辅导员直接一个电话打过来，要求我删说说。</p>
+<p>可笑，我当然不会删。虽然我有定期审视自己说说，删了我觉得应该删了的说说的习惯。然而想压我删说说，不可能。</p>
+<p>你看，一个九流一本的院团委就能如此，更何况北大一个顶尖学府的校方呢。或许他们当中也有人曾经“愤青”过，但现在终究是屁股决定了脑袋。维稳是他们唯一想干的。</p>
+<blockquote>
+<h3>朝廷作风</h3>
+<p>解决不了问题就解决提出问题的人</p>
+</blockquote>
+<p>本来这件事，北大只需要和那几位同学协商，公开或者推迟公开，这样既能体现北大作为顶尖学府的气度与对罪恶零容忍的态度，又能体现北大学子为社会和谐发光发热的精神。这样一个为北大百年校庆增光添彩，为北大光伟正形象加分的好事情。硬生生让他们折腾成了一个北大领导们的笑话。</p>
+<p>现在他们骑虎难下。我虽然有想看笑话的心思，但联想到自己的学校，便笑不起来了。</p>
+<p>他们原以为合法手段解决是一件费时费力的事情，但到现在，有脑子的人都看出来了，如果一开始北大就合法合规的办这件要求公开多年前北大某教授性侵案细节的联名信，事情何至于这么大。<strong>这种官僚体制什么时候是个头？</strong></p>
 
       
 <div id="disqus_thread" style="margin-top:100px;"></div>
