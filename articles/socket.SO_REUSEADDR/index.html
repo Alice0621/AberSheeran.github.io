@@ -251,15 +251,7 @@ code.language-yaml {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview   ">
-      <div id="details" style="display:none;">
-<title>socket.SO_REUSEADDR</title>
-<date>2018-04-15</date>
-<update>2018-04-15</update>
-<tags>Python</tags>
-<corpus>编程杂记</corpus>
-<permalink>socket.SO_REUSEADDR</permalink>
-<summary>解决使用Socket标准库手写TCP服务器时遇到的端口空占用问题</summary>
-</div>
+      
 <h1 class="mume-header" id="socketso_reuseaddr">socket.SO_REUSEADDR</h1>
 <div id="detail" style="margin-bottom: 20px;display:flex;flex-wrap: wrap;justify-content: flex-end;">
   <span>/Corpus: <a style="color:#000000;" href="/corpus/编程杂记/">编程杂记</a></span>
@@ -268,12 +260,13 @@ code.language-yaml {
 </div>
 
 <p>最近在手写分布式爬虫的时候遇到一个问题，就是负责任务分发的服务器在关掉试图重启的时候总显示端口被占用，但又查不到端口被占用的进程号。</p>
-<p>一番谷歌之后得知，操作系统的网络栈会非常谨慎的处理连接的关闭，仅仅用于监听的服务器套接字是可以立即关闭并操作系统忽略的，但是对于实际与客户端进行通信的连接套接字就不行了。即使客户端和服务器都关闭了连接并向对方发从了FIN数据包，连接套接字也无法立即取消。为什么呢？因为即使网络栈发送了最后一个数据包将套接字关闭，也还是无法确认该数据包是否可以被接收。如果数据包正好被网络丢弃了，那么另一方无法得知该数据包长时间无法传达的原因，可能会重新发送FIN数据包，希望能收到响应。</p>
+<pre data-role="codeBlock" data-info="" class="language-"><code>[ERROR] Address already in use
+</code></pre><p>一番谷歌之后得知，操作系统的网络栈会非常谨慎的处理连接的关闭，仅仅用于监听的服务器套接字是可以立即关闭并操作系统忽略的，但是对于实际与客户端进行通信的连接套接字就不行了。即使客户端和服务器都关闭了连接并向对方发从了FIN数据包，连接套接字也无法立即取消。为什么呢？因为即使网络栈发送了最后一个数据包将套接字关闭，也还是无法确认该数据包是否可以被接收。如果数据包正好被网络丢弃了，那么另一方无法得知该数据包长时间无法传达的原因，可能会重新发送FIN数据包，希望能收到响应。</p>
 <p>操作系统对上述问题的解决方案为，一个应用程序任务某个TCP连接最终关闭了，操作系统的网络栈实际上会在一个等待状态中将该连接的记录保存最多4分钟。RFC将这些状态命名为CLOSE-WAIT 和<a href="https://tools.ietf.org/html/rfc1337">TIME-WAIT</a>，当关闭的套接字还处于其中某一状态时，任何最终的FIN数据包都是可以得到适当响应的。</p>
 <h2 class="mume-header" id="%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3">如何解决</h2>
 
-<p>只需要在bind之前增加一行代码：</p>
-<pre data-role="codeBlock" data-info="" class="language-"><code>socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+<p>只需要在<code>server.bind()</code>之前增加一行代码：</p>
+<pre data-role="codeBlock" data-info="" class="language-"><code>server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 </code></pre><ul>
 <li>SO_REUSEADDR允许启动一个监听服务器并捆绑端口，即使以前建立的将此端口用做它们的本地端口的连接仍存在。这通常是重启监听服务器时使用(也就是我当时的情况)</li>
 </ul>
