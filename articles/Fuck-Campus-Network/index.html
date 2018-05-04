@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>绕开校园网计费</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cloudflare.cathaysian.cn/ajax/libs/KaTeX/0.9.0/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      @import url(https://fonts.googleapis.com/earlyaccess/notosansscsliced.css);
+/**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+.markdown-preview.markdown-preview {
+  
+  font-family: 'Noto Sans SC Sliced', sans-serif;
+  /**/
+  /* 时序图居中 */
+  /* 图片居中 */
+}
+.markdown-preview.markdown-preview h1 {
+  font-weight: 600;
+  text-align: center;
+}
+.markdown-preview.markdown-preview h2,
+.markdown-preview.markdown-preview h3,
+.markdown-preview.markdown-preview h4,
+.markdown-preview.markdown-preview h5,
+.markdown-preview.markdown-preview h6 {
+  font-weight: 400;
+}
+.markdown-preview.markdown-preview li {
+  margin: 8px 0;
+}
+.markdown-preview.markdown-preview .mermaid {
+  text-align: center;
+}
+.markdown-preview.markdown-preview img {
+  margin: 0 auto;
+  display: block;
+}
+.markdown-preview.markdown-preview pre[class*="language-"] {
+  background-color: #fff;
+  border: #ccc 1px solid;
+}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      
+<h1 class="mume-header" id="%E7%BB%95%E5%BC%80%E6%A0%A1%E5%9B%AD%E7%BD%91%E8%AE%A1%E8%B4%B9">绕开校园网计费</h1>
+<div id="detail" style="margin-bottom: 20px;display:flex;flex-wrap: wrap;justify-content: center;">
+  <span></span>
+  <span> /Corpus: <a style="color:#000000;" href="/corpus/校园时光/">校园时光</a></span>
+  <span> /Create: 2018-05-03</span>
+  <span> /Update: 2018-05-03</span>
+</div>
+
+<p>最近我以合法手段要到了学校一台服务器的使用权限，就打算尝试一下绕过校园网计费。于是研究了一下</p>
+<h2 class="mume-header" id="%E7%90%86%E8%A7%A3%E4%BB%A3%E7%90%86">理解代理</h2>
+
+<p>作为中国的程序员，“代理”这两个字应该是十分熟悉的。所谓代理，就是让自己的网络流量通过服务器流向网站。但之前我一直没有详细了解过它们的实现，趁这个机会学习了一下。</p>
+<p>代理有多种<code>HTTP</code>，<code>SSL</code>，<code>Socks5</code>，<code>FTP</code>等等。但常用的一般是<code>HTTP</code>和<code>Socks5</code>两种代理。为了达到我使用校园网的目的，我优先尝试了<code>Socks5</code>代理。</p>
+<h3 class="mume-header" id="socks5httpswwwietforgrfcrfc1928txt"><a href="https://www.ietf.org/rfc/rfc1928.txt">Socks5</a></h3>
+
+<p>Socks5代理因为是直接建立双方连接，所以不关心流量走的是什么协议。无论是HTTPS还是HTTP还是<a href="https://tools.ietf.org/html/rfc6455">WSS</a>都可以走Socks5代理，RFC的文档在标题，另附上<a href="https://zh.wikipedia.org/wiki/SOCKS">Wiki</a>的说明。</p>
+<p>然后按照RFC文档我实现了一个Socks5代理服务器如下:</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">import</span> logging
+<span class="token keyword">import</span> socket
+<span class="token keyword">import</span> selectors
+<span class="token keyword">import</span> struct
+<span class="token keyword">import</span> threading
+<span class="token keyword">import</span> time
+<span class="token keyword">import</span> re
+<span class="token keyword">from</span> multiprocessing <span class="token keyword">import</span> Process
+<span class="token keyword">import</span> traceback
+
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>
+    level<span class="token operator">=</span>logging<span class="token punctuation">.</span>DEBUG<span class="token punctuation">,</span>
+    <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'[%(levelname)s]-[%(asctime)s]-[%(lineno)s]==> %(message)s'</span><span class="token punctuation">,</span>
+    datefmt<span class="token operator">=</span><span class="token string">'%Y-%m-%d %H:%M:%S'</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+logger <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span>__file__<span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Socks5</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""Socks5代理"""</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> IP<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> port<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">1080</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>IP <span class="token operator">=</span> IP
+        self<span class="token punctuation">.</span>port <span class="token operator">=</span> port
+        self<span class="token punctuation">.</span>server <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>setsockopt<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>SOL_SOCKET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SO_REUSEADDR<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>bind<span class="token punctuation">(</span><span class="token punctuation">(</span>IP<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>listen<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+        logger<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Starting Server."</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__del__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        logger<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">'Stopping Server.'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">bridge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> local<span class="token punctuation">,</span> remote<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        sel <span class="token operator">=</span> selectors<span class="token punctuation">.</span>SelectSelector<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        sel<span class="token punctuation">.</span>register<span class="token punctuation">(</span>local<span class="token punctuation">,</span> selectors<span class="token punctuation">.</span>EVENT_READ<span class="token punctuation">)</span>
+        sel<span class="token punctuation">.</span>register<span class="token punctuation">(</span>remote<span class="token punctuation">,</span> selectors<span class="token punctuation">.</span>EVENT_READ<span class="token punctuation">)</span>
+        die <span class="token operator">=</span> <span class="token boolean">False</span>
+        <span class="token keyword">while</span> <span class="token operator">not</span> die<span class="token punctuation">:</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                event_list <span class="token operator">=</span> sel<span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">for</span> key<span class="token punctuation">,</span> events <span class="token keyword">in</span> event_list<span class="token punctuation">:</span>
+                    conn <span class="token operator">=</span> key<span class="token punctuation">.</span>fileobj
+                    <span class="token keyword">if</span> conn <span class="token operator">==</span> local<span class="token punctuation">:</span>
+                        temp <span class="token operator">=</span> local<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4096</span><span class="token punctuation">)</span>
+                        <span class="token keyword">if</span> <span class="token operator">not</span> temp<span class="token punctuation">:</span>
+                            die <span class="token operator">=</span> <span class="token boolean">True</span>
+                            <span class="token keyword">break</span>
+                        <span class="token keyword">if</span> remote<span class="token punctuation">.</span>send<span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                            <span class="token keyword">break</span>
+                    <span class="token keyword">if</span> conn <span class="token operator">==</span> remote<span class="token punctuation">:</span>
+                        temp <span class="token operator">=</span> remote<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4096</span><span class="token punctuation">)</span>
+                        <span class="token keyword">if</span> <span class="token operator">not</span> temp<span class="token punctuation">:</span>
+                            die <span class="token operator">=</span> <span class="token boolean">True</span>
+                            <span class="token keyword">break</span>
+                        <span class="token keyword">if</span> local<span class="token punctuation">.</span>send<span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                            <span class="token keyword">break</span>
+            <span class="token keyword">except</span><span class="token punctuation">:</span>
+                traceback<span class="token punctuation">.</span>print_exc<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span>
+
+    <span class="token keyword">def</span> <span class="token function">__link</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> sock<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span>
+        sock<span class="token punctuation">.</span>send<span class="token punctuation">(</span>b<span class="token string">"\x05\x00"</span><span class="token punctuation">)</span>
+        data <span class="token operator">=</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">or</span> <span class="token string">'\x00'</span> <span class="token operator">*</span> <span class="token number">4</span>
+        CMD <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> CMD <span class="token operator">!=</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        ATYP <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> ATYP <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            ipv4 <span class="token operator">=</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+            remote_addr <span class="token operator">=</span> socket<span class="token punctuation">.</span>inet_ntoa<span class="token punctuation">(</span>ipv4<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> ATYP <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">:</span>
+            addr_len <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">.</span>from_bytes<span class="token punctuation">(</span>sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> byteorder<span class="token operator">=</span><span class="token string">'big'</span><span class="token punctuation">)</span>
+            remote_addr <span class="token operator">=</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span>addr_len<span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> ATYP <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">:</span>
+            ipv6 <span class="token operator">=</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>
+            remote_addr <span class="token operator">=</span> socket<span class="token punctuation">.</span>inet_ntop<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET6<span class="token punctuation">,</span> ipv6<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        <span class="token comment"># DST.PORT</span>
+        remote_addr_port <span class="token operator">=</span> struct<span class="token punctuation">.</span>unpack<span class="token punctuation">(</span><span class="token string">'>H'</span><span class="token punctuation">,</span> sock<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+        <span class="token comment"># 返回给客户端 success</span>
+        reply <span class="token operator">=</span> b<span class="token string">"\x05\x00\x00\x01"</span>
+        reply <span class="token operator">+=</span> socket<span class="token punctuation">.</span>inet_aton<span class="token punctuation">(</span><span class="token string">"0.0.0.0"</span><span class="token punctuation">)</span> <span class="token operator">+</span> struct<span class="token punctuation">.</span>pack<span class="token punctuation">(</span><span class="token string">">H"</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>port<span class="token punctuation">)</span>
+        sock<span class="token punctuation">.</span>send<span class="token punctuation">(</span>reply<span class="token punctuation">)</span>
+
+        <span class="token comment"># 拿到 remote address 的信息后，建立连接</span>
+        logger<span class="token punctuation">.</span>debug<span class="token punctuation">(</span>f<span class="token string">"Connecting {remote_addr}:{remote_addr_port}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            remote <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+            remote<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">(</span>remote_addr<span class="token punctuation">,</span> remote_addr_port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> socket<span class="token punctuation">.</span>error <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+            logger<span class="token punctuation">.</span>error<span class="token punctuation">(</span>f<span class="token string">"{remote_addr}:{remote_addr_port} ==> {e}"</span><span class="token punctuation">)</span>
+            sock<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+
+        self<span class="token punctuation">.</span>bridge<span class="token punctuation">(</span>sock<span class="token punctuation">,</span> remote<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_worker</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                sock<span class="token punctuation">,</span> address <span class="token operator">=</span> self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>accept<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                client <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>self<span class="token punctuation">.</span>__link<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span>sock<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> daemon<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+                client<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">except</span> socket<span class="token punctuation">.</span>error <span class="token keyword">as</span> error<span class="token punctuation">:</span>
+                logger<span class="token punctuation">.</span>error<span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        worker <span class="token operator">=</span> Process<span class="token punctuation">(</span>target<span class="token operator">=</span>self<span class="token punctuation">.</span>_worker<span class="token punctuation">)</span>
+        worker<span class="token punctuation">.</span>daemon <span class="token operator">=</span> <span class="token boolean">True</span>
+        worker<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+                time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> KeyboardInterrupt<span class="token punctuation">:</span>
+            <span class="token keyword">pass</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    S <span class="token operator">=</span> Socks5<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    S<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+</pre><p>你看这个代码，虽然丑，但是有用。(我一友人说我<a href="https://docs.python.org/3/library/select.html">select</a>用的太差，强塞给我他的<a href="https://docs.python.org/3/library/selectors.html">selectors</a>代码，233 趁机黑他一把)</p>
+<p>Socks5代理启动！然后……</p>
+<p>连接失败卧槽。一看，连接超时......我吃了个李子思考了一下——这台服务器是学校批下来给我们做网站用的，从互联网上访问是可以的。向外连接超时。Chrome访问网站时候显示的代理隧道。一切都连起来了，学校分这个服务器的时候，肯定没有给服务器网络，只是在网关做了映射。查看了一下IE的配置，找到了学校分配给服务器的代理服务器。用socks这个第三方库使用了一下代理。然而......问题又来了，无法访问HTTP网站是什么操作？？？看了日志，说是只支持CONNENT HTTP Proxy。</p>
+<blockquote>
+<p>socks<br>
+这个第三方库支持三种代理 <code>Socks4</code>, <code>Socks5</code>和<code>HTTP</code>。安装方式是<code>pip install pysocks</code></p>
+</blockquote>
+<h2 class="mume-header" id="http%E4%BB%A3%E7%90%86">HTTP代理</h2>
+
+<p>通过谷歌得知，HTTP代理分两种。</p>
+<ul>
+<li>
+<p>在HTTPS技术还没出来的时候，人们代理网站，只需要把请求的URI带上完整的网址就行了。代理服务器会代替你访问这个网站，然后把结果回馈给你。<br>
+中间人攻击就是这种操作。</p>
+</li>
+<li>
+<p>在HTTPS普及之后，这种操作已经不行了，因为证书对不上。所以有了新的操作：CONNECT 方法。<br>
+这种方法的实现细节是 用户向代理服务器发送<code>CONNECT (domain|IPV4|IPV6):Port (HTTP/1.1 | HTTP/1.0 | HTTP/2.0)</code>的数据包，代理服务器视情况返回一个状态。当客户端接收到200状态的时候就意味着代理服务器与目标服务器建立了TCP连接，可以直接发送普通的请求过去。此时数据包会由一个TCP连接发送到代理服务器，代理服务器原封不动的将数据包转发给目标服务器。<br>
+这种方法跟Socks5代理十分相似，代理服务器不关心你们使用的是什么交互方式，它只需要把两个TCP连接拼在一起就行了。</p>
+</li>
+</ul>
+<p>那么，我们上面提到的不支持的HTTP代理就是第一种代理了。看了看socks的源代码，嗯，只支持第二种代理。</p>
+<p>但学校这台代理服务器的逻辑是什么？我想搞清楚。发送了一个错误的包过去，果然从错误页面拿到了这台代理服务器的信息—— squid2.6。一番谷歌，squid的默认配置就是只允许向443端口使用CONNECT方法。</p>
+<p>自己手写了一个Socks代理转HTTP代理的代码，发现怎么搞都没用。</p>
+<p><strong>然而我是不会这样轻易的狗带的。</strong></p>
+<p>Socks代理用不了我直接HTTP代理不就行了。哈哈哈哈</p>
+<pre data-role="codeBlock" data-info="python" class="language-python"><span class="token keyword">import</span> logging
+<span class="token keyword">import</span> socket
+<span class="token keyword">import</span> selectors
+<span class="token keyword">import</span> threading
+<span class="token keyword">import</span> time
+<span class="token keyword">import</span> traceback
+<span class="token keyword">from</span> multiprocessing <span class="token keyword">import</span> Process
+
+logging<span class="token punctuation">.</span>basicConfig<span class="token punctuation">(</span>
+    level<span class="token operator">=</span>logging<span class="token punctuation">.</span>DEBUG<span class="token punctuation">,</span>
+    <span class="token builtin">format</span><span class="token operator">=</span><span class="token string">'[%(levelname)s]-[%(asctime)s]-[%(lineno)s]==> %(message)s'</span><span class="token punctuation">,</span>
+    datefmt<span class="token operator">=</span><span class="token string">'%Y-%m-%d %H:%M:%S'</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+HTTP <span class="token operator">=</span> logging<span class="token punctuation">.</span>getLogger<span class="token punctuation">(</span><span class="token string">"HTTP"</span><span class="token punctuation">)</span>
+HTTP<span class="token punctuation">.</span>setLevel<span class="token punctuation">(</span><span class="token string">"INFO"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Bridge</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""网络转发"""</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> IP<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">"0.0.0.0"</span><span class="token punctuation">,</span> port<span class="token punctuation">:</span> <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">8088</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>IP <span class="token operator">=</span> IP
+        self<span class="token punctuation">.</span>port <span class="token operator">=</span> port
+        self<span class="token punctuation">.</span>server <span class="token operator">=</span> socket<span class="token punctuation">.</span>socket<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>AF_INET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SOCK_STREAM<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>setsockopt<span class="token punctuation">(</span>socket<span class="token punctuation">.</span>SOL_SOCKET<span class="token punctuation">,</span> socket<span class="token punctuation">.</span>SO_REUSEADDR<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>bind<span class="token punctuation">(</span><span class="token punctuation">(</span>IP<span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>listen<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
+        HTTP<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">"Starting Server."</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__del__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        HTTP<span class="token punctuation">.</span>info<span class="token punctuation">(</span><span class="token string">'Stopping Server.'</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">bridge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> local<span class="token punctuation">,</span> remote<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        sel <span class="token operator">=</span> selectors<span class="token punctuation">.</span>SelectSelector<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        sel<span class="token punctuation">.</span>register<span class="token punctuation">(</span>local<span class="token punctuation">,</span> selectors<span class="token punctuation">.</span>EVENT_READ<span class="token punctuation">)</span>
+        sel<span class="token punctuation">.</span>register<span class="token punctuation">(</span>remote<span class="token punctuation">,</span> selectors<span class="token punctuation">.</span>EVENT_READ<span class="token punctuation">)</span>
+        die <span class="token operator">=</span> <span class="token boolean">False</span>
+        <span class="token keyword">while</span> <span class="token operator">not</span> die<span class="token punctuation">:</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                event_list <span class="token operator">=</span> sel<span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">for</span> key<span class="token punctuation">,</span> events <span class="token keyword">in</span> event_list<span class="token punctuation">:</span>
+                    conn <span class="token operator">=</span> key<span class="token punctuation">.</span>fileobj
+                    <span class="token keyword">if</span> conn <span class="token operator">==</span> local<span class="token punctuation">:</span>
+                        temp <span class="token operator">=</span> local<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4096</span><span class="token punctuation">)</span>
+                        <span class="token keyword">if</span> <span class="token operator">not</span> temp<span class="token punctuation">:</span>
+                            die <span class="token operator">=</span> <span class="token boolean">True</span>
+                            <span class="token keyword">break</span>
+                        <span class="token keyword">if</span> remote<span class="token punctuation">.</span>send<span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                            <span class="token keyword">break</span>
+                        HTTP<span class="token punctuation">.</span>debug<span class="token punctuation">(</span>temp<span class="token punctuation">)</span>
+                    <span class="token keyword">if</span> conn <span class="token operator">==</span> remote<span class="token punctuation">:</span>
+                        temp <span class="token operator">=</span> remote<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4096</span><span class="token punctuation">)</span>
+                        <span class="token keyword">if</span> <span class="token operator">not</span> temp<span class="token punctuation">:</span>
+                            die <span class="token operator">=</span> <span class="token boolean">True</span>
+                            <span class="token keyword">break</span>
+                        <span class="token keyword">if</span> local<span class="token punctuation">.</span>send<span class="token punctuation">(</span>temp<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                            <span class="token keyword">break</span>
+            <span class="token keyword">except</span><span class="token punctuation">:</span>
+                HTTP<span class="token punctuation">.</span>error<span class="token punctuation">(</span>f<span class="token string">"bridge({self}, {local}, {remote}) has error:"</span><span class="token punctuation">)</span>
+                traceback<span class="token punctuation">.</span>print_exc<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span>
+
+    <span class="token keyword">def</span> <span class="token function">__link</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> local<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        remote <span class="token operator">=</span> socket<span class="token punctuation">.</span>create_connection<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">"xxx.xxx.xxx.xxx"</span><span class="token punctuation">,</span> <span class="token number">8080</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>bridge<span class="token punctuation">(</span>local<span class="token punctuation">,</span> remote<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">_worker</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            <span class="token keyword">try</span><span class="token punctuation">:</span>
+                sock<span class="token punctuation">,</span> address <span class="token operator">=</span> self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>accept<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                client <span class="token operator">=</span> threading<span class="token punctuation">.</span>Thread<span class="token punctuation">(</span>target<span class="token operator">=</span>self<span class="token punctuation">.</span>__link<span class="token punctuation">,</span> args<span class="token operator">=</span><span class="token punctuation">(</span>sock<span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> daemon<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+                client<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                HTTP<span class="token punctuation">.</span>debug<span class="token punctuation">(</span>f<span class="token string">"Connection from {address}"</span><span class="token punctuation">)</span>
+            <span class="token keyword">except</span> socket<span class="token punctuation">.</span>error <span class="token keyword">as</span> error<span class="token punctuation">:</span>
+                HTTP<span class="token punctuation">.</span>error<span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        worker <span class="token operator">=</span> Process<span class="token punctuation">(</span>target<span class="token operator">=</span>self<span class="token punctuation">.</span>_worker<span class="token punctuation">)</span>
+        worker<span class="token punctuation">.</span>daemon <span class="token operator">=</span> <span class="token boolean">True</span>
+        worker<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+                time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> KeyboardInterrupt<span class="token punctuation">:</span>
+            <span class="token keyword">pass</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token keyword">import</span> sys
+        port <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        S <span class="token operator">=</span> Bridge<span class="token punctuation">(</span>port<span class="token operator">=</span><span class="token builtin">int</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> IndexError<span class="token punctuation">:</span>
+        S <span class="token operator">=</span> Bridge<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> TypeError<span class="token punctuation">:</span>
+        sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token string">"你应该使用一个数字以指定端口"</span><span class="token punctuation">)</span>
+    S<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre><p>代码微微一改，畅游世界。</p>
+<p><img src="data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAnIAAAILCAYAAABsA3GcAAAgAElEQVR4nOzdDXBb530u+Eeq0iu3sYObyHEiTUcyRZkylXFdSORmksaupAKyQ2cs2pczG++mF1E6lqAZ04i7VBa2OxrNxkZjTh2EzphUpnFx41l1t7hXVOaaqQlU9ipp0ixloa4nokWLhKTrkWIncopYSbuuHWvf/3vOAc45OPjiF3iI5+eBBZzPFyBxznPej8MVb7755tV3330XyW+PgoiIiIiWvv4v3o0PfOADWPWb3/wG7733np74q1//W5OLRURERETVfPB3r4FUwq1YsQIr33//fciDiIiIiPxBKuIkv628evUqgxwRERGRj0iQk4eukZMnREREROQPVo3cqkZq4x794Mc9p3/1Vz+dr3IRERERUQ1W17hV0rQqj2oqBTj3fAY6IiIiooXnCHLVauVqhTj3slXD3Mc/g4Oxm/By8tv47k/N16Gf49B3LuPuP/tDXPrLYzhZbQe37sbw5zd5zzv93xH9zhl0/clu4DvWdtao7X4Rd3zUvuBZPPOVavM9/OzH+Opf/gAXy2Zsxt6vbUbuKzXKPWsLvf0lzv37siw18jOWZT+NN5b150FERPWw8lvVGrlGQpx9nYph7qc/wKGv/FydjL6Eu9XJ6FLok/jYFmD4a+b8rw1gj37yCzyv56vXW0qrv/w3g4h+RZ6tqRj8TmbfwsE/+4yaZwUvY1vGic84aTpZwc6+TfvJVT3/s+sda6zb9SU8esMPVXBs+OOZZ1LOz+FjL/w1Do1fLpt+q35uf/8ww5H63M2X8pkefrmebZZ0/Yn8nIzgbKc/l0+8ViH0LhXV359+Dzs+XJpwuvx91rstJ/Oi4efVtrcw5Of12TfrKSMRES2Er0Q/j//nxy/j//2nVz3n/09/cDP+6JO34mvDf1P3NiXESX6rq2lV/OZLYf3vb307U/dOvJ3B4a+cMWrXJAzI80rB7DuDOCnB4z7gryQcyPOvlUJIKfjZatlUWPyrn+zGNpVBL97wh7gDKlhUrb3YhD3F7di3qYpoPf/Zj/GcNV+V4U91WJFyu0PhYrFqEs/i5dNe84xwEZUTt3zOsd24ZIVSFeLeUOHtkIQ3XcO5G10vW0G20jadTr5yFns+vxld6mdZ+nmtwbZPfBgvH5/HEKeD/w/ma2vaul2f1gH3jQrz197wYbxRM5jV/1kVffxmtd9f4I0t7s9t4Z38zl9j7Z/djbtfYU0eEVEzSIj7X3r/WD93hzkJcTLv/xz9+4a2WbNGzl0bJwFOwlw9ga5SrdzdfzagmzGNE+UxRF/2WLmWsmZOIwTaXVTbvqhDClTAsy97GW/8zAxu5na++5eD+K5tXamRuevNb7tqqUq6QioIHR9sco3T5WK5dW2LfZYEBhUwvmcFkZf/Ac/v/CKCKr2c1O/pLHLWe3v5DF7+/KexVn7UP62yTTe93uds27TtdzY/08VihvDnT3/SrK309sabtWquGvisTOtuuQn4yXfxvRu+6PzcFoUq7/G3MBzajO8ucm0gERGVwps7zNlDXKXaukqs/FZ3jZzbbGro9MlPBayDN5jNc1tcC9hrxqo2aXkHruI29bpeQfGyI7jJNobtzWhFAzoEOuhtXsba63+hTvSVSmVv0hT2/njl84s1PzWbO1F/f7EbPoKPnbbX+FzGpZ8Dt96wBlIb+twLn8af7lqDk7q2bjNuPf1DRBuupTmD3OnPYc8tm3WoExJUPqa2VfO9mrVZHzv+3wEVBm81AzUcTZrm56bf80fwveJnWO3zNfuPvfAW7tixybVPGPu9zwjhl26pFOTWqJ+v+lg+b/383T+/2ZLaSvVRHbmMkzecxZ6dn8G6l71qLl2fjTm17PfhFqllNfuK2r8n1X6P3nwLb1x/Pdapn93SbfYmIlq+3GHOej6bECeKTavyYjZBzjLbJteT0mwKeyAz+qI9N4f+VSetptiQvKo8kME6wV8c/zai49X3K+Ew+Ip1QtyMj330LeQ8g0+pv1TUCg9SK/i13YDVrOmeD7Ocqrx/9RWzls/R3Nm4dSrI1fKxHV9UAdZ4/sYL/zCLvUhfxB/jszGrmdBqVrWCt9Upf9AMicbPYu+bpWBx6+c3q5CkXssL+ZnteEu9/naV91zr8xUfxh3Sd1G9NkJNqTmx60++iFt/8te6Sbnrlkr7KA/6jzr6W87SrbYm/p8ataDbPq62WSFAOz6bst8H93v8NO7++Bn1Hmv8Hv3053jjo5uxVj1lkCMiag53mJttiBOOGrnZev9vTmDl52/XzyXQXf0fP8eq7D81tA3pkwR3DZechG45M8dO4eqkfOTHuFWPirW2Y9Z4uJvOPvpJPPq1T1bc0suvmE8+fj0+9rO3cMlrIandktole0izN2vCY75Vzu/8wFU7eLZ8+3X2F7v45lvADRVmStOiCnDPq4BVGvzhDFh1++mrePln5nt709WsKp+FChyIDagAU/KGrhU0vPw3tqAqIQOfxJ6vfQlrK9U41vp89b5/geezZ2zlu8lcdzf2XK/W/U5jnf0vjv8QL++oHrrq0XXLJrzxk38wA5RRm/nZW9ao9+ldHsdnU+97rPl7JN0KPmI2o8/+vRAR0dJQDHKNrLTy+D/j/Z2/X5rw7+/h/b9IOxe6/kP1b9A6wXqECEc/JTNovXFaTkxv6UlrVVh545Xy9ezb3otj+Ks3v4SDuy7rGjh7rYxDxduLmDVy1otZ1WqYTbFVwpU0h0Fqmr5iNbPWrlWrytGEZjQXvvHK5WLzZykomaFCB6xGRzRexks/+QUevWUz1r3pblZFlc90TdmU4gAYHbQHMPxRc6RtXeWo1tRt7O/unZvU79AmZ1jf8kUMf6Lyz33+bEZwC/CxLaVaUGP/f4iu8Xm8rUzN36M1VWqTiYhoMbgHNlQaANGIhoLcivPGGfP9wf8G/OZ9rNi0Fu76vHd//kt8oEqYs5r+ym9VcRlv4HPmyVZO5JeLfd5etkZZWlRIe3TLh9XJ8EuAnPD/8phzJ1s+Z4yI1bcH+Tb+SmopvlZlNGK9NXJahVoNcwDAn+56tbSPsia1z+GuW39QbKa9WwXM7775EXzMVtOkw5YZVh3q7SNn1uAU96PLYITlix9/DW8Um+KMMkjIkJA3GxdfMbb3pyooPn/EVnv6svu9wnV/v/L3dvcNP8B3X5amzb8GpNZUgq89oNX6fCu6XDagxXE7DsfnugbrPn65WPvW9SdmHz7rnoezuaedrp307itZadDDrfa+h7vu1qNjn6lVY3pDjd8jqU1uoNhERDS/Kg1smGuYqxjkZNSp133k7DVwK+75FK5+7b96rutJAtgOFRx+poLG8UFEx+0zy0+4MPvR2Rnh7qzuQ2T0OxvAsL3DtwRF+6039A2EVTB84SzukL5hN3gMoqi3Rs6swQpKyCh7i1KrBN1UWap5OWsbNavmJ69XYcDZkR4wgpcVJKXWsdKtMepjNCk792OWQZpn/+YjGLY1eXoOrKiXbtr7pA6KLzk+D/d7NfdTcTs/0PcMLA4wkZ+nlMnx61fr850f2+4bwKNWv8oqvxf1kmZVeT/O32P7YJHydV5Wv9fDKugZ6hxw8XKN36OyQTBERLRYKoW4SqNZG7HizJkzV9955x08e+z7+NWv/80xs9INgaXWTVv1W8B7vymb/7Vr/tVzva4/+RLWZo2aj5p/UcE9atXWdOSuVSvdoNfZF07XZLhPgla4O/1jPH/9J2v/VQeLdVK339euzlWJ6mONWp1DuK643buBI7yPHBFRM8z3DYE/+LvX4N7wNqxevbp6kBNeYa4Y5DxUCnHLSXlwJJoPCxPk+JcdiIiWF3uQq9lHzquJddWHfhfv/fLXZcu2QogT+rYlzS4EUZ1OenRRICKi5aGuwQ5Wnzcr0K34bedqrRLgiBaW0U+UiIioXg2NWnUMYrhmvotCRERERI1Y2ewCEBEREdHsMMgRERER+RSDHBEREZFPMcgRERER+ZRjsMNfPHx/s8pBRERERHX46jeeLT5njRwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfnUyqtXr0IeREREROQvrJEjIiIi8ikGOSIiIiKfWvn1vz/X7DIQERER0Sys/PIf3wice6HZ5VgAeTwdCiCWBbKxAAIB9yOEp/PzsQ/3dipN8yqD6xF6GnMqUv5phIrbkH3GoN6+ev/28pSXJRaLVSjTfHxGREREtFCMptUbdzS5GPMv//RejPbmkAwBoWQB6QgQSRdQKMgjjUhXL+5oa2iDCJUFmzbsP7AFD+8tBbBsLIjXDmSxv2zbEaT1vnN4vMt6rsoB+/MSCZ+hBlNU/vlRoPcOuHcd6u/FaNAquypzVu0v9zi6Imn9eSR7pHjG89zjXebnJOVsaPdERES0yFY1uwD1kVqkIB4+WWOxrseRy+5HmwpdQzgM9VTXPkmgO2BbLBvrAw4UygJPZVnEgq+pVbIIwQhZfSnnEsHAw6UXqQCKs3WZ7pCJ6AvYVrI9T1nP1bL95rRQMoezob14+g6vUOhdxqGHt6gyeizcth/ZnNrmkNqWJFsvqT5bkazyd+HxenZNRERETeGTIGfUIu2vc+ns0MNIpdRDspXUNKkklI0Bp8/mIUns7GmVW3TYktqwJCpEm6L800/g9OOHkTRfSw1fIVl1lTLu8uefDmFoUxaVcpVV2xeoFr7ssmNIdd1UDIKy/qYtpzEWC6nQWUrAoZtyKuB6hD35nNR+SuWS8Ly3rvdGREREzWE0rf7LPzW5GPNLBy1pOpTaMFsIOjn6PPJW06JuXr0JG2tuLY/nR7fggCP8ZBGr0J9MgpDRJKqWMfuryTR3/7PgwyeR6vPolyad+opvpAeR1BiyqEXty6winLHtSwJcCgfM5mTjkdWhVs0PPoyTUgsn5T4Lo0bOUa46akCJiIioqVbJmNW1TSzA5cuXK85bs2bNLLdqNYUmzebTPM6e7kIXHsZQdr+uBdO1bL2Hazev5p/HKG7C4bIZzto8GVBwtsIm2vZnUdgvwe4s+qXp16vEKlyN9RRcNXQbcVMd/dT0e4lE0HVaraH3ZU0PYa9HVNVBt/9phIY2ISs7zMbwcJ01ctV+XkTkX7M/3hJRM6069n/l8Pk/am4h5v0AIs2M8p/u9NWFx3MH8NrJLTiQ68UTMjAhdIdRy5ZtZLSDm6vPm+ynv9KyppMPO/vSuUR6vKaehm4RrlLUGfTisNr3XlfuarujFxiakWfVyxVKolDWeis1l+V1gTzYEy0/vEArt3PnzobXOX78+AKUhKi6VV/+n4N4540fN7sc80uCib0Tm4w4lf5jbftxYEtAh6mux3N1NFlWU3+NXJE1GMNjlq6R81xpCzbVymH79+v3WKZtE7ZI02wyVLUfoNTCBR3tqKXBGjKCtZ4uekREy81LL71U97Lbtm2rPDMbQ8A9Qq6C0jE3j+HwENozxnkmPxxGMD5hX1C3olTeZQCDHTlkoo1VWMh+9mGk4fWoeZbvX3bIWvdGiyE29HDxthyhnoievaVWOrJIGDr5GmbKZkiNXMDWH62ObekaOe97yHmvP4PXUE8/vkpC6Imk8IR1GxPHfeZg9osL4fk7ssU+dKXbjxgPhjgiojnSlQvGMTUd6UYiV7D1XU4j0p1Aro5jbvHYnEug2zVPApj7nDIRD7rONWEM6xOAhETXeSg8PLf7mFLTGEGu8C9NLkZ13jf0rfCIZY3ln7jJ+GKkVV45/TgOW538+4C0TOxzDSyoyAhDY2WLWvd/s76cxlTpD+c5KlRIjVyh4Bh84F7f+cbHkNqyqYHbpHiUPpnGloeD+sbImHkNJ7cAz4eMwQ5b9EGh3tubEBGR3euvv44777wT4+Pj87pd45wXRHzCrDCo61wFx0V4+SOHRDH9tSGacc0fAfbJgLf4hCMAhocZ75Y64/YjckPgV37Q5KJU1vjtPtTy+t88nn7iNB4/3K/Di9xPrmDeZy2kfnF75MsSq149bew/jTGpyQp5NIsWq8xVsJMySq2XjAiVeZE0kq574KWq9JHT958rNr9aZW/wPiflpUdSBVc9yhbGF31/cn/pVij28ha574Pn3RxMRNSqJMTdf//92LhxI2677bZ53bYxIG0Y4eAUBgpW0+rgvO6jTFsUmULU0bRqPKelzif3kZstW4d9j/vQ6S9LXdtRYejAmG6mNfrFSTgKWRtx9seTm+8WnHtq5B54FvkLERI86x6PIfuteNEm5S3AMxJ6lJeIiCqzh7jBwUFcc801VZaWZkypXbNNUhftcddSqYA5RZpZM1FgfBQT6r++APR5p54uNnLrqFTVJbqRkH8q9NmTC/1aY/Zo6VnmQW4e6cC2mLsr1LxRMRERLRxpMk0mk/jWt76F3/u939PTGgtxwmjGjJqvsrEwpvszKI0lyCIWnka/Cm+l63YV/qY6EenuRM9IBwZjWah/aqp7cFqbUQEhNW5D7RnHOtmxCXT2sA3GT1auWLEC8iAiIqISaTKVwCbBTQJc4yHOLY/pyTqWGt6HqZ5+6OwmTZ4qac1MAR1VquVmpowqv+p9ymO2uzXkMT7Vi/6Q3ODemi7l6666H1p6lu+oVSIiojmQoCaBzQpzcwtxYgZTE51or1HhJfcG7XfUrEnA8lrPCmH2AOYeFes12EFWHVJhUWoBQ+hPTBoD+vLjGFX73mXbT2etwlLTMcgRERFVYA9zcwtxxoCFVKSnZreZUDTqHGCmA1aHdz+5bpleX0C0bRAydqInZNTgyUjVlEpy2aE40LuruG+rlo+WNvaRIyIiqkKC2ze/+c05bUPf0He0F7lM472fJWB1DhTK7x6Qn8ZkZzva5FZVKiDKgLYsJhAPlg+mMESQ1uupYDiRwkQgZdyyJCk1e33ok4EWSdbA+Q1r5IiIiBZQKcRFG7+VU34Yg5MJZ1NrWzs65YbuwbjuOJcdm0SiuEAdTav6ViP2GxBvREe3Wm8kqm99Zd0suC8V0bV2tLStOHPmzNV33nkHzx77Ph598AuLXgD5G3/8+51ERM3D43A5/q1VWsq++o1ncW94G1avXs2mVSIiIjeGMvILNq0SERER+RSDHBEREZFPMcgRERER+RSDHBEREZFPMcgRERER+RSDHBEREZFPMcgRERER+RSDHBEREZFPMcgRERER+RSDHBEREZFPMcgRERER+RSDHBEREZFPMcgRERER+dSqZheAiIhoqdm5c2fD6xw/fnwBSkJUHWvkiIiIPLz00kt1P6rLIhYIIGA+Ylk1JVZ6XXrE1JLu9cIYztcqaR7DYee2ZB/54bBz++FhuDell4llPbfqvR97GVX5ZJv5YYTdZZdpjv3JutXeS2m+o9zGG1Hbt70mB9/WyPFqae6W22coX/6h9gySoWaXhIjIpTuBXCYKyHHKmIBELoNom7WABJkhxyrZWB9S8iQYQLx8g671I0gXkpDDX764D9ltDhm9kISuaccWZLlgfEI960MgVV7W4qazMQT6bAuYC0fSaeN1WxSZgoTOGGCWoUx+HKPoxUib50z13oOYGiggiWHEMIJCQT6qfUC/2lpbSG0/6rUiKauuXr0KefhR7augkm3btlWe6f4lrSKSLngGBbm6GuywvjAVyFWF+r0c0V8Q40vbnklCfbsw3W99IY1faP3dsvYZiSCV8iqf+4vcuHn7DBdZ6QDkFjAOfHaRNAr907bPvriV4s+gkewn+96nDjSln3Xl7VQup6OAxQNw40oHwJ6xAMp/jT1+R5bg7yERzWBKfd/azVdyTulTx4aIet7jOj4Y8wZc37kU+mxpLGJmrIl4EAErBaqA1m/fxqQKbIWMM7ANdjhDnAglVbBSx4iyY516PTimSq6ylpqSLFQ+imWH4piYkEzqjKRyTu0ZkwOSOre2SRiMq3eiHtZiKsROVTjvkoFNq0L/khb0Ix2Rk1Kh+LpQSCMiVyfma+uXyV1lLSdQ/YVxVJM7q5Hz46NA7y64z3eh/l6MBq1l2xDNqH3lEuiWACL77IERRtTzXKJb/+IXCjmop0uId9W+5zIVq8adzQ/F5SR4WNXr5rS2aMb2Myq4PhvXQ35o6opxpHcU+5w/EHWF2IGNVd5PLGv9W5ouP8bOqX229yqBRw6i3k0YckVcLIvt52o85vZzzA/vw2hvTv9ehpLy+wvbZyC/u73Y5fqFW96/h0RL1ERcZZJA2YVd6VzSh8lEf7FGTSoGCsmkCkc9GLOOp2YT41iPeVwrMr+vtuNe/7RxwamPAzDPa2ZAM0JcN7rNMhWPW8aJrDgtrA8G9mO7+1jnfewblmbjoAQ3Y1ux4WEMTpbOo6XzrVH6UNK4EMzGBtUxxji25BIRXeYcDzA1Lesg9/rrr+POO+/E+Pj4gmzfMzRUPEFnMRTvxIBXtYVUS+fUSXSoStt/qk9/SeQgkOqzvkDz/Y7KNfYZ2kKwCgCTfa7+EDo4qYNHagxl71SuBNWBDPbPtGdMH0gkeHT2hIr/lrZn6zfh+Gy8g3RbdAS9o0MYtg6ctgONPYAaBy91dQx19Rqy/rXKOYR45wCSyYzrZy21arayu69o61Iehj0fVkhU739I1wxCrxd2dT6RZhn1C+cqhz9/D4l8z6wQcAcT+0WpVcsv04o1/vlpTALG902OWR6bLusLZ35HjcoFaZ6dQDxYOn5sVBd9hZHe4oWZ16NUTltINK4Uax77oknzIlC/5xw6RkfRO9KOoWr9/dQ5YLBjBP0dxnsNxlO6zPI+Jgft78/dj5CWbZCTAHL//fdj48aNuO2225pdHPVLOoZUt732pw3tnZMYi9lChTpJuk/GRU2oCZnTZ6hCwUBkAqPjtq6uuiZoRE1PYczxTcwipq4Ey5qtQ0kdUmS1jo1581/XfioeiLw+HzkgJRHVB860brRIe6yrD6Dq5zUptVbWv8Y7wPBgCt26EPbaQ/dVqfNg5aipNX/Ozto8e/mqXRw4Q6I0VaT0ttU2OtPFA//ktHEVPT1pHvztBz4f/h4SLU+2cOU4drgu6HSro/MYIN0o7C0XzhaKtG6OlZYAXePlPkZWushUQarS974YFKXGzn78is3o44dxyHEPbrDIcU1q3KTpdQTYZ2/h6DaO6Wb3ps52o2TuGrnOgYytdWC23VCWL98OdqjGHkAGBwdxzTXXVFm6vC8QUuUdS1NWu77VYRXGSTJVtSTdSOh/jaAi6864+0zpX0znr6Wu9jY3HEipbSQ6jS9PcWfWfq3tz7/GPsN6GEGsd6QNofYI+gaH0R8yDyg6XKjP1fPbaRwENOtfu5Srk65D6fOxPlOr46+urVIHi2LHYPcgCQmR+rX1r9GMKT+67l5r81aHYHu/kbzRQddeioSt76Qc7IbakSnurLyDc72kKbXQb/Z3sxV+YnQc+WhUh8Ko2cHZCG7++z0kWjZ07b9xHjH6rxnfqVH0lwYjBMbQ3qaOkfq7ayMha7q/eBzR3/2kfba9f6xxgWrMVstZrR0W90CGOkhQzME4TkqTrf14mR8exNiMHMbjKnAVamzXuFjVwXCsF4lJs/xjUJ9FN6bMpYrnVqmVQ6m/H3lbefPNN+PWW29tdjlmRZr7pNlPQoel8QDirAWp1UfOfjVTvWlVHka7v/yiT0aklwKw0XblJFca3WVVTOaXtHj1obbRjgWrCZmfz9CDCiyD6uTfa3XQkiZJmP21Qj2ITIxivOaQ+jrUWSOnP1OrQ4Y6YI6lUGyGdTfJVurCNzPViXRxG7D1JbHXyJU3NVpXmfNPHfiDUxgo/k5KLZz6nVKf9FCxe+FgsUZxKf8eEi17Xk2ru3rQGR+C0f1tsNhHrqybhUpp1fpgh5L276FxLNLHMfdAvlmEOIN0yZgwmzxLx0vZR1t7p2767EPac0CCXDQaNX2lVgzddy+5q7hMKJmE9cqqXbT39+VAh+pWvvrqYdyr/vMjae6TsCGhQ8LH3AOI0RxVj5kp42ztfS8gZ1v+jAy5loZ/l7ZdvcDUTO2dyWCMst9kq7q6vvJWMr+foa2pIDiKXttIxqxKTt3FJsoQelzNrrPmaKa0P6r13ZIq/sqDJCodNORgE/Lchr2fSHmwcfTbq9q02iCpyYQVIOWgLqPeOjEwklAHVmnikFrQUn+4pfx7SLSsmf3cyqnjSBr6OxwcVd/P4hfJXsEgxxR3BYNM64TzGrHUVcQeFkuDrYwm1yLpE2tvGRi0wqJx3nL007Md74zjpe04t1GOKb3I6W2Z95WDNUo1jkHdj3dGhbhSH+jKd3coBVijFbf6xTUZfN1HTkKGhA0riMy9KdA4EdauQDFqPoxKDPcXrLxGKBStcAXU1o5Or47/7r3ZOrLWW3tUr/n9DO2fhf3kbtSA2a8ojcFRxpXonGroGuojZ3B3DC4bJFHnhyoh3lhUBkRY/c6cwUYCv6Pmdj5HrdpGW+vPG+pkIf3fpH9ip9QWBjHa218Mn0v595BoOas0UlzPs2oPvI6BekCX3F7IfbFk3KrEqdRP195tonTc7fPsCmRURhi3MDKOJcYoWXdfXytkGd9983YhiKmL0yn0WncEkIvLznbMxIzbcZVCmxEEndeBXudbM8AWWz7MZmLWyFW18uab9+K/qf/8yh5E5tqfS6q2U5GeOjpS1hv4apGaqRQGrW+Lu7OorrkJY3yXsxmsntqjRsznZ+hJ1xy5BxbI1aE16CGE/gQQD7oOHFU63xbNokbOfeuSstuW1PmhStOj0em4zzYgwk4CfwQ9C3kQ0v1fjNrfmLoCtk4WoZ6Inl1fs+7S+D0kWq5mpvRX0wxC1qAtowUjODVgfo8GMBU0R6Vb32tzoEPS6MxrG6XfZ2uGtdRfI2e/KNO3MnF8h63aN6M8pb8QYYQ347ufwa5x6efWowcfyACygamgbsaNqAOeHCMainoAACAASURBVBu9a93sg8T6PM635ny9Xbnw7cCgOvaEw0ZrRvloNxKrpGn10Zs9OpH7iISOb37zm3Pahr5x62gvcpk6zkgSTNQvoHQmzZpfxvK7bgv1xaqxqVAyra5+goi1y9XNFCY6OzCufmklhMiJsp7izIf5+AwrkWZVqTlzvhUJD0CfSnLJUMgIV+1ydWf7LKXmKlkjiOhlvD4k16ADOQhKPxNMYnjX/DYFdicS6JSr3lH33dClX2AHcnVux9lhuQb1vtPoM2/oWUCbvpGnep5sM7cjB/W0cWVd8TMqWSq/h0RLyXzdBF3uk6a/QvZBDK4BC8VaK/NVwTnT/OsJlf66gTEiv7RoxtxO0vbdVdu3XsjxtuYfSjDKYzy1LW9tW6Y53qP7/VTeptdixTLb51d9z2RZlqNWG1UKcfV1As2OTSLRb/2qVbqrfb2jEeUXO21chcA4aUaT0dKXXQJI2b2DbKNlZ915db7ZRpe66C94PdOLdw+vxTnSuPKoVRh/2kZ9RolO6bOnAkmb2QejrLbO9pnWDD4zxf0XQ040iqR5xTxhbiMt9ZCVRnHZf67yM1T/tNV1ILSzPj/p36J+J0f6dfiSGwQXCmZvRLlVgTSdxGq9p+Xye0g0P5bynyMkslvx6quHr0qN3I2H/giPPviFRS/A5cuXsWbNmobXW25/J7QZ+BkSkZjtcZiImuOr33gW94a3YfXq1VglfeTE/4Y/am6pGsRAMXf8DImIiPzN17cfISIiImplvr79CBEREVErW4kL5zHd7FIQERERUcNW3nxHAv987/Zml4OIiIiIGrTy1Vdfxct//ofNLgcRERERNYh95IiIiIh8ikGOiIiIyKdWrlixAvIgIiIiIn/hn+giIiJy4Q3Tab7M5q8oNWLV1atXIQ8iIiIq2bZtW7OLQD730ksvLfg+WCPXwnjFSeQfC31VT0T+xCDX4njFSbT0LcZVPRH5E0etEhEREfkUgxwRERGRT636+te/jvfeew8fXv8HzS4LERERETVg5Ze//GX093+u2eUgIiIfyQ+HEYhl610aw+EYSktnEQsPI58fRjhgn643jLDMc6wbxnAeFZTm6zIFAsZDyqa3b3s9H16MY338RY8Z5/HMPeuxfv163PPMeWPKM/cUn5sTcM89z+C8+7mxYcTXx2Ft+cW4sa2yh2Md93asbRhlcey7uPg9lctHvmQ2rd7Y3FIQVaIOmmUHQtvBruw1ES04CUzB+ASQ6isFJ3k4ApiSjZnzgohPpNBnLlfMVG1RZAo9GHOHOcfOxjGKXuxq85ypQlwQUwMZRDGMIYygUMgh0d2NRH/I3H5BTVOPZGhe3vuLmSO4L7zdI2jdjkM4iBMXLuDong162XNngbt2bKhzy9uROLEJT9mC2n2pC7hwwfY4cRBbXWudf+E52Qmce9mAPUcv4IGzt7uC2nkYi9dbJvIDjlqlxSVXs5Ej+ul9qRPY9NRDwJNHseecTFfnhQsJbJdlMmFcSGxXx7a9uEst88yOo7jx8HqYqyKy/ohjs/r1VnUQPbrHdUAjovmUjQXQN5lArpBBW2kiAoMdyGWicOStUFKFqCSMwDWE9kwSRpxSrwfHMKOetakpyULlkJUdimNCZcZgIO6YHkkX0DO2DxgpINmWRUzNT0E9rMWCAUypZeYpvxnUheNTUwfxZEKFtMxWHDyhjl0bYFxwnttbDHCGF5E5cgpHjqxXAW8r7rsP6vkpPef29YeKS8nzrQdPGOtu2IOjR43p59TjSGQ9nEc66OOcrUAqmHXggaO2/W7dVKya2Z64oOKhvUiHcejUKdkpbCWArTg8jvoQgxzZSHX87Tj7wAUk7N9+qfW6/SwekJA1D3uRg9YDZx/CuRs3YMddwEMvnMeePQl1xWmW4SkV6I5ae1JXlk/ehXsOv4ij6qCkimDwPHAS0UIyQlw3uifiZcFKWNO6EzmoTKdry6TiriiQcq5gf92dQKIzjniqtK1IIoFJHRqdAVHKMQbJiRkdDLOxQZXsuhHpyaB/OobxXUnsGg9jaM7v2E4dmx5SieeuEzrknKu1tDqQTalj3QXbMSqxVx1L9bWrCkrnbc891t9uP95VIsGsI4wTz9yjwtip4uQjjmQGMyieQ1xdCUstn3V8l6bVh/Akj6MNeOWVV3DLLbc0PG8hMchRg9xhr0L4q+oczk114MYNcgF6FEfN/hy24xBgr2GTq9REaV+l5Y6UriR5FUm04ELJAgrS72xooGJTpTS77tPP2hDNFBCVp1JjN9ZjW8ddQ2eJItqvti8VbZldGFdPOkYGMBQIoyOXQdSreVVte7BjBCNqr8G+AFIyLS51cyobdocR6LOSZATpgnt/9Tv/zEN4rqxhszJpVsWUWdu19T7cp45XZoVcWY2cfb4OXTteUBfPh3DKc8sww5hc9KrjpApychy9sEfmvIj4PecQvus5ZG486rogV9NPXMD2DY28a7L71a9+hWeffRahUAjhcNgxL5PJIJvN4uDBg/jgBz+4qOUyg1ytawuieXQ2g+fUwecB6WNyxDwoHb2AG9XrpzadcFwdSj+U249YV5Qy5T6j+dWxQePgReQXS/GqftZUkApP9yPjkbKKfem0VKkCLpJGunMS03kVDmEFN1ezrA6CGeNpYaMKfgHEBqym0m50bDT2HehLqc0lgWmjudVRI9eeQWajBM92ZObYxnoOd+HJB87ioeKh5hQOOZoo3ReW6iLV3k0ECVSvYFPzdUsDjCZWI5nBOr7tdV2oSrDUF7Ud9onnMNVxI/Z6bP38C08hcijiMcfVtCruS5llJjsJaBLUDh0yPjArzDUzxAnefoQaICOiIkafDem7sXUrtp46ZVw16tdy8NqBF3QNXUpNixT7d9ir8zE1hVMqyEnTwYlN9+DwuWdwT+QQOtQyD2Rk4EICN1pV/tK8EDYPbtqRsv5xmtq318GLaKlZqlf1C6EtmkEORqDqnzb+tfJUfngQYzMqi43F0akCmudYhtKWdO2eHpU61ovEpDE1O6biT6IbU+ZSKVeNnMqL82b7nj26S0eJrY+cNJMevlEdr6yDnL2VQQW8I3IBGkZmfcSzz5u7NUGaPG8/5KyPczSXqnUOdnQglepAJGNbT0YybHrSs/ylWjsYfZWLAdM7KJI3d5gTzf7Orvxy5HZ8/OOfacrOaWmSDraO0VjFKv7tSFw4gYNbzdFUcsXpeF06EBxRR5ewNdIqdZ96bRtZeteT6mAbQXEE/41y9ZnSYTCzaROeUvus3G9DDoiukVxq3fsW8PMgmk/WiUAO/plM6Sy83EKcIYuh+IQOWEHzX2vUalt7JyYHw+hD2nNAwowKbWF9zxEZyGCst09GpSZ3FZcJJZOwXklolNGp6YhRMyfP53WgQzUbbkTH1DnbbUGMUaNy7NO1W1YrwlZjVGutY5cOXeYyJw7KQAkV3E7Y1lPH2j0Jd8tEhRGpEjJdt0s5f24KWzfxbhWzZf8OL4Xv7Er8xyC2feQHTSsALT31DHmvvQ3bQWb7XhX2jiBjO5Zs33sQU8UJUtMnwS8FPHcWHWpnp557wXmvpCKpkXMP+/e4yiVawtxhzlchTm7pYe/rNpjCRDyogpZxCxEJVKVmVhmRaoSqXKJbBSy5NYg5a6O0CfYip7dl3lcO1ijVOAZVaMtEZ1SI6wPMYObVfFssR9gIe30pOALjglNBKf7MjQh3PIcXzssE5/3gHE4dwu11HLtefKZ0r7mHnrsLexM7gIeq32ZJN7V2PIDa4xZexOFDHXig0oJl97cjL9Z3eCl8Z/V95G7c0d/UQlCrM++fJGHuaFgd7O5D6kl13PI8mLBGjpaHpXZV3ygZOSr3h5saMO/Tpu8HJ9PcN+81QpZRI2feLgQxBIJT6O0dxT5ZODuGVGc7ZtQ2BztyttBmBEFnzdoMpiY60e7IdEbTa0Gq4zQZ2LAINXIvxHWLxZGz57A93IFDD5nHLNstQKR33TP3mCGsjhq5U4dux1PYgQ3S/Cl3C9AtHTJ632it8L4XsQp8KpylvPq1yagLq/ZN33czopJujTsQdNzIZtY6yPd1KXxnOWqVFsSRzItIbDcOFUanXBXAjO4YwNnDuOeQug49eMJcWl3B3v6cOsidKt4Pbq/tfkquLbOPHC0bVpizni919sELuvkyaZ9rhi6zKTSmBx7I8kAiV0DOHHwggxACUwMqrBkpq10CYRx6wEIoVKgwqjSra+ZS1stIGkmv+Wq6vm+d/osOYQx2T+h70MntUObXeZybOoVDeEA3m1q3Qzpx10O4ff0p3ZwqAxukCRNH1OPEURWcXkRG18i5RhbYjl36ZsOpCwhn1mP9WWmStcUtPQBih/HXI56y96tTQfGh53CX3oe56I0dtnvQSV++DXrgWGTKCJIbHAW4EZtU8LWXS8pA/rHizJkzV9955x08e+z7ePTBLyx6AS5fvow1a9Ys+n4JOH78OLZt22abUt995Iodcc1OunC8Ngc7dNyHI0eKQx1KI03t938r3hzYaySqpTTAwjFggqiFvPTSS9i5c+eCbZ/H4XLlx0eixi3Ud/er33gW94a3YfXq1ayRIzujg275ZLkStL+0jX4SjtfnjX/CCVxIVBtsb974V10d6r/ksH59+SLqqjaFp7BJOvlukECnrkSrFZ9D5omIqMUwyNHi2p6A9Ucb9hxNFKddqHgL8+1mTZ2MmL1Q4z5MRERErWVlswtARERERLPDGjmaZxWaZ4mIiGjesUaOiIiIyKdYI0dERORBRhwSLXUMckRERC4LebsXovnEINfieMVJRETkXwxyLYxXnERERP7GINfCnnjiiWYXgYjqdODAgWYXgYiWIAa5FvfYY481uwhEVMMjjzzS7CIQ0RLFIEfa66//j7Jp//rrX816e//+3tVZr3v1/d/Met3rrrtu1usuhg0bNjS7CEREtIwwyLWwffv2egY4Wjjnz58vPmeoIyKiueINgVvU22//stlFaHn2UEdERDQbrJFrQb/8l7fqWu7q7FtHsWrVb8163d9Z/TuzXvftX//brNf9D6tWzHrdj97wsVmtVygUEAgEZr1fIloYsxnVf/z48QUoCVF1rJHTsoipk2nAfMSyakqs9Lr0iKkl3euFMZyvtf08hsPObck+8sNh5/bDw6i5qTmqN8QREbU6uc9mvY/6GeebWNY9OabPA2E5oeSHEbafW+S1XkHOJe7zkEXm1XM+su2vrBDVlw87Nt7g/mjBMMhZuhPIFQrIJbqtCUjkCrrGxHjkUJxlysb6kMIE4kGv0Of+BY8gbW4rZ9tQdyJnbj+tlqhMgmXpS+QdDGthiCMiagb7MXsQHerckgy5juNjPfpckIm2AW1RZAoDmAoa55HsUBwTqT61XBDxiRT6vM4z2SGM9o5AVvc6R1SrLCirVKh4HrNR+4tP2M9/DHXNwiBXtxlMTZReSbDqU9ErYgto1iMdUQtEBswvlKX05QvGSxuaiAfNL4GEwkbYgmYugck+fomIiBbT66+/jjvvvBPj4+N1LG2dKzK2c4PtOJ4MuZYPISnLzsTUuSZtq1Cwn3NK28qOAQPyQte0jQNl56bKlQVt0UyxkqFUuWBVXpihsC9lnK90rUEWMTN46oec9MrOebRYGOQsE3EEXSFLlK5U+jCZ6EfInDbYoX7Zk0n1RevBmFUjpqvDAxjrcX8p2xDNOMNe/3QY+zBifrnML3Mmill9D9TV20BkAqPjlZMca+OIiOaPhLj7778fGzduxG233VbHGhVq0sqUatN0K0wo6RHyXFR4G+tJqvOTWncQSCd31VjcCGbQtXy1ymOev1RY0yFPlSUbG0NPsUwq1A12IFerjLRgONjBIk2rKkipbxCGbJP1lUrUuahMy1gv8tOYVP9M9AWKNWqdrk1L8HMHRIO6uolbTwOI28rBCxsioqXJHuIGBwdxzTXX1LGW1JAldWVANhbGtJ5mNE3G7Yvpc0ABUemTNm22/qRcmwrYJkTSSKuzTyqV0uegSFqtqwLdtA6OrhXVtvsh2VAFs56Y0ZxrC2CS5Trba5x9VLn61L6Qcm47pU9mpfdIi4c1chV59X2TqxZX34N9wIirabVnzDY/li1WW9urt+XKxmiCTTvWnVWtXH4Yg6lu9O5i/CMimi/SZCpNpxLcLLMLcZVYTau2JlPXOUCHLrPZU0KaPoeYfbqtJlljmTQS6rxSymX1N61aZqbcFQ6dsOc6aVoNT/fbyiJdiaz3UHv7tDAY5CxlTavqlzMRcQ1GkF9qVzOpfOlco3msL571JXOOgB1Dj9mh1bgqGpvlyFVb0AyOojeXYf8EIqJ5JE2mEtgkuEmAm1uIKzWtltWw1aE8ZME28lQqGPoQN/tcNzIY1akbHRvd00p95OR8mOGJZslhkLOUjVpVdvWgMz4Eo/vbYLGPXNmIIKsTaIXRPqGkfcSr8WU2+ovGjH4K9jLUXSNnH1XLEEdENN8kqElgs8Lc3GriSjVkujVGD6Bz1nhVJM2Zkwn0e7RZdkvy0iNIS+cEo1bO3iev2oA66zYiWYyl7OWxBviV+sjppc2uQqk+K5RalQqyfbXPRbiNFjkxyAmzn1u5EJJp6C9DcLQXI8W0ZK+Vk5DmdasS9xd0brcfISKixWcPc7MOcflxjKIDVmVXKCmjUceQivRU7E+WnzbOSnrAnQwmKF7kb1RbMlqQAn2TRpcaGRChL+iNSobw8Azqalo1b2kyNZDBrvHBquWxOLoKSbiT8196jt2DaE4Y5CDfsVGob4PnL5/1ZcLEKMoGhepRqsaXwFkj5rxViWG+bz9CRESLQYLbN7/5Tf2YTZ+48nOMjC6dRMKrik1kY+o8of4dDWKoPeMKR/aKBNvtR3QXHt1pG5loWftoeZnk3Gb20Za7KATjnUjbR55KBUd3KXyWFzFgBswM2scCrpsF02LiqFVI3wP1HeuHvpIxqqdlqjmaSP+i63FGxl9/kObPgSkEpUnUbI417r+oQp365hV72EmnU8deSqN58raRsaU+B2r74emKZZT+dKWvmHyRMxWXJSKipWNmqhMDSdvVvnnz3kyFqqvsmAp5uVINm7rOr0ydo3Idg8YtsQptZgWDeS5yj1pVUmEYtXtSs6Z3FjNCnD4/yXmuVKkg56c23fQqNyKWXfWb50ljdGzBPMm1qfPTRn2rrgkjHPJWJItqxZkzZ66+8847ePbY9/Hog19Y9AJcvnwZa9asWfT9tqJG7yX3r//2/816X1dXzL6y93dW/4dZr/v2r2df5mb8rVXBv7VKtTzyyCM4cODAgm2fx+Fy/FurtJR99RvP4t7wNqxevZo1ckRERG4MZeQX7CPXQj70Hz/S7CKQC2vjiIhoLlgj12IkzP37v/97Xcte87vXLXBp5t/v/O61Tdnvu+++1/A611/PpiwiIpobBrkW9Nu//dt1hzmaXwxvREQ0nxjkWlQjYS6Z/PoCl4aIiIhmg0GuhUmYs7hDnX3eQo6WIyIiotljkCPNHtyIiIjIHzhqlYiIiMinGOSIiIiIfIpBjoiIiMinGOSIiIiIfIqDHVpY9vgPml0EIqpTaOdnml0EIlqCGORa3H+6565mF4Fo2fvlL385p/V50UVElTDIEREtgr//+7+f1Xp//Md/PM8lIaLlhEGOiGiR7Ny5s6Hljx8/vkAloVqmp6cbXqe9vX0BSkJUHYMcEdEiuXr1arOLQA3YunVr3cueOnWq7mWvTL2Ak+jCjo5rGy5T9XUv4eQLV7B5RweutU87dhHrdndhrWs7x199u8be1qHbtZ59/TPX7kCX10yvcl6ZwgsngS4pm/15sYwTuGjttXs31l08homL7q26yyPrncF1O3eg+kd5BVMvHIf97co+Nl9xfQbX3Yydjs/OHxjkiIgWiVeQ+8hHPoK33nqrCaWhxVQenI7j2KvOZa67eacZfMqDhxUyPF06iWO21HNRNnzdOhV7LuLi29a0i659OJ/roHXmWuwoJjMpwxlH+RsJblfUftdtbiASWe9P9mNMwM2OgOYsj/G2jfB38fgxuD5Kj/VLIfBKcR/2z8AIwX60Sg4sy/sqMYtYoA8p81UkXUDPWAB9KfdyEaQLSYQc6w2iI5dBtK3a9vMYDgcRn7BtSe2jfzqMoH1idwK5TBSyqWwsgLGeApIh15aGwxhqz5RNl+XLy+vUncghU72g1U1/A5/eFMOP9ItPIXn2h3iw2Erwd9i74rP41rzOI2o977//vuP19ddfr/+VMPfzn/+8GUWiRSS1QJWCkISxUo64Fh07dsMR2yRoHTsGI5eVQqARRLqwW4WUSyePYeLKdVi3rgtdOpx0YbMZIB2hbcFdwkWVIC9elIAl5YF+rUtuS6/y3ChXPdu8grffRrG2TL9XSFhFWW2jMW+zq5buIiaOlcLuum7j37dftQVqFSY3N/Q+l4bWqJEzQxQkKBkTkHAENAljQ45VsjEz/AUDiJdv0LV+KQTmi/uwhysVCsOl/hahZA7T4TCGN6ptYBjhoXZkHOnNKE97phQsJRy6A56tsAg33p3DRgUuFeI+8b2r+OGd8nIvVvznb6Dnhw+iHdP4xqc/i58kz+KqpDCZt2kvbrp6GHfOeh5Ra7JfNH/0ox91zJNQ97Of/Wyxi0SL6OLEMZS1Ftpcd3OVGHFtB3bs7nDUfBnPDcVg87ZUxqlQOKVC3NvHcUaFk3Uq/lynljx2cjN225KkI8SYjjkKuA7dDb5HcWXqDK6ogLbblqS6NldrWr0ihSmGvHXd9m2VajIl9BVr1K4zt98lzavqc5WQfK3a7vFXca16vtsRmMuDsfU57t59pc7m2aWrNYJcTTOYmgCsyiJdA6bCWUQ973HU0lnzBly1dCn0BVLFV5G08e9EPIiAlQJVmOyHq3ZNhcSpREKt3ofS6gGz9lCFw3l5b3X4u2P41qeSOGslrDsHkPzqf8bY9IN4EGP42x/dj0d/2F6a96lNOPZ3KpBtmuU8JjlqUe+9917x+aVLl6rOp+Wn7ho5V1Opff3yqGc0w769WcKLCjVXrmBtRxfWSlC5Tmq7VFBRQejajh3YLdtVO7GaaBtpWhXlQdT5WmVGY03JXVfMkOhq4nXXyBlNqtd6NK0adLldNXYybUfx7V+RGIi3bWVz57HK/QFLQbbYPOvDfnKrfpP6P/Cbzx9odjkW1kRcZSYjUUVs6Uhqz6zmT6k9S5rTBjtyKEhSS0rzagBjUhu2cRjhYByd6nnBUTPWhmimgCic292HERQKM2XNs21JtX7SVb5oFEvPjzB5Vv6dxI/u322rRWvHTZ8A/va16dnPu5Ptq9Salnc3Fpo3a42mUq9+aZdOqlC2zh4zjNomHf7M6rSLxbBkCypqngS33TuKdWC49tr644o7ULnLZq8dXNu1A2ulPBfXmTWAXeq/asovalQ0w6tlfd+k35va0klb/0EJXrt3O4KX1E4es3o2retWZbCX3RhYITWGUmM5gW5HLaUftUaNXFnTqqEtmlGBzbmoTMtYL/LTKo6oHNgXKPax63Rt2h4GnWy1cVbzrCpHuncUY9IPToLhvim1vRRSXqvby73QNnXiUz+KYfDvHsRh3bQ6iNiPgPvV0+nXfqL+v9tztdnOI2pV//iP/9jsIlATNda0egWX3l6HzR32UadXcOXKdbjOK3+Z4W+u5Zlt02qplsw+UOOiDnPdu9epIDlR/t7ttV9lTasqtN18rVpnc2kwgiqchM+17v6DujZzc7F2cW3Xbtg/Ct3sXNy5lGe32adut1FLecx2EvZjjZzxz+vNLcWim0C8rO+b9HsbAfbZBi5IkCoUYG9FlabRQJ/5IpJGIWkPg8bAislEDgNTQfRB5rtHLkxhcDqvnkxhorMHmWQSyeK2w5juLx9cMTPXt1tL+4P44fcmseKzK4yBCZ9SZbr/UyrgST3aJ6DTrNdqN81uHhFRK6p/sIO8PoO313XpwLL55jM4c0kFlGsvqWCzDl22lCHBpr5biZjMoHLl7bed5anatGo8v3aH961IzAIXb32i+6M5auRUucsCkmuUqFfT6tp1uPb4GVzq6MK1ut+dtX+PUb0SGh3Vd6VRq2u7duLmK6VwKYMe9HuHqwnbhyFOmEHu99TjfDPLsbDKmlZVaEt0YhT9pcEIgTG0t7Uh5GomNQYS9BdHhIZcTaPOEaUy6KFgBjO1nFo3UEx9MILhiPpFHZtBXqWc7o7+8hq9VClgVh3gMN/uPIyrVw+bL2S06SewW15K8+pPXsM07jT7EE5DKts+sdtsHp3tPKIW1OhfaZjtX4Mgv1NBRaWZdTtstUnrLqkIp5LKup3FoHHFHMbp1Y8MjiBVvv1LV9Zh3WK2KNpq3IqsUaJmP7dya9HVrQLasWOlvnSaffCChDo9cqLsViXOluNlfPuR9y8exft/cRS4ebDZZVk4Xk2ru3rQGRxCNprExuFBTCZGzABWfjsRGcwQcFTflUatygjUxKS1vDHoQQcwqBBnv2dI8fYjWXROTmNG/QZ2trdJvinerkRuPeL4d+E+kar+bq8x2lTHOj3wYZOz2RXWwIjZziNqTewj19rqblq9cgkX376It82ao91dRr+uCQkzXZXri4yRq64+X1eMkZywD2y4dEbfFqSxvzMyG0bIunbHOo/arlJwunJJfSrrumDcQc+1hSvmFPV5XLrS4RxZeqU0StX5sThvVWJYxrcf+cAj/4T333kH+O4y/aPMZj+3ciEk02MIBAJmyLLaM+2DFyTU7QNGym9V0u5o/mzk9iMb1VXEGMamgI5d0EGu+eRWIZt0vzjxKRXifli84Vs7HvwvSXx60wqs0K/vx/euPmjWss12HlFrsge5D3/4w2Xzf/GLXyxmcWiR1d20at5qpORaXHfddbiuS4KQvVlxHbq7SqMydehDqc+XDobXri3etuTYsbfNv5qgAuLmLu8mRDMcvW1swBb2nEHI4AqmtiCkA9hF4EHwIgAAIABJREFU9di5A2ulabVKjZxx82BpVT2m3pc0icpMc7CDDFbYbTTPym1GjkmZNr+N41JNaR/oYC83SrcqKVnGNXLvPvYHeFdGvC/TGrn8+CjQO6L7ueXd86bNiDcxivF81Nk3LV8apZp0hDbnrUoM9d9+xAiK/UatXzCMqQjcG/OUsg248NKd6K+9kYpU6PrhVTxYcfaD+OHVCnNnO4+oBdlvCHz58mWsWbPG8dp9w2Bqrkb+7FYt0vxZdSjC2q7SLTXK10bHjh22567O/o6mVe9BD47m17W7y/u6SXg0V9tR1k7rsc8yziDkbO5di67duyu+/2u7dlg7Lu3DNWDBvY2y91gWft3l77Itav0s7J/5WnRV/gEsacu+Rm5mSuW4fmlVDSA+IU2iMtUc7CCDFfS9RIzbjASkZm5gCkFpErUPdDBDXWkMRA7OO4jUXyNX6lNnrLPRXF5Gy+pthjLoUcsEU1ZZzT0s6A2BiWgxuJtW5a85yI2A5V82uy4t7e1sP2iMf4OQ36145X9dffWd94D/++ZBPPrgFxa9AO6rUlo82eM/wH+6565mF4No2fvlL3+pBy7cdtttDa33/e9/Xw+QkO9qaOdnFqh0PA4T+c1Xv/Es7g1vw+rVq5d/jRwR0VLx7rvvNrsIRLTMrMIvjuDdpwaXbR85IqKlgjcEJqL5tgofvg8f+N/vZY0cEdECavQeckRE9WiNP9FFRNREH/rQh5pdBCJaphjkWtx/Pfpcs4tAREREs7RqxYoVkAe1noUcBUdEREQLb2WzC0BEREREs8MgR0RERORTDHJEREREPsUgR0RERORTDHJEREREPsXbj7SwJ554otlFIKI6HThwoNlFIKIliEGuxT322GPNLgIR1fDII480uwhEtESxaZWIiIjIpxjkiIiIiHyKQY6IiIjIpxjkiIiIiHyKQW4e5IfDCAQCNR4xZL3XxnA4jOF8PXvKIhaod1kiIiJa7hjk5kl3IodCoWA8cgl0R9Kl14UcEt2V1mxDdKAT8X3DqJ7PJMT1IYUJxIPlQTHMdEdERNRyePuRZsjGEOhLlU0OBuKlF90J5DJRFfOMGr9gfAKRtAqFIddK+WGE9wEj0baFLDEREREtQQxy82QiHoQ9h4lAyv4qgrTtldTgZSqGryxi4Wn9TIe40V7kChnMxMIY3phBcTUJhIMdxcBHRERErYVNq/Nk9k2r1bVFMyiYQS2UHMBUMIBYVjJcAIGxnuI8IiIiaj2skZsnne2NxSmvGjyH7gT6yyaG0K8SYbAvAHg1sxIREVFLYZCbJykVrlKuaZWaVvPTk3U3rRanxAKwd6tz76/69oiIiGg5YtPqPJiZMgciNNC0Wr0GL4Sk2WSqm1ADAQxOdjubb+2PdGQB3x0REREtVQxyc5bH9GQEPXU3c+YxPtpZ9/KhpBHWRnpnWz4iIiJarti0OlfZIcTRgVwjy3f2oDCLXVXrV9edKO9RR0RERMsba+TmKDuWQmSgwshRucebvmFvUIe9jXr5SST6ZzdKgU2rREREZMcauTmSps+yWNYWRSap5yJTiDpnJTPly9dBbkOSqVwIZDiClYiIqOWwRo6IiIjIpxjkiIiIiHyKQY6IiIjIpxjkiIiIiHyKgx1a3COPPNLsIhAREdEsMci1sAMHDjS7CERERDQHbFolIiIi8ikGOSIiIiKfYpAjIiIi8ikGOSIiIiKfYpAjIiIi8imOWm1hTzzxRLOLQER14ihzIvLCINfiHnvssWYXgYhq4P0eiagSNq0SERER+RSDHBEREZFPMcgRERER+RSDHBEREZFPMcgtAdlYAIFY1nNefjiMQCBge8QQiwVc09QjPIz8IpebiIiImoujVhdbNoZAX8pjRh8CrsndiRwy0QwKUSPQDbVnkAzJnCSSScdGVbgD2haoyERERLQ0sUauCSSgFQoF85FGRP2XNl/nEt16vvxbksf4VC/6Q9bLYYTtNXDZMaAnBCIiImotrJFbbKEkMoghEOtBrmPQqGUrALFYDGOpFCZ1LZzUrWXUf6bsEEY7+hG1b6ezvVgDlx2bhJpNRERELYY1cotNatP6gHSyVIOWjfVBZTj0FAoY2WUuE4jB6DWXx/BgChPxoO4LFx7OAzNTQMdGa4OYnuxEO9tViYiIWg5r5BZbWxSZgjzJIhafQAoBleoKKJh93rJD+zDen0Emp8JcLItQzxjiE91I5DKIzsQQnjaW08EubttuIGX2qWOiIyIiahWskVtsurZNRpqOoSeXgPSES/WVRp/2TfZil2QxCXzJkO7+Fom4thFK2vrYlfrWdbJajoiIqKUwyC2y7Dgwko6gO9GPkK6dKw1w0KEsE0VbNmY0oUIyWxI9ji2MI+Zx65HxqYlmvB0iIiJqIga5RRaKRud4m5BdSLpq4yT8tc9T+YiIiMg/GOSaxBq8II9gfMLxuvw+cxOIB72mW2TAw8KWl4iIiJYeBrlm8Ojj5nikI64VZLCDx3S5ubAOf0HEkSjdZ46IiIhaAketLkVyr7mQ/WUG+mWbc7oRCJMgIiKi1sQaOSIiIiKfYpAjIiIi8ikGOSIiIiKfYpAjIiIi8ikOdmhxjzzySLOLQERERLPEINfCDhw40OwiEBER0RywaZWIiIjIpxjkiIiIiHyKQY6IiIjIpxjkiIiIiHyKQY6IiIjIpzhqtYUNDAw0uwhEVKfBwcFmF4GIliAGuRb3rW99q9lFIKIa7r///mYXgYiWKDatEhEREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfkUgxwRERGRTzHIEREREfnUMg9yWcQCYQznXZPzwwiHh+GePD/yGA4HEIhlF2TrRERERJZlHuSaID+OUXSjOzWGxYlyRnBkbiQiImo9DHLzLD8+CvSOYCCSwhjDFRERES0gBjlIS2sYgUDAfMRsNWnSNBsozgsX22itWjBzfrGZNg+d43a1IdQTQWrQ3Xxr314Yw8Mx27rV9mc2EcvyjnkyPYj4BJDqC7i2RURERMsdg1x+GPvinUgXCijoRxIhPUNC0iA6ctb0HHpHg44mzFTfGHpkXiaKNr3KEOLoxS55EepBZGIU48VkJdvrg9qRub0RYDRlK0it/U0gPtVjzMslgPg+DOdDSKrlEt1AJG0rBxEREbUEBrm2dnQihT73oIjsmJqqwlPQqiEzar4mp0sLRdJW6LNWSaG7d5cZpkLoiUxg1Epysr3uBPqLK7QhOhBpYH/dSFgrt+1Cb/f8fQRERETkT6uaXYCFtREd3ROYmgEcVVUzUyoydZgvpFargKQ12nRCBaZcBlGZpYJXzrOWy6sBMwuV49R2gwjE7dOHkI06A19FFfc3U8/aRERE1GKWeY1cG3b1diPV5+r31merOcsPYzhrLBvNSDOlGfx002gcQ7am1GwsVnkkqq5Ri9iaaOWRVlPMQQ9l21PBcTBVWr/R/REREVHLW+ZBTsWzaAbpiDSdWk2WfZhM5JCJtlkLoH3M1pzZmUZSV5+FkMwlMNlXGnww1lO5Zk2aVRHpcc2X5lUgZSQ51/b2Ab0Rx7KN7M/2Ds2wysEORERErWbFmTNnrr7zzjt49tj38eiDX1j0Aly+fBlr1qxZ9P0uCdkYAoMdFZpTF97AwAC+9a1vNWHPRNSI+++/H4ODgwu2/ZY+DhP50Fe/8SzuDW/D6tWrl3+N3NIhffCqNPESERERNWiZD3ZYStoQHelAOBBAnzml297ES0RERNSgVVevXoU8aBG0RZEpRJtdCiIiIlomWCPX4qTvDREREfkTg1wLW8jO00RERLTwONiBiIiIyKcY5IiIiIh8ikGOiIiIyKcY5IiIiIh8auXNN9+MW2+9tdnlICIiIqIGrXz11ecx8Pu/3+xyEBEREVGDVgIXkP/nZheDiIiIiBrFPnJEREREPsUgR0RERORTKw9+v9lFICIiIqLZWHnotmYXgYiIiIhmYyUunMc02ptdDiIiIiJqkApyM+CgVSIiIiL/WXnz3r/Fvd/882aXg4iIiIgatPLVV1/Fn/9hs4tBRERERI3i7UeIiIiIfIpBjoiIiMinVq5YsQLyICIiIiJ/YY0cERERkU8xyBERERH5FIMcERERkU8xyBERERH5FIMcERERkU8xyBERERH5FIMcERERkU8xyBERERH5FIMcERERkU+tanYBxOXLl5tdBCIiIiLfaXqQW7NmTbOLQERERORLbFolIiIi8ikGOSIiIiKfYpAjIiIi8infBrn80yGEns5XXiAbQyCW9VzPY7I1E6HQ0zC2msfToRiyelMhlHYl0wMIBEqPWCzmeF162NcjIiIiml++DXINqRDq3PLPjwK9d6DNNT3U34vRoBXK2rA/W0Ah9zi6ImkUCgUke9Rk83nu8S71VM0v5KCeEhERES2Ypo9arYfUogUfPukxJ4jAw84pXY/nkN3vjmIuYyrY9aVkaTyey8JYPIuhh7fgQMFj3bb9yOZUoBtSyyZD3ttM9SGQsl4EYDxV269eEiIiIqJZ80WNXNv+rK7tKj6kNkzPiSBtn64e2f0wmj4lqEm4ChjNo8bzgA6EKTVL1ktHbDvJjiHVdRM2lvaKTVtOq8wXMppJgw/jpNpGxeZc1sgRERHRIvNFjZxTHk/vfQ29OiXdpIJWFiFHLZnR9LlfmlPHelDoP4uQCmE6aKnlpHZvaFMSIdnOaWudLGIS/Loex4y79k8HNGctXDYWgK7QUwKpLjz++BbWyBEREdGia3qQq/ZXHbxuFpyNBfHagQL6z4YwijuQ7BlC6OmNlZtTpVk0/ZoKdV4zt2BTmzTdPoHTkQi6VLDbKLV/+425Evr22uroLKFkQQXEpxEa2oSshEgVGh92BMUskiEZFLG3ofdLRDRbvLk6UWtqepAT9R6ApCbsiZtyyKrslD9rTgwlcWAsoMJcHX3jLFYfua7HkVMvZ9CLw/3AXlfuarujFxiakWfVt6fKUCjrOic1g+UDLHiwJaL5xgtEota1JIJcbVK7FcRor3dYkxoyqJAXiBm1YjX1qOCVTEI3qQZi6Ckk0ZZ/uny5tk3YkhrTtW7Vtlo+GMNqWoXuL1dPkYiIiCzHjx9vdhGoTjt37mzq/n0R5KzmVBW7ECh1RENp1KqMPi0gPeQKc7rfmtmHzUv+LE533YT+insOoSfShyee7kdof5txn7m9wOHsfqOOztp+ztkcazStzvltExFRC9u2bVuzi0A1vPTSS80ugj+CnNS4GbkoiUIhqZ8Z/dcOO2vopO+aecPeh08a4U7PVgFs9DVjERkBm7SWn3kNJ7f0VG04DSXTGAsEEdtUUOvJ8jfheb19o7Yty8BGRERETeKLINcYc9SqY9Id6D0dRCDgXlbCXtI90SWk8mEaMbkFCYzwtj+5v7R9qaWTW5M41ik1rep+eFYNHhEREdE88m2Qk5q12n+robh0ebgr3yA8xiaYJMwV4Bn5ZL1C1S0TERERLQhf3BCYiIiIiMoxyBEREVGTnccz96zH+vXrEX9xttt4EfH1ccx6dZ9ikCMiImoZEnaMwDS30GRXCmGlR2OB6vwzD+FQRwoXLlxAYvt8lKl1MMgRERG1BAlxESB1QQemCxdOYNNT9QQuI6jVCn33FberHikg0kBQPHf2FLZuurG+hetSX5mXAwY5IiKiVnD+HKa2HsTeYo3XBuw5msCCVIBtT+DCiYOYirReU+diY5AjIiJqBRtuRMepQzhcMVk5m13veea8Oe12HDoFHImo6fc8g/N1728H7tp6BJni/ry2r6bG1yNyBDh16PZSk+z5Z3CPVxOwnm4Lh+7Xxf3Mssw+5NvbjxAREVEjtiORug/rVbg5gvuQumCvjZPw8xQ2nbiACxvktTRN3o74jReQkCZY9fzsA3Ppv1Zl+4kLSGE9ntp0Akf3bDDmHQaevHABetEX46rMcYQv1Ft7uH2eyuwPDHJEREStQpo8VSA6/8w9uH39eunYhguSdF7MqHB3CmoiDtkW33ruPObW9roVuutb1e1vcK2zAXsSe3QZ10u1mnbfXAqxrDHIERERtZgNe47iwh5j8EM8fAEJmbj1IE4c3WPUgjmcn91OXjysQttdOCEbPFdt++7dPYN7bldx7+AJFTo3mK/Pzq4MLYB95IiIiFqBBKKyYZxmjdn2MO5z9Z97MT6HgQq6OXQKB580g1sj2z93FqdU6HtSN7OqYr/wHE45FpiCVOR5z2s9DHJEREStYMMePLnpKdu93iJA6iiMvLQdCT3KtDTAIBO2+qRtwI67ttYcOHDEtu76pzbhxAVr27W277J9Lw7ikG76leUeOtuh4qbtPRwEDt3uMc/5Zusq83Kw4syZM1ffeecdPHvs+3j0wS8segEuX76MNWvWLPp+iYiWCx5Hl5/jx49j27ZtzS4G1fDSSy9h586di77fr37jWdwb3obVq1ezRo6IiIjIrxjkiIiIiHyKQY6IiIjIp1ZdvXoV8iAiIqKlQ/pfEdXC+8gREREtMc3oQE/+xKZVIiIiIp9ikCMiIiLyKQY5IiIiIp9ikCMiIiLyKQY5IiIiIp9ikCMiIiLyKd5+ZImazdBz+dt8RETkb0888USzi0ANOnDgQNP2zSC3hDVyM8jG/rhyFrHAGHoKSYS8ZueHERvfhWS0zZqA4fA+YCSD4qSau4ghPN2PTB0r5IfD2IeRqsvKMsH4RPUNRdIoJEPV96/eW3ioHQPow1hPAcbi8nn0IVWzpBGki5+Z12dS4XOSferJUZQmy7JDaM9U/hlIOTNJ59xsLIDBjlxdnysR+ddjjz3W7CJQnR555JGm7p9Nqy2nRogTbVH0TAURy5qv8+MYRS92zWN2kGAWCAT0QwLaRDxYfG09wsN5xzrdiRwKhYL3Ix1paP+hZBroi8F6i2rjyFXatn7kkOi2vwH1mXQOuAKbxzShPs+R3lHss78f/Zl2YGMdZZXwZn0mfSk4Piv3Z0RERK2FNXItxSPEZWMIjPWUarJMEnTGwsPIh6LA+CgmJiYQDMTLthhJS61WpRqtFJyr2Gu0rHUrFVVq1JyTdIApL4Jt8z3l06RmKxiHuy4vYBY2FZP3Ls+mMBQbRn8yijZ3DZr+jDqQsJUt0JeybacbiVwGu+RzSk0Ut21Nl2DXFh1Bb3gIw5hE3Faz6P5MJawOqBBtbl5tS7ZRQK4jjKH2TPHzqqcWk4iIlj8GuVahwwccQUoLJVGAmheDK8yFkMzI6zyGR6HDhGSGbCyM6X53E6tatpBWqWMQHWZwcTZtetcCpvoCVZszuxP9rtf1NClKk2UQRlZSQXLUqGkrtX56NXNKvVwH+numdK3ZCEbR2duLfbGsbtrMjqVURswBk1MeZTGbU9U2hkZ71b4yxe3qz6q4RhuiGZ0YEY3WqhUtoNDvalpVQbAjHENW/bxC6rMNTg2onxdDHBFRq2PTaiuQ8KKreFLoczVf6ofMS/UhIDVwOpiY06VtNTuE0d6ROvrGSZgbwFTQ1lxp7btCaJEauUaaSr2aX52PMIbzEpiM9XVTbKYdQ/b5aEenuT1psozZC6tCktSGBeOd6IlGMdIxiPDwMMYmE+iv2A5tmBoaBAbs4bDEahq1mkGzMUnUxuchNWuOMrjpz0/Wl3Bq/vysn5c81z8zIiJqVayRawVtUWQKUeO5vRO9q0O9hIqhbBRJFYSiujkROtxkaoQYCSpWU6BIFdsWS02rfdY0+4CEBlWvkbNqxrxIk24/pq35E1OYUe99UAW0kaRzyVBPBJg0+q4ZzaFBFWRzZQHN2czbjcRIBu1DKhiivLk4lFTBssdqKs5iLKU+mZS9NrL03NHcLGENaR1s9TuUAR+6Jm52nx8RES0/K79zodlFoEU1MwV0eHexb4tmyvusSaAL2DvbTyAetNWChYexMeldm9bdHdFNso55th1I02rF2jV7MjR1treVlcdZK9WJds+cJzVZVnPrRnR0A2NDcXSW1aBlIZVlid5RFWj1h4WpCcl9M2VbLA28KA2CkMDWMxaoXsOmay5Ln0dOrWyvmUyGzBpR6dcnobdnzDEopFgTZz2q74yIarK1QhQfrpaF4jJS6+9aXY5Jjppx6TpR2ha/orTQVibuOIh/aHYpaNFIf69O77TjTfrQ2YJHOtLtDGcZZxjSzYgyeELC3P/f3v3HuFWm+wH/zuzsvdFVJUwIq7aqSDJxmDJQiTVoqkIBQdaOkomuMiyDblntxeWPZNwKx7uSkVy4olFB7mUkcGYrOUHtylv2RhWzykAVE8VmiAAlVCOwqJQ7YOKZEP7gVpBlnT+j5Gb6Pu85xz7HP2Zsz4/jM/5+Vt6xfX74tYOPn/O8z/uesVFgovnIyna6Vu3xp2P0aiGJkfpdG4pTCIVKiFb2K/V7g/APZ5Bp0F16VkVx88koIpE4MJlGWneBqveMyfqDd9OPq4ChydofgSr7aF0rOHMEtLEFo2vYel/685dg0fm5V/4dmJ0jWhOO45EMam8QhIXDw0hMLFfOYAz8QmVfyx8PiNZC/4mn38Y5RnK9QboTM2GMNvvtl67WutNHdSaabuEwZGbKZG62anCxSwclxzHR+Ey2ZdIdWc22OWrlGoxINTJrGcxlgLgZaFoBlK55U8+PjO01RqdaZ9JzCSTUZxPXXbdBpOJFzAwVdIYyGB3DzMQUinWv04gxqCGo9lqab7A0knMErLUZuYaB2eKCem0jEypBsTGXXCt1i0TUETmBUidT8+M1QdhoFEkknFMJ2S2WMD9iP0m0jgdE66f/0aNf4G/+rdvNoHWnp+GYwVhhmYNKXbdrVp1dBlD0L38YqmThyo2nEzGCl+M6O2fvCmy5azWfRSY8arS7JkNYyQpW5mWTLhAZPSvLUoA50ECm6pCz47GZBJBMAokp4wA97DcyinoeOdtnI7WBVqQkNYa5qNp7VTWYtLps6z5MFOfM4NMcbDKXmOgsmB0M6rpFyVLK6xpzyU3xLJ9oPQ3uxdhIBlnHF00FZsfl+BFo3GU66MewOimc4peTNhBHrfYAHWgFioiXa6YNkYOOveZqfB5j9ll/MxndRbBS750u5l+xi88cTWpbr9Wu1Xx2HslGw0YrIzqNzJxR8yavU32fQbN+T8V6elqSYly9n4gKzKTrRLZpmp60XjxWDdhsE/g2qpFz1saMV4LP/JQE0OVqMLts12re/PdK6KDa0RVrBsvGbRRZTghMtPFkgm/1pc/UZus0ddKljl3Gd5pdqrQx+r788sul69ev4613PsJLR3654Q24evUqtm3btuGv2+3cvtaqHsHqbzD4gYi6Do+jq7FYPckL1j5vXXKvdh1zvsphc0DS5BAKNfXClcsKdjBSX661ykt0eYdcomujr7X6yrG38PPQg9iyZQunH+lWaxmUdUKPYHW1BURELspPIYExFBrWohpdrDOBccQQbri5LimJGIMfYqMr92wQdap/aWkJciMiIiKYV8KZR/J440m+NauLVUpQLA0HjI00m/GJaE2wRo6IiHqeo1ZVukpra4obkEnDkyOOJ/QVYXy2WllMr7wfotVg1yoREfUwYyBWpIV1WtnW6FJd0wYSLYsZOSIiIiKP6n/jfxXwJ7dbQURERERt6//VXwVQ/mDK7XYQERERUZt01+rOJ6Jut4OIiIiI2sQaOSIiIiKPGij8Cbj3L9xuBhEREVnkagFErRgI3P4n/J/f/3fgz37qdluIiIh63kZf7om8bQC4HT8dj+Lv3/3Y7baQTX6W/x5EXhHc84jbTSCiHsUJgbvYU08ecLsJRJvetWvXVrU9T7qIyE0M5Iio573//vsdbfezn/1sjVtCRNSeAZkQ+N/cNqvuskaOiHrXnj172lp/dnZ2nVpCRNS6AZkQ+Pr1e1kjR0Q9bWlpye0mEBG1jV2rRERoHMjdcccd+OMf/+hCa6iXse7Se9wc8OT5QG4xHcIEjiMXGWy8Qj4GX3YU5VSwbrspfw41T6vVfciOluueX2798czybRxJFpq3r2VncLhvPy6mLuH8EX/d82/q+w8hdek8KotLx/Dw7hgumA8PvbeEE/ta2SdR77l165bj8Z133qn/SjD3/fffu9Ek6mEc7LZxvD7gaaCvrw9y6wlNgjq7YKqAUiiE9K4cIkgjNOVHzrH+ItKhKfhzKVjPhqfrAz/7a4ZKq2l0Ccce3o3YhUM4dKjRMiMQW5JA7Mxh9O0+jLuXTmCfBGkqiLtPBW/nJXiTZfsP46Bettw+iXqTPSP3k5/8xLFMgrrvvvtuo5tERBvEywOePJWRk6xYIDHXYEkAvoTzmZayYFkV2Ol02giShRz8U7bsWsCHYjIJZMbhs56DD8bdMKY7ewsd8OPI+SUcgcRib+KifVEpi7dVMPbSeTObti+O1EO78c4ZFazpzNshHLQycPsOqkev4CsVVO7zL7NPoh518+bNyv1vv/122eVEtPl4dcCTpwK5wUgO5YjticU0QoEE5iSwKlczZOZCpEM+GHFfRgVjah2JvhyB2bDargzEQpCkWTBVhtqNUySCrnVpHhcOHUS1t9SPu+8D3tbR2j7EU6/g2WMl7NPZunfw5qGXsMQeVKKGONiBqLd59RjgqUDOSQVqE0WMJUfU/SFkY3kViNlDuUFEcmVErO7UaEkHfQhP665Vo+ZNgj+1n3lzj1Yd3C4VIKp9D6sAMNMoAShGkijk3A3ySl9JLu3gsutciO1GX8y4/1Aqvv6NIvKoTz75xO0mEJGLvDrgqd/tBnQqHwugGE9hr360F6nRLELpxeYbDEaQmw43WTgM/6BaxT+M+ZLax0IRc8OjSKlAsFw2btNh6X6tPi6rIG61wxdWyy/pt2ZKx/CsCuBSl5b0f5xLS+/hPhXUHT6zce0jIlo7Ri+Lz7fCLZSG/iWQHhvrvmMfMeRbfUV1ch9rtrLaf0z/5lT3WVlfEghNN2yT1Debtex9fQ/j2Kpqrmk5MuDJfpMgTsjf2mW1g6OV5B+rAAAd4ElEQVTc5MmMnIwUnRwqIBdUXxzrP+pgCvGsTwVzbYwQtWrkJLsmj3cNqecW1NdyHiND0fqavIwPVinesgMcNtLFr1DCPhg9piVIku6+g36Usm/jwqGXcL7SlboPBw8BrxhFcq41l6hbtVu03GlxNHXK7GWxP6UHk0UbH/PVyfvxsRAm0nuryxfPYgZDON5o93X7WsTZmWGM5po1J4IoJHA7rvaojr7q92JSZlCQ36X0PMKjtXU6nTiDw68M45I6GddHbceANlprXh3w5LFATs58ApgZaxysSY0bVJDni00vOzK1Qn3Ryin5suXVZjGMlkcxPF/CgvpWDkuKrmQEbNGS0eXq+Lv2b659Mrjhld2YPHPEmFbkzCRiSOGSuu/f/TQeir2CY/F95nQkZ/DOmyrIe49BHFEjXq2P6RXNp3rK1A12s0pfBiPHMRaaQlqdnCdsJ+WBmg2MwXE1yYD8FBJz6gWrRdUV1u+CcaIfMJ7Uuw8g5p+GFGdnKoPjbO1p+13vw4nztpDNMWit7Z3RCrw64MlTXatGd2oZOf9UJY0uX6S5RMB8HEIpWsY0xp1pbRngoJalm6WkF0uYHxnCLvW/IRSRLQJDuzbkLa2SH0d+l8LF/WbafT/w3vkjxpmb/wjOv3cfYrutlLwsrJ1HjogsRgmCcbv99tvrbvblDPo2nh6MNh3WQVelxKXZ40rQJFm8FCIyUK48jbAeGGcrkTFvVmJApp8am5lSp/aLSE/OO8tp9K2A5EgYo0Fz8J2U3STVXqVUW4K1sgR4k8iY9yuvuValODJoDffhbgZx66L2O77SrVt4KiMnX2Qjz5ZSXxAjbd1wQmD5wldGrRq1bXrxYhozRWMV+RJWEt9mTdyg/tJHddYvEQihGAbQwhcmM24782pgJBlt6302s+/EUn06XQK2pSPNNlD/sZ1of59EPche83L16lVs27bN8bibamJ6mT5xdyTUnBk563hrZfCsqajysXGoKE7/hjSb4N0K/KSbdXw4jrL5uxGaAI7L4Lb0BGbG1O+NXtfoISrGC7prdTpexEQ6j7HisArdiliQvZlJgjX5BZAJ3ve/qSd25zF7fXh1wJOnMnLtMeopyuUcKjHe4F6MzY/XF8eOqzOvaFB/8X0+FcTNyVlbDtEhc7OI8YWXv6NZyQI6M3aSZq89w7OfIRJR96s927au5iB/u/lsvNeslJGzWBk8Qx7ZjHHSbfXkWPflZu/AycdkQvhUtTxHTvTNZfIbYCUN8jGJ7my10sGoCuJK2JtKITqm4q5FY1uM7V11Nq507GH07X4bT19irwrV81RGrhH9xWp97fpiWbvaeeTsWTtT7Vxz1SxhE8GULn4lou7WKDiT4mYGbd2l1YycU1Ad3suV43nTjNxiGpOII2eLvBZL85Ce07MqMLN3/ARTOWP6KiNdp38Hginz18UPJKby6k8Gw6sc9HDmcB/24z313yEjuPXm1QFPng/kiIjWwo0bN9xuAq0kWC2r0ZYbtWrT+KpAtpIYc37R/NQMxqI5+4aYmBlTcZofU5K2s0V+jsEXAXNGA2tQQzCK5GQA41CPVxPHlY7hlTcP4T0GcRvCqydtDOSIiODd+pjeYdSk1V+lsXbUav2VfmqvCtQwI6eCwsmh47ZsXB6xgArsCjndNRodCiGU3lUdGBFNYiRTRLxsTiyv6+WsQQ0LKEo7R1b5luXqPXgT+/vedDx9iAPX1oU9kNu6dWvd8h9++GEjm9MyBnJE1PO64cLXtJI255GTQQrjGcxhHum9OSyftJNRqkDciuJkQl+pnS5Ut5NgMG6f3kommS/L1FU+jFu7yeaRQlbPTyq10wWZoiSEDqceQUsD1mjteHXAEwM5Iuppt912m9tNoBU1y8aJxvPIJYclm1ZGbtC8IkTdtjVdqzmjD1R3mWLa2YVrkproQjqkgjnoaa7GM+YVf6woTQeA0FOc6GRfMIeyP6avNtFxMEcbprZrVQY6yUTA1oCnbsVArov94dRpt5tARNQFVhio1pC1dnvb6gFty7VEumn1vZrBccbGKgBs8BwHvHmCVwc8MZDrUsE9j7jdBCIiop7h1QFPDOSIiIio53l1wBMDOSIiIuppXh7wxECOiIiIepbXBzwxkCMiIuoyHOxGrWIgR0RE1EU42I3awUCuS7322mtuN4GIWvTCCy+43QQi6lEDMj9Kt8+R0qteffVVt5tARCt48cUX3W4CEfWwfrcbQERERESdYSBHRERE5FEM5IiIiIg8auDle+5BMf6/EfwnbjeFiIiI8rMfu90EapObI40H3pb/n/xLBI/+xrVGrKfFdAiBxNwKa4UxXU6h/rrGi0iHJoDjOUQGV3qlPGK+SQwVWlmXiIiouaeePOB2E3rGtWvXVrW924H3AJ4+gc//07/G79/dvGcAI8kCclZ0tZhGaMqPXMoK2yRYm2qy5SAi8WH4JtLYm4ugeXwmQdw4MnI34ENiudcnIiKirvL+++93tF03XNpr4Iujj+L69etut6N75GPwjWfqng74bOHZSBIFM7CzMn7h6TLKtSk9CRoloccgjoiIqKvt2bOnrfVnZ2fXqSXt6YkJgecSAfhq0mS+jP1RGNO2R8tn0PKIhUr6ng7iZsZQKOewEAshvcvWrSoB4eRQJeAjIiKi7uXVOXX777nnHtx///1ut2NdSWBWLpeNWyGJkfB09XG5gORIZ/sdjORQNgO1YCqOYsCHWF5iOB982dHKMiIiIupu1gUS7LetW7c2fL6bgr7+L774Ap9//rnb7VhXw/72wimdwfP5mtzMWrg6QURVRJgZ9yE7qgLEVP3QCSIi6pCUqoTSWHQ+iXQohvxy28Tql8rJdii92GADvbCyTHpd6n8DQmi2ac2Lq7a1um5zpWMPo6+vr3o7fGZ1O6Smbt265bjdcccd+nn5W7tMbt2i/6OX78Gzf/eN2+1YVxJcVb6EgQTmMuO2L2UA9kGti6V5Zwav7jaNcM3+dQZO7csaHet4Pd8yBwwiImrNYATHx2YwYT+eLp7FDIawq4XNreO03KQM2n7C3uwYrXtddK+NzGxg/AZMhys7dAZ4DQLGtXBp/gIeSl2qZoJO7FuX1yFnRu7OO+90LJPH3ZqR2/Q1cgtFYyBCdZDqyqNWl8/gBZHKGdvKgUEOCCMjIyr4O964rk7O7kqrfRdERDQYOY4xdbxOYx4J2xl4oKYIWk7G48UArHFrvswIkoUyCkMhTPlzld8DybhNwDx2Owa6ZXRdtf7twBQSw6MoG1ugND8M/ROxYKunlm2z2ersBXYyk4FtgFwn7rvb3+GW1I6bN29W7n/77bfLLu8mm/zKDvKlC2O05V7ORZydGW55/WDKOEM7PtZp+4iIqHWDiORSiOhMmfSOVDNl9psEV/r4XKmJNgaiSSA4NGl2xargK1CMV0/Agylj++lwpVcmBXPQWmqXOuE3e3BUUNf4J2IUKUc7JJNnBJCd10uX8NVF4M39VtfqYbBjdf00q4Xr9hq5zZ2Ry6szKagvYTvrV8682tNoZKxlJBntYI9ERGSp9ICYWbB8bBwqitNBlWTW7Jm2OtITI2U11uPKtAUZ426zjJkEd+Y+I7kyIjWLHcf98KjZAxNdw3lD/ThyfglHzEdSL7f74WO4dP4ImKNbe5988onbTejIps7I5bMZhONNzoTki23VyJk1FvnsPJLRzgYpNK2rqxRUEBFRp3SGrVqgBnV4r9QjS32yvTbZUa4mNdFSTmMekwsyTYFj5gIjY7Zg1dCpaNGqnwul82Ymzn6rDq6oHPetdqnAL16cWPUAh2b8R17CoQtvI8tyHbLZ1Bk5+eLXhWWDEeRSeqn6YjvPrwZTuSYp8+VJQWyueSOQ4wBWIqI1FNTdmCnzUX1GTmqfzYFsErSNZvWMA1XjzrlEZR0JFPUOjblCozpDp/YzY7+E43JXAjJbFh3D5FQekVQrQzCom7R7lYZOrwax1vofPfoFfveLu9xuBxERUUtqpwWpzcj5Ygu6K1TXyMkGuv7NVrNWGYFqPtYRoG0qk7kEAjojt9B+43SyYK3O3kso2bJvZw7vx5sPPY1R9quuC9bIERERbQA9LYitQ2XFGjm90gKKUAFfwIcZc1Tr5FABuUrtjSwfwl65W6mZk4xcBuPO9F3lSkB1NXLrIPtsH2IXzAcPpVgft47swZlMBFzrhx9+2MjmtGxT18gREdEmIXXNun6twxq0QZk6yqhnkwDMmEtuqjqZcD6LjM7E2acQGTQye47a51SlBKeuRm7NGYMdKlkgBnHryj7Z79WrVx3L5HG3Tgg8YM0WTURE1K3yUzMYK5SRG1w0BiDM1a7hqwZg4WlMY7wyylVfF9uad04PdLCq6/KI+XyY1Bm6ed3NGoExwrV2bjoHXVNnq3+2jW51vJZk9nidRs+o7S79/vvv9UTA8rebulJrsWu1i7344otuN4GIqCsEK4PRBhtOBVLPGrwgnF2xtr3qQRPWOsb+I3UD4dpR2+1L3tEoWPvuu++6OogTA91WtEeGF154we0mEBER9YwbN2643YSOMCNHREREPc+rEwIzkCMiIqKe1u4cct1k4I33L+M/PPLP3W4HERER0Ya77bbb3G7Cqgz8q1071Z/rbreDiIiITH84ddrtJpBHDEgcd/mMTG/4T91uCxERUc8L7nnE7SaQhwxIPu5Lt1tBdV577TW3m0BELeIocyJyCwc7dLFXX33V7SYQ0Qo43yMRuYmX6CIiIiLyKAZyRERERB7FQI6IiIjIo1gjR0RE1EXysx+73QRqk5sjjc1A7h/A6UeIiIi6w1NPHnC7CT3j2rVrq9re7cBbB3I7n4ji/Ls8AyAiIqLe8/7773e0XTdc2otdq0RERNTz9uzZ09b6s7Oz69SS9jCQIyIiop63tLTkdhM6wlGrRERE1PMkkKu9bd26teHz3RT09ff19UFu1Fg+5oMvlm+4bDEdgs/ns91iiMV8Nc+pWyiNxQ1uNxGRuxaRDvkQSjc/+skx1Fpefzy1biHoVfKx6r7U/cbH5TxiPvOYLes03F/9zbGrxTRCvpp221/btl5MPyfvM4a8+R70vpq2rxNncNj8ne7rexjHSmu0W6pz69Ytx+2OO+7Qz8vf2mVy6xbMyNk1+OKPZ9TzmfG65+VLPRjJoVwuo5AcQXi6rO6nkEqV9XPV2zTCw34Muv3eiIjWU93xM4DEHDCXCDQNnOQYehwTjuNp7W06bHuN4hRCthNjIxBMG8GbvmUxKtulgkAwZdvHCJKFmuPySBIF87GsnrdOwgNFxNVzucgKR+3BCKKq7dZ7Kam2TKh3I/taLM0jPBpcgw+1hGMP78fF1CUjC/TefYjtPqxCO1oP9mzbnXfe6Vgmj7s1I8cauRojyYLtCyxnd3JgSEG+kovmF1UOPBOVLRZxtjiGaMR6qM7m1MLjuYgRvOWzwGhqY98EEZELnMfPxiRgysodOVZO+ZFL5ZAzl1nH2Kb7GIoijgAmJkfUg3m1blxtD8RmVFBmHXM7FJST8JRxzLc1Fr7sKMqjNY9VtCZtDUikqtqjyV11P+afhkSwGfjUzTTSYftKWbx94RBeOu83Hu+LI/XQbrxz5gT27evobdIybt68Wbn/7bffLru8mzAjZ6fO4HL+KZ0SN1LkQaTUNzgbi+kzPusAI2eOlQNNfgozQ3udX1BbBi6fncfQrg1+H0REG02On9ZxUXdPGt2NVnenlbmSgCllT1bZMnkSGNkzeI16J2X7XHxY3RvD8dRaZL10g3U3sM83roKvDMbN7tl8NuPMrKn3OI1x3S4rgzidDCMscaWZ4YuWJpGpZPumoZZiutMg89I8Lhw6iGrM5sfd9wEXv2L/6npoVgvX7TVyzMjZycFnHJguqy9uelI/lY+pL3ZGfRHlC7q4aKyjU++SpVNf/skM5ubUuVfCPBv1F9VZ415rhyjND8PPflUi6gkStI2bgUzKDF7khLhsdF2q46uUoTjiL90FKr0WEkwFMDPmzOrlbQky3bXqyxjJLyWgDrzh6Wnpv9X3K0YkfFIh2Zxt24wPtjXMp8xndMasjIgElfo3QI7v8l7CRoeKLaAMRpOYnEhjMbgXZ1V7i/EChtTz0/EiJtJ5jBWH1WsXsaCeG1wsYX5kCNEOPklR+uqi+v+DHW5N7frkk0/cbkJHmJGzG4wgZ36BpyQ1Pu5DdtSofZPjzsLUBNJQ6xSGMKmLaaeQmDNrL2yFHNUzSqkRMc7uliv4JSLyOqPGzKxRa5CB0l2XZRX0TDY+Hi6mJzCDEX38bHq8HIqqY3QBScmAhacr9W1WNqxSr5xLIZUrt1wjZ7VXMnDQGbkY8iqCzIRHUZfzk98Jtf5CTGpobEFpMKqCuBL2plKIjqkgTN7CgjqxH9vbcZevX9JvRCtgRs5OZ9sS6mwvjOlCEvPqvgRzGWu5fPH1NzKi6zLysSzC4Zp9VM4u7bsNYYppOSLaxHSgFjVGfI43XcsIqHJyOLTHavkYAsU4CmOTmBgrIF5UJ8Mho67MaQHp0LgO+PQgNKhgbsUSZOkZaeENqOP/5PyI2vMw4nKyruK0Qq6+61bX+KkT/FQqZ/TKGEXROuALpsz2+oHEVF79yWB4tTXSF79CCftgVMmVIEm6+w76V7dPaqjdqzR0ejWItcaMnE3+rPo+TodVvBZFUGfnjDM86TKtnLXZhqEH1ZnXqGMPZ22jp6pTj5wtzjV6OSKizcU8blqZr+qIfuuWQ904BqukxdbfKkFhYWwGE7WZuWIWM8PTRo1ceBqFoUmE1An1/LIzAyygOLdyiUt+KoHheBzD1vuwZxXN+j85KZ8cKthGuUqvyxwSgZqppoJRJOfHMT6fRHQ1ZXwyuAExTFrDVM9MqkcpxDnQYV14tUaOgZxNMLK6UU/AXl0L4hg+rw4GPHciImqkhPTEDMYKqbouTMegMot0rdoCPj19ydA8lhtRtpiebNxF6lxLtWT5oEsCN8kaWm2SWrkRGPXTZbO7Nxy3fkMkeFz2BVvkx5HfpXBxvzmP3H7gvfNH+JuyTuxB2u23315369ZAjl2rDegaN0dVrPOxZOxsa+uzsUTd8xYzrT/aYBERUU/zI5LLrbyayXlsziA0lMSwejxWaHwKrqcImRlr2EXqNIiI7hatHyYrAZzMJ6ozi/bd6OyjMSK30pWczSOFLHxqA1m/UFKvH8LqpkbxH8H5pSOdbk1tsE/ye/XqVWzbts3xuJsmAbZjIFerQY2bg3StOkZ+S81HDpGFmuf16KeMuUoShbUaJU9E1I3sxzwHW52xSY9cbZBE01m42n1ZtcmDjeuPJ5LHkWoQJVWDuE6CKHP0rdnWRj8JRoBnDqKozDdljXotGxnAYA5lf0x3ua52njtaf7VZtu+//15PBCx/uykDV6vvyy+/XLp+/TreeucjvHTklxvegNqolwyvvfaa200goha98MILrr4+j6ObS372Yzz15AG3m9Ezrl27pgcuPProo21t99FHH+kBEvLvFdzzyDq1rrFXjr2Fn4cexJYtW5iR61Zu/zAQERH1khs3brjdhI4wkCMiIqKe59UJgRnIERERUU9rdw65bsJAjoiIiHrWbbfd5nYTVoWBHBERUZf5w6nTbjeBPIKBHBERURfZ6BGQ5G28sgMRERGRRzGQIyIiIvIoBnJEREREHsVAjoiIiMijGMgREREReVS/XAi2my8GS0RERESNMSNHRERE5FEM5IiIiIg8ioEcERERkUf1/89/dw+e/btv3G4HEREREbWp/6//awKY/Bu320FEREREberH9r/Gf4m73QwiIiIiateA/N9dv/gd8O7HbreFiIg2qdnZWbebsOns2bNn2eX8zNfeSp+5GwbcbgAREfWGBx980O0mbBqffvppS+vxM187rX7mG42jVomIiIg8qv+ee+7B/fff73Y7iIiIiKhN/V988QU+//xzt9tBRERERG1i1yoRERGRRzGQIyIiIvIoBnJEREREHmUGcrxEFxEREZHXmKNW/9LtdhARERFRmzhqlYiIiMijWCNHRERE5FEM5IiIiIg8qr+vrw9yIyIi6gXnEtuRONfKml/jt0+2ui4J+Wy3b6+9PYnfft10A7U8gXPm/ScrK8pnbz4vj377JP8dmhhwuwFERETrQX78Hzv6WeXxM5krSCKB8En14OR2nLQ//7jeAE8+dhSf1e4oXF3X8ABe/vAUntuxfm33qseTH+Ll4q+B143PR/4NTux8HpceUwGdY03zM3w8iStXziGhgr3L6vHrlyVgO2X8e1jUv8uvTx+QXVIDA0tLS5Cbm65everq6xMR0eaz47lTuPKcZHZOYOepJB6XQO1ESAUOSWMFyQblQs6g4YGX8eGp57Bjmf2eS6igYx3bvfk8jsMvPwD1j2B+1vJv8mvH8uQV8x/hudexWzJxjx82l6l1f30Jz6t/vx0b2mbvcD0jt23bNrebQEREm9XXH+DSgcN4DueQUAHBEI5iuyM1dBLbT0r89iFOPfccTrWQ9Xk8eQqPr7xaD/sMRx/brj5pwzMZFVTvHELx8tfqw9uhnrmMSziAwzuMrtjf7JbPfoe59g48d0oC7a/NYNl6TM24HsgRERGtl3MnjuLkSXU7KgHFh9j9m6LRpQfJzu3EqeTjuvtP8kO1XbHLMQK/Hevadu+qdj3rrlV5auduICehmTx5GcWhnTrDtiN5BTvVOtsTz+PK4cv1Xdvbq53alS5wcmAgR0REm9M5ox5OAoBQbjty+klntsiKEx542eqKrdnH19WAj1pVn5HDjidwoHgC5/A4dn5wGkOhaupTf+5yRwV4zbq2KwEh1el/4403MDU15XY7iIiI1tDX+O1vVBDxTO3zki26gisfvowHVIRx5coVfCj1W/YtOUJylczP2PHZ7sATB4rInfsaH5weQsgWF8vnXRmt+tlRPFY36nV7y5nSXjTwzx4LY+zev8Dv3/3Y7bYQERGtEaO26lzipJmJszTPyBkk0AB2v27b5GTY3sPX0oAIkpGoYXO073aclKA5+by6+xhOS7e0bc3Llz7DUGiH8YAZubaxa5WIiHrD5Q9wGipQuKICha/ra+S0cydw9LPP8IxZzqXpIIRdqyuT0aiPQSfPHsshc+UKDuvpR8zRqucSRmB3yf7hnkPu5DMIGeMbzIzc0UY7N7poqc7AP3yYwdTsTWzd/lO320JERLTmTprzwD3wwGngwOvLZNLOIRGWwRAZPe/Zk5I5emLDmrkJSBb0Cuxlhl9bf2UgyekDKoi+AujBDTCCYxn48MBuWJONMCPXvoFf/epXuH79OrtWiYhoUzJGO5rzyTlGml5Wz4V1BumZzA6cSzwGqHX1Kirg0FcpMJND20/W7ZRZuhbpQFo+r1PWXHGn8KEZzH24+zQ+G3q+cXDtmKBZ6u42qsXe0nfo0KGlmzeNjNxLR37pdnuIiGgTmp2dxYMPPuh2MzaNTz/9FHv27Fl2HX7ma6uVz3yjvHLsLfw89CC2bNliZeT+H37/7kW320VEREREbeh3uwFERERE1JkBmUfu5r/ch61ut4SIiIiI2tIvXavRnbz8LxEREZHXGF2rOzm+moiIiMhrWCNHRERE5FEM5IiIiIg8qr+vrw9yIyIiIiJvYUaOiIiIyKMYyBERERF5FAM5IiIiIo8acLsBRETUG+RalbSx+JlvfgzkiIho3XXLxcZ7CT/z3sCuVSIiIiKPYiBHRERE5FEM5IiIiIg8ioEcERERkUcxkCMiIiLyKAZyRERERB7FQI6IiIjIoxjIEREREXkUAzkiIiIij2IgR0RERORROpBbWlpyux1ERERE1CZm5IiIiIg8RpJwcmMgR0RERORRDOSIiIiIPIqBHBEREZHH9PX16Vu/9YCIiIiIvKWfQRwRERGRt1Qycpx6hIiIiMhbKoGcdYeIiIiIvKG/v5+BHBEREZEXVTJyEtHJjYiIiIi8QWK3H/3oR+j3+/24996jbreHiIiIiFqkgzjpXlX3l376Yh57/uxLt9tERERERC349089gR//+Mfo++abb5Zu3ryJGzdu4MbCb/GL/X+L/9vWru7Ff3zrv+Gpf7FOLd0gAwMDbjeBiIiIqFL/ZtbAVf5a3akSs0gQJ38H7rrrLmOrv/of+Oq5AfRhHOm//894+B//Ebdu3dIXZJW/9vvCuFjrBfztQxn8+M//HFu2eHvABAM5IiIi6gb2gaj2QM7qTpW/VkD3/wGN4SvPGsihgAAAAABJRU5ErkJggg==" alt="TIM&#x622A;&#x56FE;20180505002233"></p>
+<h2 class="mume-header" id="%E9%A2%98%E5%A4%96%E8%AF%9D">题外话</h2>
+
+<p>既然提到了代理，那顺便提一下。现在的Shadowsocks(R)都是基于Socks5代理的。只是他们对传输的数据做了对称加密/混淆，从而使审查机制无法得知他们想要访问的是什么。</p>
+<p>如果我们选择不开源，自己使用Socks5代理配合自己写的混淆方法来对抗审查，是完全可以做到的。经我一友人实验，效果很不错。</p>
+<p>ShadowsocksR更有意思的是，故意加入某些网站的头，从而使得审查机制认为我们只是使用Socks代理访问白名单中的网站。有人发现还能用这个方法来绕过运营商的流量计费😄</p>
+
+      
+<div id="disqus_thread" style="margin-top:100px;"></div>
+<script>
+function load_err(){
+    document.getElementById('disqus_thread').innerHTML = '<div style="text-align:center;margin:auto;">评论托管于Disqus 大陆内无法常规访问！</div>';
+}
+var disqus_config = function () {
+this.page.url = location.href;
+this.page.identifier = location.pathname;
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cathaysian-cn.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('onerror', 'load_err()');
+    s.async = true;
+    d.body.appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      
+      
+    </body>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    
+    
+    
+    
+    
+    
+  </html>
