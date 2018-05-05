@@ -107,7 +107,8 @@
     }
 </style>
 <body>
-
+<div id="background" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;">
+</div>
 <header>
     <div class="portrait">
         <a href="/" target="_blank"><img src="/portrait.ico"></a>
@@ -128,7 +129,7 @@
 <footer>
 
 </footer>
-<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/StaticFiles/jQuery.3.2.1.min.js"></script>
 <script>
     $(document).ready(function(){
         var sl = $(".showlarge");
@@ -146,10 +147,10 @@
     $(document).on("click", "#alipay", function(){
         $("#alipay-").fadeIn();
     });
-    $(document).on("click", "#wechat-", function(){
+    $(document).on("click", "#background", function(){
         $("#wechat-").fadeOut();
     });
-    $(document).on("click", "#alipay-", function(){
+    $(document).on("click", "#background", function(){
         $("#alipay-").fadeOut();
     });
 </script>
