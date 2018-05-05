@@ -143,9 +143,11 @@
     });
     $(document).on("click", "#wechat", function(){
         $("#wechat-").fadeIn();
+        $("#alipay-").fadeOut();
     });
     $(document).on("click", "#alipay", function(){
         $("#alipay-").fadeIn();
+        $("#wechat-").fadeOut();
     });
     $(document).on("click", "#background", function(){
         $("#wechat-").fadeOut();
