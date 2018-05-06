@@ -88,6 +88,7 @@ article a:active{
 article summary{
     max-height: 288px;
     font-family: 'Noto Sans SC', sans-serif;
+    font-size: .9em;
     font-weight: 100;
     margin-bottom: 20px;
 }
