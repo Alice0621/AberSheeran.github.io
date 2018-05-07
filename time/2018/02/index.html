@@ -4,16 +4,44 @@
     <meta charset="UTF-8">
     <title>仗剑不饮酒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/StaticFiles/normalize.css">
-    <link rel="stylesheet" media="(max-width: 1400px)" href="/StaticFiles/blog.css">
-    <link rel="stylesheet" media="(min-width: 1400px)" href="/StaticFiles/blog_lg.css">
-    <link rel="stylesheet" href="/StaticFiles/notosanssc.css">
+    <link rel="stylesheet" href="/STATIC/css/normalize.css">
+    <link rel="stylesheet" href="/STATIC/css/notosanss.css">
 </head>
-
+<style>
+    #loading{
+        height: 100px;
+        width: 100px;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    @keyframes spaning
+    {
+        0%   {transform: rotate(0deg)}
+        50%   {transform: rotate(180deg)}
+        100%   {transform: rotate(360deg)}
+    }
+    #loading div{
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border-top: 7px black solid;
+        border-bottom: 7px black solid;
+        border-left: 7px #eee solid;
+        border-right: 7px #eee solid;
+        margin: auto;
+        animation: spaning 2s infinite linear;
+    }
+    article{
+        display: none;
+    }
+</style>
 <body>
+
 <header>
     <nav>
-        <a href="/"><img src="/portrait.ico" alt="Aber Sheeran" id="portrait"></a>
+        <a href="/" id="home" target="_blank"><img src="/portrait.ico" alt="Aber Sheeran" id="portrait"></a>
         <div class="items">
             <div class="item">
                 <a href="/about.html" target="_blank">
@@ -33,6 +61,7 @@
         </div>
     </nav>
 </header>
+
 <main>
     <section>
         <article v-for="blog in blogs">
@@ -60,9 +89,12 @@
                 </time>
             </aside>
         </article>
+        <div id="loading"><div></div></div>
+        <div id="load_error" style="text-align: center; padding: 30px; width: 300px; margin: auto; display: none;"></div>
     </section>
     <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
 </main>
+
 <footer>
     <div style="margin:0 auto 10px">
         <a href="https://github.com/AberSheeran" target="_blank">
@@ -72,6 +104,7 @@
     <p>Copyright&copy;2018</p>
     <p>Designed by <a href="https://github.com/AberSheeran/maltose" target="_blank" style="text-decoration: underline;">AberSheeran</a></p>
 </footer>
+
 </body>
 <script type="text/javascript" src="/StaticFiles/jQuery.3.2.1.min.js"></script>
 <script src="/StaticFiles/Vue.2.5.13.js"></script>
