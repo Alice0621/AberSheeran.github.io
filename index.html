@@ -113,10 +113,6 @@
         if($(window).width() > 1380){
             var num = parseInt(($(window).width() - 540)/340);
             $("section").css("column-count", num);
-            if(num > 4){
-                $("section").css("column-count", 4);
-                $("section").css("margin", "auto");
-            }
         }
         $.when(get_more_blog()).done(function(datas){
             for(var i=0; i<datas.length; i++){
@@ -131,10 +127,6 @@
         if($(window).width() > 1380){
             var num = parseInt(($(window).width() - 540)/340);
             $("section").css("column-count", num);
-            if(num > 4){
-                $("section").css("column-count", 4);
-                $("section").css("margin", "auto");
-            }
         }
         else{
             $("section").css("column-count", "auto");
