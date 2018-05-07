@@ -65,19 +65,19 @@ article .title{
     margin-bottom: 7px;
     font-weight: 400;
 }
-article a:link{
+article .title:link{
     color: black;
     text-decoration:none;
 }
-article a:visited{
+article .title:visited{
     color: black;
     text-decoration:none;
 }
-article a:hover{
+article .title:hover{
     color: black;
     text-decoration:none;
 }
-article a:active{
+article .title:active{
     color: black;
     text-decoration:none;
 }

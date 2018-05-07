@@ -5,9 +5,6 @@
     <title>仗剑不饮酒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/STATIC/css/normalize.css">
-    <link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">
-    <link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">
-    <link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">
     <link rel="stylesheet" href="/STATIC/css/notosanss.css">
 </head>
 <style>
@@ -15,6 +12,9 @@
         height: 100px;
         width: 100px;
         margin: auto;
+        display: flex;
+        justify-content: center;
+        align-content: center;
     }
     @keyframes spaning
     {
@@ -23,8 +23,8 @@
         100%   {transform: rotate(360deg)}
     }
     #loading div{
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         border-radius: 100%;
         border-top: 7px black solid;
         border-bottom: 7px black solid;
@@ -41,7 +41,7 @@
 
 <header>
     <nav>
-        <a href="/"><img src="/portrait.ico" alt="Aber Sheeran" id="portrait"></a>
+        <a href="/" id="home" target="_blank"><img src="/portrait.ico" alt="Aber Sheeran" id="portrait"></a>
         <div class="items">
             <div class="item">
                 <a href="/about.html" target="_blank">
@@ -119,6 +119,17 @@
                 blogs.blogs.push(datas[i]);
             }
         });
+
+        if($(window).width() <= 750){
+            $("style").append('<link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">');
+        }
+        else if($(window).width() <= 1380){
+            $("style").append('<link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">');
+        }
+        else{
+            $("style").append('<link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">');
+        }
+
         $("style").append("article{display: inline-block;}");
         GET();
     });
@@ -131,6 +142,10 @@
         else{
             $("section").css("column-count", "auto");
         }
+    });
+    //页面跳转
+    $(document).on("click", "article summary", function(){
+        window.open($(this).attr("href"));
     });
 </script>
 <script>
@@ -153,7 +168,10 @@
     //加载博客内容
     function GET(){
         if(get_lock){
-            $("#load_error").text(''); // 结束
+            if($(window).width() <= 1380 && $(window).width() >=750){
+                $("#load_error").fadeIn(1);
+                $("#load_error").text('<end></end>'); // 结束
+            }
             $("#load_error").fadeIn(1);
             $("#loading").fadeOut(500);
         }
@@ -171,10 +189,6 @@
             });
         }
     }
-    //页面跳转
-    $(document).on("click", "article summary", function(){
-        window.open($(this).attr("href"));
-    });
     //初始化请求页面
     var url = "/"+year+"/"+month+"/index.json"
     //将url置为下一个url

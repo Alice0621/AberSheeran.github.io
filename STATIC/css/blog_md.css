@@ -1,0 +1,162 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+}
+header{
+    height: 20%;
+    text-align: center;
+    padding-top: 40px;
+    background-image: url("../image/md-background.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+header #portrait{
+    height: 66%;
+    border-radius: 100%;
+    width: 160px;
+}
+header nav .items{
+    margin-top: 70px;
+    height: 60px;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-start;
+}
+header nav .items .item{
+    display: block;
+    background-color: #FFFFFF;
+    height: 40px;
+    padding: 14px;
+}
+header nav .items .item a{
+    color: black;
+    text-decoration-line: none;
+}
+main{
+    padding-top: 170px;
+    background-color: #eee;
+}
+article{
+    width: 90%;
+    padding: 20px 5%;
+    margin-bottom: 50px;
+    background-color: #FFFFFF;
+    box-shadow:2px 2px 6px #b5b5b5;
+}
+article a:link{
+    color: black;
+    text-decoration:none;
+}
+article a:visited{
+    color: black;
+    text-decoration: none;
+}
+article a:hover{
+    color: gainsboro;
+    text-decoration:none;
+}
+article a:active{
+    color: #CCCCCC;
+    text-decoration:none;
+}
+article .title{
+    display: block;
+    font-size: 1.3em;
+    margin-bottom: 7px;
+    font-weight: 400;
+}
+article .title:link{
+    color: black;
+    text-decoration:none;
+}
+article .title:visited{
+    color: black;
+    text-decoration:none;
+}
+article .title:hover{
+    color: black;
+    text-decoration:none;
+}
+article .title:active{
+    color: black;
+    text-decoration:none;
+}
+article summary{
+    line-height: 1.5em;
+    max-height: 288px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: .9em;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+article aside{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-wrap: wrap;
+}
+article aside .block{
+    float: left;
+    width: 1em;
+    height: 1em;
+}
+article aside .tags{
+    display: inline;
+    font-size: 1em;
+}
+article aside .tags img{
+    display: block;
+    float: left;
+    width: 1.2em;
+    height: 1.2em;
+}
+article aside .tags .tag{
+    margin-right: 7px;
+}
+article aside .corpus{
+    display: block;
+    font-size: .8em;
+    color: #eee;
+    position: absolute;
+    top: -20px;
+}
+article aside .corpus img{
+    display: none;
+    float: left;
+    width: 1.1em;
+    height: 1.1em;
+}
+article aside time{
+    display: inline;
+    font-size: 1em;
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+article aside time img{
+    display: block;
+    float: left;
+    width: 1.3em;
+    height: 1.3em;
+}
+
+footer{
+    text-align: center;
+    padding: 20px;
+    border: 2px solid transparent;
+    border-top-color: aliceblue;
+}
+footer img{
+    width: 30px;
+    height: 30px;
+}
+footer p{
+    font-size: 14px;
+}
