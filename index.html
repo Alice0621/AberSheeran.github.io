@@ -121,13 +121,13 @@
         });
 
         if($(window).width() <= 750){
-            $("style").append('<link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">');
+            $("head").append('<link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">');
         }
         else if($(window).width() <= 1380){
-            $("style").append('<link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">');
+            $("head").append('<link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">');
         }
         else{
-            $("style").append('<link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">');
+            $("head").append('<link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">');
         }
 
         $("style").append("article{display: inline-block;}");

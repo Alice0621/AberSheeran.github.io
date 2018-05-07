@@ -106,37 +106,64 @@
 </footer>
 
 </body>
-<script type="text/javascript" src="/StaticFiles/jQuery.3.2.1.min.js"></script>
-<script src="/StaticFiles/Vue.2.5.13.js"></script>
+<script src="/STATIC/script/jQuery.3.2.1.min.js"></script>
+<script src="/STATIC/script/Vue.2.5.13.js"></script>
 <script>
-    //请求锁, true时不再请求页面
-    var get_lock = false;
-    //请求结果Array, 用于vue渲染
-    var blogs = [];
-    //加载内容
+    //vue 渲染页面
+    var blogs = new Vue({
+        el:"section",
+        data:{
+            "blogs":[]
+        }
+    });
+
     $(window).ready(function(){
         $.ajax({
             type : "GET",
             url : "index.json",
-            async : false,
+            async : true,
             success:function(datas){
-                for (var i=0; i<datas.length; i++){
-                    blogs.push(datas[i]);
+                for(var i=0; i<datas.length; i++){
+                    blogs.blogs.push(datas[i]);
                 }
+            },
+            error:function(){
+
             }
         });
-        $("section").css("display", "block");
+
+        if($(window).width() > 1380){
+            var num = parseInt(($(window).width() - 540)/340);
+            $("section").css("column-count", num);
+        }
+
+        if($(window).width() <= 750){
+            $("head").append('<link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">');
+        }
+        else if($(window).width() <= 1380){
+            $("head").append('<link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">');
+        }
+        else{
+            $("head").append('<link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">');
+        }
+
+        $("style").append("article{display: inline-block;}");
+        $("#loading").fadeOut(1);
+    });
+
+    $(window).resize(function(){
+        if($(window).width() > 1380){
+            var num = parseInt(($(window).width() - 540)/340);
+            $("section").css("column-count", num);
+        }
+        else{
+            $("section").css("column-count", "auto");
+        }
     });
     //页面跳转
     $(document).on("click", "article summary", function(){
         window.open($(this).attr("href"));
     });
-    //vue 渲染页面
-    new Vue({
-        el:"main",
-        data:{
-            "blogs":blogs
-        }
-    })
 </script>
+
 </html>
