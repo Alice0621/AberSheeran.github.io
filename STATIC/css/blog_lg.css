@@ -42,7 +42,7 @@ header nav .item a:hover{
     color: #FFFFFF;
 }
 main{
-    margin-left: 420px;
+    padding-left: 400px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -52,14 +52,10 @@ main{
     padding-right: 5%;
 }
 section{
-    margin-left: 0px;
+    margin-left: 40px;
+    width: 100%;
     display: table-caption;
-    -moz-column-count:3;
-    -moz-column-gap:10px;
-    -moz-column-rule:0px solid #ff0000;
-    -webkit-column-count:3;
-    -webkit-column-gap:10px;
-    -webkit-column-rule:0px solid #ff0000;
+    column-gap: 10px;
 }
 article{
     display: inline-block;

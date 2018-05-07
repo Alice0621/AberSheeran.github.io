@@ -11,6 +11,28 @@
     <link rel="stylesheet" href="/STATIC/css/notosanss.css">
 </head>
 <style>
+    #loading{
+        height: 100px;
+        width: 100px;
+        margin: auto;
+    }
+    @keyframes spaning
+    {
+        0%   {transform: rotate(0deg)}
+        50%   {transform: rotate(180deg)}
+        100%   {transform: rotate(360deg)}
+    }
+    #loading div{
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        border-top: 10px black solid;
+        border-bottom: 10px black solid;
+        border-left: 10px #eee solid;
+        border-right: 10px #eee solid;
+        margin: auto;
+        animation: spaning 2s infinite linear;
+    }
     article{
         display: none;
     }
@@ -67,7 +89,7 @@
                 </time>
             </aside>
         </article>
-        <img id="loading" style="height: 100px;width: 100px; display: block; margin: auto" src="/STATIC/image/loading.gif">
+        <div id="loading"><div></div></div>
         <div id="load_error" style="text-align: center; padding: 30px; width: 300px; margin: auto; display: none;"></div>
     </section>
     <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
@@ -87,6 +109,39 @@
 <script src="/STATIC/script/jQuery.3.2.1.min.js"></script>
 <script src="/STATIC/script/Vue.2.5.13.js"></script>
 <script>
+    $(window).ready(function(){
+        if($(window).width() > 1380){
+            var num = parseInt(($(window).width() - 540)/340);
+            $("section").css("column-count", num);
+            if(num > 4){
+                $("section").css("column-count", 4);
+                $("section").css("margin", "auto");
+            }
+        }
+        $.when(get_more_blog()).done(function(datas){
+            for(var i=0; i<datas.length; i++){
+                blogs.blogs.push(datas[i]);
+            }
+        });
+        $("style").append("article{display: inline-block;}");
+        GET();
+    });
+
+    $(window).resize(function(){
+        if($(window).width() > 1380){
+            var num = parseInt(($(window).width() - 540)/340);
+            $("section").css("column-count", num);
+            if(num > 4){
+                $("section").css("column-count", 4);
+                $("section").css("margin", "auto");
+            }
+        }
+        else{
+            $("section").css("column-count", "auto");
+        }
+    });
+</script>
+<script>
     var date = new Date(),
         year = date.getFullYear(),
         month = date.getMonth()+1;
@@ -104,15 +159,6 @@
         }
     });
     //加载博客内容
-    $(window).ready(function(){
-        $.when(get_more_blog()).done(function(datas){
-            for(var i=0; i<datas.length; i++){
-                blogs.blogs.push(datas[i]);
-            }
-        });
-        $("style").text("article{display: inline-block;}");
-        GET();
-    });
     function GET(){
         if(get_lock){
             $("#load_error").text(''); // 结束
