@@ -1,0 +1,8 @@
+@media(min-width:1380px) {
+    body{
+        background-color: whitesmoke !important;
+    }
+    .markdown-preview.markdown-preview pre[class*="language-"] {
+        background-color: whitesmoke!important;
+    }
+}

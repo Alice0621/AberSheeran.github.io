@@ -24,23 +24,23 @@
     {
         "title": "Uwsgi\u90e8\u7f72Django",
         "date": "2017-08-09",
-        "summary": "\u521d\u5b66Django,\u4ee5\u4f5c\u8bb0\u5f55.",
+        "update": "2018-02-10",
         "tags": [
             "Django"
         ],
-        "update": "2018-02-10",
         "corpus": "\u7f16\u7a0b\u6742\u8bb0",
-        "permalink": "Nginx-Uwsgi-Django"
+        "permalink": "Nginx-Uwsgi-Django",
+        "summary": "\n      \n      \n\n\n\u4e0b\u8f7dNginx\uff0cuwsgi, Mysql\n\n\u6211\u7528\u7684\u662fCentOS7\u548cPython3.5\uff0c\u6240\u4ee5\u5982\u4e0b\uff08\u5b89\u88c5\u65b0\u7248Python\u53c2\u7167\u6211\u53e6\u4e00\u7bc7\u535a\u5ba2\nyum install -y nginx mariadb mariadb-devel mariadb-server\npip3.5 install uwsgi\n\u7f16\u5199uwsgi\uff0cnginx, mysql\u914d\u7f6e\n"
     },
     {
         "title": "Apache\u90e8\u7f72Django",
         "date": "2017-07-03",
-        "summary": "\u521d\u5b66Django,\u4ee5\u4f5c\u8bb0\u5f55",
+        "update": "2018-02-10",
         "tags": [
             "Django"
         ],
-        "update": "2018-02-10",
         "corpus": "\u7f16\u7a0b\u6742\u8bb0",
-        "permalink": "Apache-Django-Win"
+        "permalink": "Apache-Django-Win",
+        "summary": "\n      \n      \n\n\n\u5b89\u88c5Python\uff0cmod_wsgi\uff0cApache\n\n\u4f7f\u7528Apache\u76f4\u63a5\u90e8\u7f72Django\uff0c\u7248\u672c\u642d\u914d\u5f88\u91cd\u8981\u3002\n\u5728\u597d\u5fc3\u4eba\u5df2\u7ecf\u5e2e\u6211\u4eec\u7f16\u8bd1\u597d\u7684mod_wsgi\u53d1\u5e03\u7f51\u7ad9\u53ef\u4ee5\u627e\u5230\u9700\u8981\u7684\u7248\u672c\u3002\n\u56e0\u4e3a\u6211\u7684\u7cfb\u7edf\u662f64\u4f4d\uff0cPython\u662f35\uff0c\u6240\u4ee5\u9009\u62e9mod_wsgi\u20114.5.17+ap24vc14\u2011cp35\u2011cp35m\u2011win_amd64.whl\n\u4e0b\u8f7d\u4e4b\u540e"
     }
 ]

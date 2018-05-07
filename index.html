@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>仗剑不饮酒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/StaticFiles/normalize.css">
-    <link rel="stylesheet" media="(max-width: 1400px)" href="/StaticFiles/blog.css">
-    <link rel="stylesheet" media="(min-width: 1400px)" href="/StaticFiles/blog_lg.css">
-    <link rel="stylesheet" href="/StaticFiles/notosanss.css">
+    <link rel="stylesheet" href="/STATIC/css/normalize.css">
+    <link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">
+    <link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">
+    <link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">
+    <link rel="stylesheet" href="/STATIC/css/notosanss.css">
 </head>
 <style>
     article{
@@ -15,15 +16,11 @@
     }
 </style>
 <body>
+
 <header>
     <nav>
         <a href="/"><img src="/portrait.ico" alt="Aber Sheeran" id="portrait"></a>
         <div class="items">
-            <div class="item">
-                <!--a href="https://blog.cathaysian.cn/Algorithms/" target="_blank">
-                    算法设计与分析
-                </a-->
-            </div>
             <div class="item">
                 <a href="/about.html" target="_blank">
                     关于
@@ -42,6 +39,7 @@
         </div>
     </nav>
 </header>
+
 <main>
     <section>
         <article v-for="blog in blogs">
@@ -71,10 +69,10 @@
         </article>
         <img id="loading" style="height: 100px;width: 100px; display: block; margin: auto" src="/StaticFiles/loading.gif">
         <div id="load_error" style="text-align: center; padding: 30px; width: 300px; margin: auto; display: none;"></div>
-
     </section>
     <noscript><p style="padding:20px;margin:auto;">请启用Javascript以查看使用Vue.js渲染的文章列表</p></noscript>
 </main>
+
 <footer>
     <div style="margin:0 auto 10px">
         <a href="https://github.com/AberSheeran" target="_blank">
@@ -84,9 +82,10 @@
     <p>Copyright&copy;2018</p>
     <p>Designed by <a href="https://github.com/AberSheeran/maltose" target="_blank" style="text-decoration: underline;">AberSheeran</a></p>
 </footer>
+
 </body>
-<script type="text/javascript" src="/StaticFiles/jQuery.3.2.1.min.js"></script>
-<script src="/StaticFiles/Vue.2.5.13.js"></script>
+<script src="/STATIC/script/jQuery.3.2.1.min.js"></script>
+<script src="/STATIC/script/Vue.2.5.13.js"></script>
 <script>
     var date = new Date(),
         year = date.getFullYear(),
@@ -104,17 +103,16 @@
             "blogs":[]
         }
     });
-    //
+    //加载博客内容
     $(window).ready(function(){
         $.when(get_more_blog()).done(function(datas){
             for(var i=0; i<datas.length; i++){
                 blogs.blogs.push(datas[i]);
             }
         });
-        $("style").text("article{display: block;}");
+        $("style").text("article{display: inline-block;}");
         GET();
     });
-
     function GET(){
         if(get_lock){
             $("#load_error").text(''); // 结束
@@ -139,8 +137,6 @@
     $(document).on("click", "article summary", function(){
         window.open($(this).attr("href"));
     });
-</script>
-<script>
     //初始化请求页面
     var url = "/"+year+"/"+month+"/index.json"
     //将url置为下一个url
@@ -189,4 +185,5 @@
         }
     }
 </script>
+
 </html>

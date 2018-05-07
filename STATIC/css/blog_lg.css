@@ -1,51 +1,74 @@
-
+html{
+    height: 100%;
+}
 body{
+    height: 100%;
     font-family: 'Noto Sans SC', sans-serif;
     font-weight: 300;
     font-size: 19px;
-    background-color: #FFFFFF;
-    padding: 5%;
+    background-color: #eee;
 }
-header{
-    margin: 20px auto;
-    width: 100%;
-    margin-bottom: 3em;
+header {
+    height: 100%;
+    width: 360px;
+    background-image: url("/STATIC/image/background.jpg");
+    background-repeat: no-repeat;
 }
 header nav{
-    max-width: 900px;
     margin: auto;
-    padding-left: 20px;
+    padding-top: 50px;
 }
 header nav #portrait{
-    display: inline-block;
-    width: 6em;
-    height: 6em;
+    display: block;
+    margin: 0 auto 40px;
+    width: 6.5em;
+    height: 6.5em;
     border-radius: 100%;
 }
 header nav .items{
+    text-align: center;
+    font-size: 16px;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
 }
 header nav .item{
-    display: inline;
     padding: 5px 10px;
 }
 header nav .item a{
     text-decoration: none;
-    color: #000000;
+    color: #eee;
 }
 header nav .item a:hover{
-    background-color: black;
     color: #FFFFFF;
 }
+main{
+    margin-left: 420px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+    padding-right: 5%;
+}
+section{
+    margin-left: 0px;
+    display: table-caption;
+    -moz-column-count:3;
+    -moz-column-gap:10px;
+    -moz-column-rule:0px solid #ff0000;
+    -webkit-column-count:3;
+    -webkit-column-gap:10px;
+    -webkit-column-rule:0px solid #ff0000;
+}
 article{
-    position: relative;
-    border-top: 2px solid #eee;
-    padding-top: 7px;
-    max-width: 900px;
-    padding-bottom: 100px;
-    margin: auto;
+    display: inline-block;
+    padding: 20px;
+    width: 300px;
+    margin: 20px;
+    background-color: whitesmoke;
+    box-shadow:2px 2px 6px #b5b5b5;
+    /*box-shadow:1px 1px 2px #000;*/
 }
 article a:link{
     color: black;
@@ -56,61 +79,63 @@ article a:visited{
     text-decoration: none;
 }
 article a:hover{
-    color: gainsboro;
+    color: #C0C0C0;
     text-decoration:none;
 }
 article a:active{
-    color: #CCCCCC;
+    color: #C0C0C0;
     text-decoration:none;
 }
 article .title{
-    display: block;
-    font-size: 1.3em;
-    margin-bottom: 7px;
+    display: inline-block;
+    font-size: 1.2em;
+    margin-bottom: 19px;
     font-weight: 400;
 }
-article a:link{
+article .title{
     color: black;
     text-decoration:none;
 }
-article a:visited{
+article .title:visited{
     color: black;
     text-decoration:none;
 }
-article a:hover{
+article .title:hover{
     color: black;
     text-decoration:none;
 }
-article a:active{
+article .title:active{
     color: black;
     text-decoration:none;
 }
 article summary{
-    max-height: 288px;
-    font-family: 'Noto Sans SC', sans-serif;
-    font-size: .9em;
-    font-weight: 100;
-    margin-bottom: 20px;
+    margin-bottom: 7px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: .8em;
+    font-weight: 300;
+    line-height: 1.8em;
+    color: black;
+    overflow: hidden;
 }
 article aside{
-    display: -webkit-flex; /* Safari */
     display: flex;
     flex-wrap: wrap;
 }
 article aside .block{
     float: left;
-    width: 1em;
-    height: 1em;
+    width: .6em;
+    height: .6em;
 }
 article aside .tags{
     display: inline;
-    font-size: 1em;
+    display: none;
+    font-size: .6em;
 }
 article aside .tags img{
     display: block;
     float: left;
-    width: 1.2em;
-    height: 1.2em;
+    width: 1em;
+    height: 1em;
 }
 article aside .tags .tag{
     margin-right: 7px;
@@ -125,12 +150,12 @@ article aside .corpus{
 article aside .corpus img{
     display: none;
     float: left;
-    width: 1.1em;
-    height: 1.1em;
+    width: .7em;
+    height: .7em;
 }
 article aside time{
     display: inline;
-    font-size: 1em;
+    font-size: .7em;
     flex-grow: 1;
     display: flex;
     justify-content: flex-end;
@@ -142,34 +167,27 @@ article aside time img{
     height: 1.3em;
 }
 footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
     text-align: center;
-    padding: 40px;
-    border: 2px solid transparent;
-    border-top-color: aliceblue;
+    width: 360px;
+    color: #FFFFFF;
 }
 footer img{
+    display: none;
     width: 30px;
     height: 30px;
 }
 footer p{
     font-size: 14px;
 }
-@media (max-width: 540px) {
-    article{
-
-    }
-    body{
-        padding: 2%;
-    }
-}
-@media (max-width: 600px) {
-    body{
-        font-size: 15px;
-    }
+footer a{
+    color: #C0C0C0;
 }
 
 #more{
-    text-align: center;
+    text-align: end;
 }
 #more a:hover{
     background-color: black;

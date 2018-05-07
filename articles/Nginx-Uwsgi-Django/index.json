@@ -1,11 +1,11 @@
 {
     "title": "Uwsgi\u90e8\u7f72Django",
     "date": "2017-08-09",
-    "summary": "\u521d\u5b66Django,\u4ee5\u4f5c\u8bb0\u5f55.",
+    "update": "2018-02-10",
     "tags": [
         "Django"
     ],
-    "update": "2018-02-10",
     "corpus": "\u7f16\u7a0b\u6742\u8bb0",
-    "permalink": "Nginx-Uwsgi-Django"
+    "permalink": "Nginx-Uwsgi-Django",
+    "summary": "\n      \n      \n\n\n\u4e0b\u8f7dNginx\uff0cuwsgi, Mysql\n\n\u6211\u7528\u7684\u662fCentOS7\u548cPython3.5\uff0c\u6240\u4ee5\u5982\u4e0b\uff08\u5b89\u88c5\u65b0\u7248Python\u53c2\u7167\u6211\u53e6\u4e00\u7bc7\u535a\u5ba2\nyum install -y nginx mariadb mariadb-devel mariadb-server\npip3.5 install uwsgi\n\u7f16\u5199uwsgi\uff0cnginx, mysql\u914d\u7f6e\n"
 }
