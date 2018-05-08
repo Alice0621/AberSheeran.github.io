@@ -13,7 +13,7 @@ header {
     width: 400px;
     background-image: url("/STATIC/image/background.jpg");
     background-repeat: no-repeat;
-    background-size: auto 100%;
+    background-size: 400px 100%;
 }
 header nav{
     margin: auto;
@@ -193,4 +193,24 @@ footer a{
 #more a:active{
     background-color: black;
     color: #FFFFFF;
+}
+
+
+@media (min-width: 1380px) {
+    section {
+        column-count: 2;
+    }
+}
+@media (min-width: 1720px) {
+    section {
+        column-count: 3;
+    }
+}
+@media (min-width: 2060px) {
+    section {
+        width: 1548px;
+        margin-left: auto;
+        margin-right: auto;
+        column-count: 4;
+    }
 }

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/STATIC/css/normalize.css">
     <link rel="stylesheet" href="/STATIC/css/notosanss.css">
+    <link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">
+    <link rel="stylesheet" media="(max-width: 1380px) and (min-width: 750px)" href="/STATIC/css/blog_md.css">
+    <link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">
 </head>
 <style>
     #loading{
@@ -110,38 +113,18 @@
 <script src="/STATIC/script/Vue.2.5.13.js"></script>
 <script>
     $(window).ready(function(){
-        if($(window).width() > 1380){
-            var num = parseInt(($(window).width() - 540)/340);
-            $("section").css("column-count", num);
-        }
         $.when(get_more_blog()).done(function(datas){
             for(var i=0; i<datas.length; i++){
                 blogs.blogs.push(datas[i]);
             }
         });
 
-        if($(window).width() <= 750){
-            $("head").append('<link rel="stylesheet" media="(max-width: 750px)" href="/STATIC/css/blog.css">');
-        }
-        else if($(window).width() <= 1380){
-            $("head").append('<link rel="stylesheet" media="(max-width: 1380px)" href="/STATIC/css/blog_md.css">');
-        }
-        else{
-            $("head").append('<link rel="stylesheet" media="(min-width: 1380px)" href="/STATIC/css/blog_lg.css">');
-        }
-
         $("style").append("article{display: inline-block;}");
         GET();
     });
 
     $(window).resize(function(){
-        if($(window).width() > 1380){
-            var num = parseInt(($(window).width() - 540)/340);
-            $("section").css("column-count", num);
-        }
-        else{
-            $("section").css("column-count", "auto");
-        }
+
     });
     //页面跳转
     $(document).on("click", "article summary", function(){
