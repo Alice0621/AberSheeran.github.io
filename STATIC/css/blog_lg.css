@@ -10,10 +10,10 @@ body{
 }
 header {
     height: 100%;
-    width: 400px;
+    width: 25%;
     background-image: url("/STATIC/image/background.jpg");
     background-repeat: no-repeat;
-    background-size: 400px 100%;
+    background-size: 25% 100%;
 }
 header nav{
     margin: auto;
@@ -169,7 +169,7 @@ footer{
     left: 0;
     bottom: 0;
     text-align: center;
-    width: 400px;
+    width: 25%;
     color: #FFFFFF;
 }
 footer img{
